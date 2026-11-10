@@ -1,0 +1,19 @@
+{
+  "name": "okashina-tankentai",
+  "main": "src/worker.js",
+  "compatibility_date": "2026-11-01",
+  "workers_dev": true,
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/*"],
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "okashina-tankentai",
+      "database_id": "local",
+      "migrations_dir": "migrations",
+    },
+  ],
+}

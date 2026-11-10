@@ -1,0 +1,12 @@
+PRAGMA foreign_keys=ON;
+CREATE TABLE families (id TEXT PRIMARY KEY, name TEXT NOT NULL, pin_hash TEXT NOT NULL, salt TEXT NOT NULL, pin_failures INTEGER NOT NULL DEFAULT 0, locked_until INTEGER NOT NULL DEFAULT 0, reveal_hour INTEGER NOT NULL DEFAULT 18, created_at INTEGER NOT NULL);
+CREATE TABLE members (id TEXT PRIMARY KEY, family_id TEXT NOT NULL REFERENCES families(id), name TEXT NOT NULL, avatar TEXT NOT NULL, UNIQUE(family_id,name));
+CREATE TABLE sessions (hash TEXT PRIMARY KEY, family_id TEXT NOT NULL REFERENCES families(id), member_id TEXT REFERENCES members(id), shared INTEGER NOT NULL DEFAULT 0, parent_until INTEGER NOT NULL DEFAULT 0, expires INTEGER NOT NULL);
+CREATE TABLE invites (hash TEXT PRIMARY KEY, family_id TEXT NOT NULL REFERENCES families(id), member_id TEXT REFERENCES members(id), expires INTEGER NOT NULL, used INTEGER NOT NULL DEFAULT 0);
+CREATE TABLE requests (id TEXT PRIMARY KEY, invite_hash TEXT NOT NULL UNIQUE REFERENCES invites(hash), family_id TEXT NOT NULL REFERENCES families(id), name TEXT NOT NULL, avatar TEXT NOT NULL, receipt_hash TEXT NOT NULL UNIQUE, status TEXT NOT NULL DEFAULT 'pending', member_id TEXT REFERENCES members(id), expires INTEGER NOT NULL);
+CREATE TABLE choices (family_id TEXT NOT NULL REFERENCES families(id), member_id TEXT NOT NULL REFERENCES members(id), day TEXT NOT NULL, item TEXT NOT NULL, PRIMARY KEY(family_id,member_id,day));
+CREATE TABLE adventures (family_id TEXT NOT NULL REFERENCES families(id), day TEXT NOT NULL, payload TEXT NOT NULL, PRIMARY KEY(family_id,day));
+CREATE TABLE decorations (family_id TEXT NOT NULL REFERENCES families(id), slot INTEGER NOT NULL CHECK(slot BETWEEN 0 AND 7), member_id TEXT NOT NULL REFERENCES members(id), treasure TEXT NOT NULL, PRIMARY KEY(family_id,slot));
+CREATE TABLE rate_limits (key TEXT PRIMARY KEY, count INTEGER NOT NULL, expires INTEGER NOT NULL);
+CREATE INDEX requests_family ON requests(family_id,status);
+CREATE INDEX sessions_family ON sessions(family_id);
