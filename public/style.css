@@ -1241,3 +1241,40 @@ hr {
     transition: none !important;
   }
 }
+
+.install-steps {
+  padding-left: 1.5em;
+  font-size: 14px;
+  line-height: 2.2;
+}
+.install-steps li {
+  margin: 12px 0;
+}
+@media (display-mode: standalone) {
+  nav {
+    bottom: max(18px, env(safe-area-inset-bottom));
+  }
+  .shell {
+    padding-top: env(safe-area-inset-top);
+  }
+}
+
+.storybook-hero {
+  display: block;
+  margin: 24px -20px 12px;
+}
+.storybook-hero img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
+}
+@media (max-width: 600px) {
+  .storybook-hero {
+    margin: 22px -12px 14px;
+  }
+}
+
+[hidden] {
+  display: none !important;
+}

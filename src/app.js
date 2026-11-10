@@ -1,3 +1,4 @@
+import { setupPwa, installApp, isInstalled } from "./pwa.js";
 import QRCode from "qrcode";
 import jsQR from "jsqr";
 let catalog,
@@ -64,7 +65,7 @@ function scene(place = "river", small = false) {
   return `<div class="scene ${place} ${small ? "small" : ""}" aria-label="ぼうけんのふうけい" role="img"><span class="sun"></span><span class="sky-cloud c1"></span><span class="sky-cloud c2"></span><span class="hill h1"></span><span class="hill h2"></span><span class="river-water"></span><span class="tree t1">🌳</span><span class="tree t2">🌲</span><span class="cottage">🏡</span><span class="boat">⛵</span><span class="frog">${place === "moon" ? "🐇" : place === "forest" ? "🦉" : "🐸"}</span><span class="flower f1">✿</span><span class="flower f2">✿</span><span class="spark">✧</span></div>`;
 }
 function shell(content) {
-  return `<div class="shell"><header><a class="brand" href="/">🧭 <span>${title}<small>ちいさな ぼうけん、おおきな おもいで。</small></span></a>${state ? `<button class="profile" data-action="profiles">${me()?.avatar || "🏡"} <span>${esc(me()?.name)}</span>⌄</button>` : ""}</header>${content}<footer>いっしょにいなくても、いっしょのぼうけん。<button class="text" data-action="about">このゲームについて</button></footer>${
+  return `<div class="shell"><header><a class="brand" href="/">🧭 <span>${title}<small>ちいさな ぼうけん、おおきな おもいで。</small></span></a>${state ? `<button class="profile" data-action="profiles">${me()?.avatar || "🏡"} <span>${esc(me()?.name)}</span>⌄</button>` : ""}</header>${content}<footer>いっしょにいなくても、いっしょのぼうけん。${!isInstalled() ? '<button class="text" data-action="install">📲 ホームがめんにおく</button>' : ""}<button class="text" data-action="about">このゲームについて</button></footer>${
     state
       ? `<nav aria-label="メニュー">${[
           ["home", "🏡", "おうち"],
@@ -83,7 +84,7 @@ function shell(content) {
 function landing() {
   state = null;
   $("#app").innerHTML = shell(
-    `<main class="welcome"><span class="eyebrow">１にち５ふんの、かぞくのじかん</span><h1>きょうは、どんな<br>ぼうけんだった？</h1><p>みんなのもちものが、おはなしになる。<br>たからものと、おもいでをもちかえろう。</p>${scene()}<div class="welcome-actions"><button class="primary" data-action="create">🏡 おうちをつくる</button><button class="secondary" data-action="join">📷 しょうたいをよみこむ</button></div><button class="text" data-action="sample">📖 えにっきのサンプルをよむ</button><p class="fine">むりょう・こうこくなし・おとなといっしょにはじめてね</p></main>`,
+    `<main class="welcome"><span class="eyebrow">１にち５ふんの、かぞくのじかん</span><h1>きょうは、どんな<br>ぼうけんだった？</h1><p>みんなのもちものが、おはなしになる。<br>たからものと、おもいでをもちかえろう。</p><picture class="storybook-hero"><source type="image/webp" srcset="/art/family-adventure-768.webp 768w, /art/family-adventure-1536.webp 1536w" sizes="(max-width: 600px) calc(100vw - 40px), 700px"><img src="/art/family-adventure-1536.webp" alt="かわのほとりで、カエルとたからものをみつけた４にんのかぞく" width="1536" height="1024" fetchpriority="high" decoding="async"></picture><div class="welcome-actions"><button class="primary" data-action="create">🏡 おうちをつくる</button><button class="secondary" data-action="join">📷 しょうたいをよみこむ</button></div><button class="text" data-action="sample">📖 えにっきのサンプルをよむ</button><p class="fine">むりょう・こうこくなし・おとなといっしょにはじめてね</p></main>`,
   );
 }
 async function refresh() {
@@ -254,6 +255,7 @@ async function scan() {
   }
 }
 const actions = {
+  install: () => installApp(modal),
   close,
   create: () =>
     modal(
@@ -545,8 +547,9 @@ async function boot() {
     }, 15000);
   } catch (e) {
     $("#app").innerHTML =
-      '<main class="empty"><h1>つながりませんでした</h1><p>がめんをよみこみなおしてね。</p></main>';
+      '<main class="empty"><h1>つながりませんでした</h1><p>インターネットにつながってから、<br>がめんをよみこみなおしてね。</p><a class="primary" href="/">もういちどひらく</a></main>';
     toast(e.message);
   }
 }
+setupPwa();
 boot();
