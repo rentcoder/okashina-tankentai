@@ -12,7 +12,7 @@
     {
       "binding": "DB",
       "database_name": "okashina-tankentai",
-      "database_id": "local",
+      "database_id": "54061e80-fc61-4785-9e44-efd214ca385f",
       "migrations_dir": "migrations",
     },
   ],

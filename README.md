@@ -2,6 +2,8 @@
 
 家族で１日５分。別々の時間に準備して、夕食時に冒険の絵日記を読むスマホ向けWebゲームです。
 
+公開URL: https://okashina-tankentai.rentcoder.workers.dev
+
 ## 最初の版でできること
 
 - 家族の家を作り、最大８人のキャラクターを登録
@@ -44,7 +46,7 @@ node tests/browser.mjs
 
 1. Cloudflare APIトークンを環境変数 `CLOUDFLARE_API_TOKEN` に設定。対象アカウントに `D1: Edit` と `Workers Scripts: Edit` が必要です。アカウントを自動検出できない場合は `CLOUDFLARE_ACCOUNT_ID` も設定。
 2. `npx wrangler d1 create okashina-tankentai` を実行。
-3. 返されたdatabase_idを `wrangler.jsonc` の `local` と置き換える。
+3. 返されたdatabase_idを `wrangler.jsonc` に設定する。このリポジトリには現在の公開先のIDが設定済みなので、別アカウントへの導入時は置き換える。
 4. `npm run db:remote` でスキーマを適用。
 5. `npm run deploy` で公開。
 
