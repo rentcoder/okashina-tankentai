@@ -14,25 +14,25 @@ await build({
   target: "es2022",
 });
 
-await mkdir("dist/icons", { recursive: true });
-const icon = await readFile("public/icon.svg");
-for (const size of [192, 512])
+await mkdir("dist/icons/diary-v1", { recursive: true });
+const icon = await readFile("assets/app-icon-diary.png");
+for (const size of [32, 192, 512])
   await sharp(icon)
     .resize(size, size)
     .png()
-    .toFile(`dist/icons/icon-${size}.png`);
+    .toFile(`dist/icons/diary-v1/icon-${size}.png`);
 await sharp(icon)
   .resize(180, 180)
-  .flatten({ background: "#f6f2e8" })
+  .flatten({ background: "#d5e9f1" })
   .png()
-  .toFile("dist/icons/apple-touch-icon.png");
+  .toFile("dist/icons/diary-v1/apple-touch-icon.png");
 const safeIcon = await sharp(icon).resize(320, 320).png().toBuffer();
 await sharp({
-  create: { width: 512, height: 512, channels: 4, background: "#f6f2e8" },
+  create: { width: 512, height: 512, channels: 4, background: "#d5e9f1" },
 })
   .composite([{ input: safeIcon, gravity: "centre" }])
   .png()
-  .toFile("dist/icons/maskable-512.png");
+  .toFile("dist/icons/diary-v1/maskable-512.png");
 const sw = await readFile("public/sw.js", "utf8");
 const offline = await readFile("public/offline.html", "utf8");
 const version = createHash("sha256")
