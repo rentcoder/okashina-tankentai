@@ -1,4 +1,4 @@
-import { resultVideo } from "./videos.js";
+import { frames, playFlipbook, stopFlipbook } from "./flipbook.js";
 import { sceneImage, treasureImage, hostImage, equipmentImage } from "./art.js";
 import { setupPwa, installApp, isInstalled } from "./pwa.js";
 import QRCode from "qrcode";
@@ -50,11 +50,13 @@ function toast(s) {
   setTimeout(() => $("#toast").classList.remove("show"), 4000);
 }
 function close() {
+  stopFlipbook();
   stopCamera();
   $("#modal").close();
   $("#modal").innerHTML = "";
 }
 function modal(html) {
+  stopFlipbook();
   stopCamera();
   $("#modal").innerHTML =
     `<button class="close" data-action="close" aria-label="とじる">×</button>${html}`;
@@ -83,10 +85,8 @@ function scene(id, phase = "before", item = null) {
         : "みんなでたからものをみつけたばめん";
   return `<figure class="story-scene ${phase === "after" && chosen ? "personal-scene" : ""}"><img src="${sceneImage(id, phase, item)}" alt="${esc(plain(place.name) + "：" + caption)}" width="${phase === "after" && chosen ? 512 : 768}" height="512" decoding="async"><figcaption>${esc(caption)}</figcaption></figure>`;
 }
-function resultMovie(id) {
-  const clip = resultVideo(id);
-  if (!clip) return "";
-  return `<figure class="result-movie"><figcaption>ぼうけんのおわり・５びょう</figcaption><video controls playsinline preload="none" poster="${sceneImage(id, "after")}" width="720" height="1280" aria-label="${esc(plain(p(id).name))}のけっかのどうが"><source src="${clip.src}" type="video/mp4"><a href="${clip.src}">どうがをひらく</a></video></figure>`;
+function resultFlipbook(id) {
+  return `<figure class="result-flipbook" data-flipbook="${id}"><figcaption>ぱらぱらえほん・ぼうけんのおわり</figcaption><img src="${frames(id)[0].src}" width="512" height="512" alt="${esc(plain(p(id).name))}のたからものをみつけたおはなし" loading="lazy"><div class="flipbook-controls"><button class="primary" data-action="flipbook">うごくえほんをみる</button><span class="flipbook-count" aria-hidden="true">1 / 5</span></div><p class="fine" role="status"></p></figure>`;
 }
 function navIcon(id) {
   const paths = {
@@ -198,7 +198,7 @@ function diary(a, mid, sample = false) {
     own = a.participants.find((m) => m.id === mid) || a.participants[0],
     ordered = [own, ...a.participants.filter((m) => m.id !== own.id)];
   modal(
-    `<article class="diary"><span class="eyebrow">${sample ? "サンプルのおはなし" : a.day.replaceAll("-", " / ")}</span><h1>${own.avatar} ${esc(own.name)}のえにっき</h1>${scene(place.id, "after", own.item)}<h2>${r(place.name)}</h2><p>${r(a.intro)}</p>${ordered.map((m) => `<p class="diary-action">${m.item ? equipmentArt(m.item) : ""}<strong>${m.avatar} ${esc(m.name)}</strong>は、${m.item ? r(catalog.items.find((i) => i.id === m.item).action) : "みんなをおうえんしました。"}</p>`).join("")}<p>${r(a.ending)}</p>${resultMovie(place.id)}<div class="souvenir">${treasureArt(place.id)}<div><small>みつけたたからもの</small><h2>${r(place.treasure)}</h2></div></div><p class="fine">きょうのぼうけん、だれかにはなしてみよう。</p></article>`,
+    `<article class="diary"><span class="eyebrow">${sample ? "サンプルのおはなし" : a.day.replaceAll("-", " / ")}</span><h1>${own.avatar} ${esc(own.name)}のえにっき</h1>${scene(place.id, "after", own.item)}<h2>${r(place.name)}</h2><p>${r(a.intro)}</p>${ordered.map((m) => `<p class="diary-action">${m.item ? equipmentArt(m.item) : ""}<strong>${m.avatar} ${esc(m.name)}</strong>は、${m.item ? r(catalog.items.find((i) => i.id === m.item).action) : "みんなをおうえんしました。"}</p>`).join("")}<p>${r(a.ending)}</p>${resultFlipbook(place.id)}<div class="souvenir">${treasureArt(place.id)}<div><small>みつけたたからもの</small><h2>${r(place.treasure)}</h2></div></div><p class="fine">きょうのぼうけん、だれかにはなしてみよう。</p></article>`,
   );
 }
 function sample() {
@@ -289,6 +289,7 @@ async function scan() {
   }
 }
 const actions = {
+  flipbook: playFlipbook,
   install: () => installApp(modal),
   close,
   create: () =>
@@ -554,7 +555,10 @@ document.addEventListener("change", (e) => {
     render();
   }
 });
-$("#modal").addEventListener("close", stopCamera);
+$("#modal").addEventListener("close", () => {
+  stopCamera();
+  stopFlipbook();
+});
 async function boot() {
   try {
     catalog = await api("catalog");
