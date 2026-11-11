@@ -324,6 +324,8 @@ main {
   font-size: 12px;
 }
 .daily-card {
+  width: 100%;
+  text-align: left;
   display: flex;
   align-items: center;
   gap: 18px;
@@ -336,13 +338,23 @@ main {
 .daily-icon {
   font-size: 39px;
 }
-.daily-card h2 {
+.daily-card .daily-title {
+  display: block;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.9;
   margin-top: 3px;
 }
-.daily-card p {
+.daily-card .daily-description {
+  display: block;
+  line-height: 2;
+  color: #647065;
   font-size: 12px;
 }
 .round {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
   background: var(--green);
   color: #fff;
   width: 44px;
@@ -1119,10 +1131,10 @@ hr {
     padding: 16px;
     margin-top: 24px;
   }
-  .daily-card h2 {
+  .daily-card .daily-title {
     font-size: 16px;
   }
-  .daily-card p {
+  .daily-card .daily-description {
     font-size: 10px;
   }
   .daily-icon {
@@ -1374,4 +1386,11 @@ hr {
     width: 45px;
     height: 45px;
   }
+}
+
+.daily-card:hover {
+  background: #e5ebd9;
+}
+.daily-card:active {
+  background: #dde6ce;
 }
