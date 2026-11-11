@@ -1,0 +1,21 @@
+{
+  "scenes": {
+    "river": "exec-d6333e45-6168-42fe-abdc-04e4876a0bee.png",
+    "cloud": "exec-b0b9ba63-20f9-44e6-8c45-facdcfe475f1.png",
+    "forest": "exec-fc81d0df-ae80-49f8-a39e-fa3a8ac562ec.png",
+    "moon": "exec-de41e318-1c13-4080-bced-ca9fe54cf40b.png",
+    "sea": "exec-534865c8-71ac-4d54-89c7-1e4fcd2c6b0a.png",
+    "snow": "exec-e712a24e-68c0-4aa3-b4c4-a455f2711b3a.png",
+    "garden": "exec-cf7174e5-e6ab-483d-b641-7a68fe395735.png"
+  },
+  "outcomes": {
+    "river": "exec-58e0a070-b7e6-4d63-ac04-18de69eb49ba.png",
+    "cloud": "exec-5c3ad8b9-1203-42f8-8b0e-d6ffd3d02ea7.png",
+    "forest": "exec-b96177ce-5817-44c6-b794-056de165f356.png",
+    "moon": "exec-d5b86f71-cd62-4a87-b7a8-afb01de7e6ef.png",
+    "sea": "exec-dc32663e-39d4-407e-ba36-42ad7d347469.png",
+    "snow": "exec-7ab4e7d6-83cf-4f70-afd6-a34620adb9a3.png",
+    "garden": "exec-7b1d8d5a-467c-4788-8d0a-87f8f5aef6df.png"
+  },
+  "equipment": "exec-65113fd2-65db-43cb-b37c-cdf53d95d553.png"
+}

@@ -1,3 +1,4 @@
+import { sceneImage, treasureImage, hostImage, equipmentImage } from "./art.js";
 import { setupPwa, installApp, isInstalled } from "./pwa.js";
 import QRCode from "qrcode";
 import jsQR from "jsqr";
@@ -61,8 +62,35 @@ function modal(html) {
 function avatars() {
   return `<label>キャラクター<select name="avatar">${catalog.avatars.map((a) => `<option>${a}</option>`).join("")}</select></label>`;
 }
-function scene(place = "river", small = false) {
-  return `<div class="scene ${place} ${small ? "small" : ""}" aria-label="ぼうけんのふうけい" role="img"><span class="sun"></span><span class="sky-cloud c1"></span><span class="sky-cloud c2"></span><span class="hill h1"></span><span class="hill h2"></span><span class="river-water"></span><span class="tree t1">🌳</span><span class="tree t2">🌲</span><span class="cottage">🏡</span><span class="boat">⛵</span><span class="frog">${place === "moon" ? "🐇" : place === "forest" ? "🦉" : "🐸"}</span><span class="flower f1">✿</span><span class="flower f2">✿</span><span class="spark">✧</span></div>`;
+function plain(s) {
+  return s.replace(/《[^》]+》/g, "");
+}
+function treasureArt(id) {
+  return `<img class="treasure-image" src="${treasureImage(id)}" alt="${esc(plain(p(id).treasure))}" width="384" height="256" loading="lazy" decoding="async">`;
+}
+function equipmentArt(id) {
+  return `<img class="equipment-image" src="${equipmentImage(id)}" alt="" width="256" height="256" decoding="async">`;
+}
+function scene(id, phase = "before", item = null) {
+  const place = p(id),
+    chosen = catalog.items.find((i) => i.id === item);
+  const caption =
+    phase === "before"
+      ? "これからはじまるぼうけん"
+      : chosen
+        ? `${plain(chosen.name)}がかつやくしたばめん`
+        : "みんなでたからものをみつけたばめん";
+  return `<figure class="story-scene ${phase === "after" && chosen ? "personal-scene" : ""}"><img src="${sceneImage(id, phase, item)}" alt="${esc(plain(place.name) + "：" + caption)}" width="${phase === "after" && chosen ? 512 : 768}" height="512" decoding="async"><figcaption>${esc(caption)}</figcaption></figure>`;
+}
+function navIcon(id) {
+  const paths = {
+    home: "M3 11 12 3l9 8v10H3z M9 21v-8h6v8",
+    adventure: "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18 M16 8l-3 5-5 3 3-5z",
+    journal:
+      "M12 6C8 3 4 3 2 4v15c4-1 7 0 10 2 3-2 6-3 10-2V4c-3-1-7 0-10 2v15",
+    collection: "M3 8l4-5h10l4 5-9 13z M3 8h18 M7 3l5 18 5-18",
+  };
+  return `<svg class="nav-art" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${paths[id]}"></path></svg>`;
 }
 function shell(content) {
   return `<div class="shell"><header><a class="brand" href="/">🧭 <span>${title}<small>ちいさな ぼうけん、おおきな おもいで。</small></span></a>${state ? `<button class="profile" data-action="profiles">${me()?.avatar || "🏡"} <span>${esc(me()?.name)}</span>⌄</button>` : ""}</header>${content}<footer>いっしょにいなくても、いっしょのぼうけん。${!isInstalled() ? '<button class="text" data-action="install">📲 ホームがめんにおく</button>' : ""}<button class="text" data-action="about">このゲームについて</button></footer>${
@@ -75,7 +103,7 @@ function shell(content) {
         ]
           .map(
             ([id, icon, label]) =>
-              `<button data-action="tab" data-id="${id}" class="${tab === id ? "active" : ""}" ${tab === id ? 'aria-current="page"' : ""}><span>${icon}</span>${label}</button>`,
+              `<button data-action="tab" data-id="${id}" class="${tab === id ? "active" : ""}" ${tab === id ? 'aria-current="page"' : ""}><span>${navIcon(id)}</span>${label}</button>`,
           )
           .join("")}</nav>`
       : ""
@@ -108,17 +136,17 @@ function home() {
     (_, slot) => {
       const d = state.decorations.find((d) => d.slot === slot),
         owner = d && state.members.find((m) => m.id === d.member_id);
-      return `<button class="shelf-slot ${d ? "filled" : ""}" data-action="slot" data-slot="${slot}" aria-label="${d ? "かざってあるたからもの" : "たからものをかざる"}">${d ? `<span>${p(d.treasure).treasureIcon}</span><small>${esc(owner?.name)}</small>` : "<span>＋</span>"}</button>`;
+      return `<button class="shelf-slot ${d ? "filled" : ""}" data-action="slot" data-slot="${slot}" aria-label="${d ? "かざってあるたからもの" : "たからものをかざる"}">${d ? `${treasureArt(d.treasure)}<small>${esc(owner?.name)}</small>` : "<span>＋</span>"}</button>`;
     },
   ).join(
     "",
-  )}</div><div class="family-line">${state.members.map((m) => `<div><span>${m.avatar}</span><small>${esc(m.name)}</small></div>`).join("")}</div><div class="rug"></div></div><p class="card-caption">おきにいりを８こまで。おもいでは、ずっと。</p></section><section class="daily-card"><div class="daily-icon">${today ? "📬" : "🎒"}</div><div><span class="eyebrow">${today ? "きょうのおたより" : "きょうのぼうけん"}</span><h2>${r(p(state.place).name)}</h2><p>${today ? "えにっきと、たからものがとどいたよ。" : `${state.family.revealHour}じに、みんなのおはなしがとどくよ。`}</p></div><button class="round" data-action="${today ? "read-today" : "prepare"}" aria-label="ひらく">↗</button></section><div class="status-row">${state.members.map((m) => `<span>${m.avatar} ${esc(m.name)}<small>${state.choices.some((c) => c.member_id === m.id) ? "🎒 じゅんびできた" : "🌱 のんびりしてる"}</small></span>`).join("")}</div>`;
+  )}</div><div class="family-line">${state.members.map((m) => `<div><span>${m.avatar}</span><small>${esc(m.name)}</small></div>`).join("")}</div><div class="rug"></div></div><p class="card-caption">おきにいりを８こまで。おもいでは、ずっと。</p></section><section class="daily-card"><img class="daily-icon host-art" src="${hostImage(state.place)}" alt="" width="64" height="64"><div><span class="eyebrow">${today ? "きょうのおたより" : "きょうのぼうけん"}</span><h2>${r(p(state.place).name)}</h2><p>${today ? "えにっきと、たからものがとどいたよ。" : `${state.family.revealHour}じに、みんなのおはなしがとどくよ。`}</p></div><button class="round" data-action="${today ? "read-today" : "prepare"}" aria-label="ひらく">↗</button></section><div class="status-row">${state.members.map((m) => `<span>${m.avatar} ${esc(m.name)}<small>${state.choices.some((c) => c.member_id === m.id) ? "🎒 じゅんびできた" : "🌱 のんびりしてる"}</small></span>`).join("")}</div>`;
 }
 function adventure() {
   const place = p(state.place),
     done = state.adventures.some((a) => a.day === state.day),
     selected = state.choices.find((c) => c.member_id === state.active)?.item;
-  return `<section class="intro"><div><span class="eyebrow">A LITTLE ADVENTURE</span><h1>${r("今日《きょう》のぼうけん")}</h1><p>じゅんびは１ぷん。あとは、のんびり。</p></div><span class="date-chip">${state.day.slice(5).replace("-", " / ")}</span></section><article class="adventure-card">${scene(place.scene)}<div class="adventure-copy"><span class="pill">${place.icon} きょうのいきさき</span><h2>${r(place.name)}</h2><p>${r(place.intro)}</p></div></article><section class="section-head"><h2>${done ? "きょうのぼうけん、おつかれさま！" : "なにをもっていく？"}</h2><p>${done ? "えにっきをひらいてみよう。" : "ひとつえらんでね。１８じまではかえられるよ。"}</p></section>${done ? '<button class="primary wide" data-action="read-today">📖 えにっきをよむ</button>' : `<div class="items">${catalog.items.map((i) => `<button class="item ${selected === i.id ? "selected" : ""}" data-action="choose" data-id="${i.id}" aria-pressed="${selected === i.id}"><span>${i.icon}</span><strong>${r(i.name)}</strong><small>${selected === i.id ? "✓ これにした！" : "もっていく"}</small></button>`).join("")}</div><p class="note">🌿 あそべないひも、みんなといっしょにぼうけんするよ。</p>`}`;
+  return `<section class="intro"><div><span class="eyebrow">A LITTLE ADVENTURE</span><h1>${r("今日《きょう》のぼうけん")}</h1><p>じゅんびは１ぷん。あとは、のんびり。</p></div><span class="date-chip">${state.day.slice(5).replace("-", " / ")}</span></section><article class="adventure-card">${scene(place.id)}<div class="adventure-copy"><span class="pill">きょうのいきさき</span><h2>${r(place.name)}</h2><p>${r(place.preview)}</p></div></article><section class="section-head"><h2>${done ? "きょうのぼうけん、おつかれさま！" : "なにをもっていく？"}</h2><p>${done ? "えにっきをひらいてみよう。" : "ひとつえらんでね。１８じまではかえられるよ。"}</p></section>${done ? '<button class="primary wide" data-action="read-today">📖 えにっきをよむ</button>' : `<div class="items">${catalog.items.map((i) => `<button class="item ${selected === i.id ? "selected" : ""}" data-action="choose" data-id="${i.id}" aria-pressed="${selected === i.id}">${equipmentArt(i.id)}<strong>${r(i.name)}</strong><small>${selected === i.id ? "✓ これにした！" : "もっていく"}</small></button>`).join("")}</div><p class="note">🌿 あそべないひも、みんなといっしょにぼうけんするよ。</p>`}`;
 }
 function journal() {
   journalMember = state.members.some((m) => m.id === journalMember)
@@ -135,7 +163,7 @@ function journal() {
           .filter((a) => a.day.startsWith(journalMonth))
           .map(
             (a) =>
-              `<button class="entry" data-action="entry" data-day="${a.day}"><span class="entry-art">${p(a.place).icon}</span><div><small>${a.day.replaceAll("-", " / ")}</small><h2>${r(p(a.place).name)}</h2><p>${p(a.treasure).treasureIcon} たからものをみつけたよ</p></div><span>↗</span></button>`,
+              `<button class="entry" data-action="entry" data-day="${a.day}"><img class="entry-art" src="${sceneImage(a.place, "after", a.participants.find((m) => m.id === journalMember)?.item)}" alt="" width="85" height="85" loading="lazy"><div><small>${a.day.replaceAll("-", " / ")}</small><h2>${r(p(a.place).name)}</h2><p>たからものをみつけたよ</p></div><span>↗</span></button>`,
           )
           .join("")}</div>`
       : `<div class="empty"><span>📔</span><h2>まだ、まっしろな１ページ。</h2><p>１８じになると、はじめての<br>えにっきがとどくよ。</p><button class="secondary" data-action="sample">サンプルをよむ</button></div>`
@@ -155,7 +183,7 @@ function collection() {
   return `<section class="intro"><div><span class="eyebrow">LITTLE WONDERS</span><h1>${r("宝物図鑑《たからものずかん》")}</h1><p>${esc(me().name)}がみつけた、ちいさなふしぎ。</p></div><span class="count">${owned.length}<small> / ${catalog.places.length}</small></span></section><p class="note">✨ おうちからかたづけても、ここにのこるよ。</p><div class="collection">${catalog.places
     .map((pl) => {
       const has = owned.includes(pl);
-      return `<button class="treasure ${has ? "" : "unknown"}" data-action="treasure" data-id="${pl.id}" ${has ? "" : "disabled"}><span>${has ? pl.treasureIcon : "?"}</span><h2>${has ? r(pl.treasure) : "？？？"}</h2><small>${has ? "くわしくみる ↗" : "まだみつけていない"}</small></button>`;
+      return `<button class="treasure ${has ? "" : "unknown"}" data-action="treasure" data-id="${pl.id}" ${has ? "" : "disabled"}>${has ? treasureArt(pl.id) : "<span>?</span>"}<h2>${has ? r(pl.treasure) : "？？？"}</h2><small>${has ? "くわしくみる ↗" : "まだみつけていない"}</small></button>`;
     })
     .join("")}</div>`;
 }
@@ -164,7 +192,7 @@ function diary(a, mid, sample = false) {
     own = a.participants.find((m) => m.id === mid) || a.participants[0],
     ordered = [own, ...a.participants.filter((m) => m.id !== own.id)];
   modal(
-    `<article class="diary"><span class="eyebrow">${sample ? "サンプルのおはなし" : a.day.replaceAll("-", " / ")}</span><h1>${own.avatar} ${esc(own.name)}のえにっき</h1>${scene(place.scene, true)}<h2>${r(place.name)}</h2><p>${r(a.intro)}</p>${ordered.map((m) => `<p><strong>${m.avatar} ${esc(m.name)}</strong>は、${m.item ? r(catalog.items.find((i) => i.id === m.item).action) : "みんなをおうえんしました。"}</p>`).join("")}<p>${r(a.ending)}</p><div class="souvenir">${place.treasureIcon}<div><small>みつけたたからもの</small><h2>${r(place.treasure)}</h2></div></div><p class="fine">きょうのぼうけん、だれかにはなしてみよう。</p></article>`,
+    `<article class="diary"><span class="eyebrow">${sample ? "サンプルのおはなし" : a.day.replaceAll("-", " / ")}</span><h1>${own.avatar} ${esc(own.name)}のえにっき</h1>${scene(place.id, "after", own.item)}<h2>${r(place.name)}</h2><p>${r(a.intro)}</p>${ordered.map((m) => `<p class="diary-action">${m.item ? equipmentArt(m.item) : ""}<strong>${m.avatar} ${esc(m.name)}</strong>は、${m.item ? r(catalog.items.find((i) => i.id === m.item).action) : "みんなをおうえんしました。"}</p>`).join("")}<p>${r(a.ending)}</p><div class="souvenir">${treasureArt(place.id)}<div><small>みつけたたからもの</small><h2>${r(place.treasure)}</h2></div></div><p class="fine">きょうのぼうけん、だれかにはなしてみよう。</p></article>`,
   );
 }
 function sample() {
@@ -307,7 +335,7 @@ const actions = {
     if (d) {
       const owner = state.members.find((m) => m.id === d.member_id);
       modal(
-        `<h1>${p(d.treasure).treasureIcon} ${r(p(d.treasure).treasure)}</h1><p>${esc(owner?.name)}がかざったよ。</p>${d.member_id === state.active ? `<p>かたづけても、ずかんとえにっきにのこるよ。</p><button class="secondary" data-action="remove" data-slot="${slot}">かざるのをやめる</button>` : "<p>かたづけるときは、かざったなかまにたのんでね。</p>"}`,
+        `<h1>${treasureArt(d.treasure)} ${r(p(d.treasure).treasure)}</h1><p>${esc(owner?.name)}がかざったよ。</p>${d.member_id === state.active ? `<p>かたづけても、ずかんとえにっきにのこるよ。</p><button class="secondary" data-action="remove" data-slot="${slot}">かざるのをやめる</button>` : "<p>かたづけるときは、かざったなかまにたのんでね。</p>"}`,
       );
     } else {
       modal(
@@ -316,7 +344,7 @@ const actions = {
             ? `<div class="items">${found()
                 .map(
                   (pl) =>
-                    `<button class="item" data-action="decorate" data-slot="${slot}" data-id="${pl.id}"><span>${pl.treasureIcon}</span>${r(pl.treasure)}</button>`,
+                    `<button class="item" data-action="decorate" data-slot="${slot}" data-id="${pl.id}">${treasureArt(pl.id)}${r(pl.treasure)}</button>`,
                 )
                 .join("")}</div>`
             : "<p>ぼうけんからもどると、たからものがふえるよ。</p>"
@@ -347,7 +375,7 @@ const actions = {
           a.participants.some((m) => m.id === state.active),
       );
     modal(
-      `<div class="treasure-detail"><span>${pl.treasureIcon}</span><h1>${r(pl.treasure)}</h1><p>${r(pl.name)}でみつけたよ。</p><h2>おもいでのページ</h2>${entries.map((a) => `<button class="secondary" data-action="treasure-entry" data-day="${a.day}">${a.day} 📖</button>`).join("")}<p class="fine">おうちの「＋」から、いつでもかざれるよ。</p></div>`,
+      `<div class="treasure-detail">${treasureArt(pl.id)}<h1>${r(pl.treasure)}</h1><p>${r(pl.name)}でみつけたよ。</p><h2>おもいでのページ</h2>${entries.map((a) => `<button class="secondary" data-action="treasure-entry" data-day="${a.day}">${a.day} 📖</button>`).join("")}<p class="fine">おうちの「＋」から、いつでもかざれるよ。</p></div>`,
     );
   },
   "treasure-entry": (el) =>
