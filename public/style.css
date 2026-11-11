@@ -1394,3 +1394,22 @@ hr {
 .daily-card:active {
   background: #dde6ce;
 }
+
+.result-movie {
+  margin: 24px 0;
+}
+.result-movie figcaption {
+  font-size: 13px;
+  margin-bottom: 10px;
+  color: var(--green);
+}
+.result-movie video {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 9 / 16;
+  max-height: 70dvh;
+  object-fit: contain;
+  background: #202c26;
+  border-radius: 14px;
+}

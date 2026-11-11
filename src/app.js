@@ -1,3 +1,4 @@
+import { resultVideo } from "./videos.js";
 import { sceneImage, treasureImage, hostImage, equipmentImage } from "./art.js";
 import { setupPwa, installApp, isInstalled } from "./pwa.js";
 import QRCode from "qrcode";
@@ -81,6 +82,11 @@ function scene(id, phase = "before", item = null) {
         ? `${plain(chosen.name)}がかつやくしたばめん`
         : "みんなでたからものをみつけたばめん";
   return `<figure class="story-scene ${phase === "after" && chosen ? "personal-scene" : ""}"><img src="${sceneImage(id, phase, item)}" alt="${esc(plain(place.name) + "：" + caption)}" width="${phase === "after" && chosen ? 512 : 768}" height="512" decoding="async"><figcaption>${esc(caption)}</figcaption></figure>`;
+}
+function resultMovie(id) {
+  const clip = resultVideo(id);
+  if (!clip) return "";
+  return `<figure class="result-movie"><figcaption>ぼうけんのおわり・５びょう</figcaption><video controls playsinline preload="none" poster="${sceneImage(id, "after")}" width="720" height="1280" aria-label="${esc(plain(p(id).name))}のけっかのどうが"><source src="${clip.src}" type="video/mp4"><a href="${clip.src}">どうがをひらく</a></video></figure>`;
 }
 function navIcon(id) {
   const paths = {
@@ -192,7 +198,7 @@ function diary(a, mid, sample = false) {
     own = a.participants.find((m) => m.id === mid) || a.participants[0],
     ordered = [own, ...a.participants.filter((m) => m.id !== own.id)];
   modal(
-    `<article class="diary"><span class="eyebrow">${sample ? "サンプルのおはなし" : a.day.replaceAll("-", " / ")}</span><h1>${own.avatar} ${esc(own.name)}のえにっき</h1>${scene(place.id, "after", own.item)}<h2>${r(place.name)}</h2><p>${r(a.intro)}</p>${ordered.map((m) => `<p class="diary-action">${m.item ? equipmentArt(m.item) : ""}<strong>${m.avatar} ${esc(m.name)}</strong>は、${m.item ? r(catalog.items.find((i) => i.id === m.item).action) : "みんなをおうえんしました。"}</p>`).join("")}<p>${r(a.ending)}</p><div class="souvenir">${treasureArt(place.id)}<div><small>みつけたたからもの</small><h2>${r(place.treasure)}</h2></div></div><p class="fine">きょうのぼうけん、だれかにはなしてみよう。</p></article>`,
+    `<article class="diary"><span class="eyebrow">${sample ? "サンプルのおはなし" : a.day.replaceAll("-", " / ")}</span><h1>${own.avatar} ${esc(own.name)}のえにっき</h1>${scene(place.id, "after", own.item)}<h2>${r(place.name)}</h2><p>${r(a.intro)}</p>${ordered.map((m) => `<p class="diary-action">${m.item ? equipmentArt(m.item) : ""}<strong>${m.avatar} ${esc(m.name)}</strong>は、${m.item ? r(catalog.items.find((i) => i.id === m.item).action) : "みんなをおうえんしました。"}</p>`).join("")}<p>${r(a.ending)}</p>${resultMovie(place.id)}<div class="souvenir">${treasureArt(place.id)}<div><small>みつけたたからもの</small><h2>${r(place.treasure)}</h2></div></div><p class="fine">きょうのぼうけん、だれかにはなしてみよう。</p></article>`,
   );
 }
 function sample() {
