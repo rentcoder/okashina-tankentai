@@ -4,8 +4,13 @@
     "id": "post",
     "title": "ハリネズミのくつした郵便",
     "availableFromJST": "2026-11-14",
-    "status": "validated",
+    "status": "published",
     "notes": "翌日から新話を先頭にした８話の巡回。追加指示により８冒険固有の48種類の持ち物と結果画像、自動ループ（最終コマ３秒）を同時に実装。",
-    "validation": "npm test: 21 passed; npm run build; mobile equipment 8 menus/48 outcomes; legacy art 8 adventures; flipbook autoplay/loop/3-second final hold"
+    "validation": "npm test: 21 passed; npm run build; mobile equipment 8 menus/48 outcomes; legacy art 8 adventures; flipbook autoplay/loop/3-second final hold",
+    "treasure": "てがみをくわえたポスト",
+    "codeCommit": "9350c3caef57df9e89b3fc95f800fb9995284568",
+    "cloudflareVersion": "57a69295-e511-4706-810d-83ab932775fc",
+    "publishedAt": "2026-11-12T23:49:35.662642+00:00",
+    "liveVerification": "113 static files SHA-256 match dist; catalog 8 adventures/54 current and legacy tools; GitHub CI passed"
   }
 ]
