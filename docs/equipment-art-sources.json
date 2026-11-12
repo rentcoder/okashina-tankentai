@@ -1,0 +1,36 @@
+{
+  "river": {
+    "icons": "exec-dea3f9bb-5326-4e8b-8efc-a3bf5d96ad6f.png",
+    "outcomes": "exec-a5903550-1bb0-4def-8153-d42f76bbc1ce.png"
+  },
+  "cloud": {
+    "icons": "exec-e203fa73-662a-4219-8b1e-f625f008323c.png",
+    "outcomes": "exec-90baa8cd-9107-4ead-9fd4-4cdd90b6fb08.png"
+  },
+  "forest": {
+    "icons": "exec-8d89a694-93e9-449f-b6a8-89b9b86e90a5.png",
+    "outcomes": "exec-1a86d9db-d2d1-491e-b6ad-f4672847e6c9.png"
+  },
+  "sea": {
+    "icons": "exec-93d5c096-ae10-42ba-b106-b155c4af3e2b.png",
+    "outcomes": "exec-23932e52-fd63-4f14-b430-37e4ad1c7c06.png"
+  },
+  "snow": {
+    "icons": "exec-14a6d90c-0939-40a5-b402-037d5d024bb2.png",
+    "outcomes": "exec-48c3cdc8-d509-4b74-a2c8-381d69767146.png"
+  },
+  "garden": {
+    "icons": "exec-0ad0eb94-db9b-496c-8806-f1256f8ddde9.png",
+    "outcomes": "exec-4a8ff2b2-55ed-44ce-886c-690ae4307393.png",
+    "originalIcons": "exec-a8ecb343-e17b-4d35-8863-fb1f5905ad46.png",
+    "note": "画像生成ツールで背景を透明化した原画を使用。"
+  },
+  "post": {
+    "icons": "exec-767e6f35-198d-4335-9c72-9ede6272374a.png",
+    "outcomes": "exec-70d4992d-8a86-4603-8d80-d0954b3d0dda.png"
+  },
+  "moon": {
+    "icons": "exec-98a1811f-6d34-47f1-802c-8b8869464171.png",
+    "outcomes": "exec-b9154b2a-99ec-475f-b7bd-d10ad1d7ab67.png"
+  }
+}

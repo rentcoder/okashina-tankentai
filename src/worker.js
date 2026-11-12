@@ -1,5 +1,12 @@
+import { itemIdsFor } from "./equipment.js";
 import { characters, legacyAvatars } from "./characters.js";
-import { items, places, dayInfo, placeFor, makeAdventure } from "./stories.js";
+import {
+  allItems,
+  places,
+  dayInfo,
+  placeFor,
+  makeAdventure,
+} from "./stories.js";
 const now = () => Math.floor(Date.now() / 1000),
   random = () => crypto.randomUUID() + crypto.randomUUID();
 const hash = async (s) =>
@@ -154,7 +161,7 @@ async function api(req, env) {
     if (!b || typeof b !== "object" || Array.isArray(b)) fail("Invalid JSON");
   } else if (req.method !== "GET") fail("Method not allowed", 405);
   if (path === "/catalog" && req.method === "GET")
-    return json({ items, places, avatars: avatarList });
+    return json({ items: allItems, places, avatars: avatarList });
   if (path === "/create" && req.method === "POST") {
     await rate(db, "create:" + req.headers.get("CF-Connecting-IP"), 8);
     const n = name(b.name),
@@ -273,6 +280,7 @@ async function api(req, env) {
       parent: s.parent_until > now(),
       day: dayInfo().day,
       place: placeFor(dayInfo().day).id,
+      itemIds: itemIdsFor(placeFor(dayInfo().day).id, dayInfo().day),
       choices: (
         await db
           .prepare(
@@ -354,7 +362,8 @@ async function api(req, env) {
     const info = dayInfo();
     if (info.hour >= f.reveal_hour)
       fail("きょうのぼうけんはおしまい。またあした！");
-    if (!items.some((i) => i.id === b.item)) fail("もちものをえらんでね。");
+    if (!itemIdsFor(placeFor(info.day).id, info.day).includes(b.item))
+      fail("きょうのぼうけんのもちものをえらんでね。");
     await db
       .prepare(
         "INSERT INTO choices(family_id,member_id,day,item) VALUES(?,?,?,?) ON CONFLICT(family_id,member_id,day) DO UPDATE SET item=excluded.item",

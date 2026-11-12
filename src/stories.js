@@ -1,3 +1,5 @@
+import { adventureEquipment } from "./equipment.js";
+import calendar from "./story-calendar.json" with { type: "json" };
 // Author-controlled ruby notation: 漢字《よみ》. No family data is sent to an AI service.
 export const items = [
   {
@@ -31,6 +33,7 @@ export const items = [
     action: "バナナをわけっこ。かわはちいさなボートになりました。",
   },
 ];
+export const allItems = [...items, ...Object.values(adventureEquipment).flat()];
 export const places = [
   {
     id: "river",
@@ -103,15 +106,47 @@ export const places = [
     treasure: "わらうおはな",
     ending: "みんなでわらったら、いちばんおおきなおはながさきました。",
   },
+  {
+    id: "post",
+    name: "ハリネズミのくつした郵便《ゆうびん》",
+    preview:
+      "くつしたのおうちに、てがみをとどけよう。かぜにとばされて、ハリネズミさんがあたふた！",
+    intro:
+      "くつした村《むら》のてがみが、かぜにのってひらひら。ハリネズミの郵便屋《ゆうびんや》さんは、くつしたのつまさきにまでてがみをさがしています。",
+    treasure: "てがみをくわえたポスト",
+    ending:
+      "さいごのてがみがとどくと、くつしたのおうちがぱたぱたおじぎ。おれいのちいさなポストは、てがみをくわえてにっこり。こんどはだれに、てがみをかこうかな？",
+    itemActions: {
+      pudding:
+        "プリンをおすそわけ。げんきになったハリネズミさんと、てがみをわけました。",
+      umbrella: "かさをひらいて、ひらひらとぶてがみをぽすんとうけとめました。",
+      rope: "ロープをくつしたのおうちにつなぎ、てがみをするするとすべらせました。",
+      flute:
+        "ふえをふくと、ことりがてがみをくわえて、おうちまでとどけてくれました。",
+      pillow:
+        "まくらでてがみをうけとめ、ひとやすみ。ハリネズミさんと、ふわふわのうえでてがみをわけました。",
+      banana:
+        "バナナのかわをふねにして、みずたまりのむこうへてがみをはこびました。",
+    },
+  },
 ];
 export function dayInfo(now = Date.now()) {
   const d = new Date(now + 9 * 3600000);
   return { day: d.toISOString().slice(0, 10), hour: d.getUTCHours() };
 }
-export function placeFor(day) {
-  return places[
-    Math.floor(Date.parse(day + "T00:00:00Z") / 86400000) % places.length
-  ];
+// Append future calendar versions; never change an already effective version.
+// This preserves both prepared-but-unsettled days and historical results.
+export function placeFor(day, versions = calendar) {
+  const version = versions.findLast((v) => v.from <= day);
+  if (!version) throw new Error("No adventure calendar for date");
+  const offset = Math.floor(
+    (Date.parse(day + "T00:00:00Z") - Date.parse(version.from + "T00:00:00Z")) /
+      86400000,
+  );
+  const id = version.places[offset % version.places.length];
+  const place = places.find((p) => p.id === id);
+  if (!place) throw new Error("Unknown scheduled adventure");
+  return place;
 }
 export function makeAdventure(day, members, choices) {
   const place = placeFor(day);
@@ -121,11 +156,18 @@ export function makeAdventure(day, members, choices) {
     intro: place.intro,
     ending: place.ending,
     treasure: place.id,
-    participants: members.map((m) => ({
-      id: m.id,
-      name: m.name,
-      avatar: m.avatar,
-      item: choices.find((c) => c.member_id === m.id)?.item || null,
-    })),
+    participants: members.map((m) => {
+      const item = choices.find((c) => c.member_id === m.id)?.item || null;
+      const action =
+        adventureEquipment[place.id]?.find((i) => i.id === item)?.action ||
+        place.itemActions?.[item];
+      return {
+        id: m.id,
+        name: m.name,
+        avatar: m.avatar,
+        item,
+        ...(action ? { action } : place.itemActions ? { action: null } : {}),
+      };
+    }),
   };
 }

@@ -1,3 +1,4 @@
+import { itemIdsFor } from "./equipment.js";
 import { characters, characterFor, characterImage } from "./characters.js";
 import { roomSpots } from "./room.js";
 import { frames, playFlipbook, stopFlipbook } from "./flipbook.js";
@@ -64,6 +65,9 @@ function modal(html) {
   $("#modal").innerHTML =
     `<button class="close" data-action="close" aria-label="とじる">×</button>${html}`;
   if (!$("#modal").open) $("#modal").showModal();
+  const flipButton = $("#modal").querySelector('[data-action="flipbook"]');
+  if (flipButton && !matchMedia("(prefers-reduced-motion: reduce)").matches)
+    void playFlipbook(flipButton);
 }
 function characterArt(value) {
   return `<img class="character-avatar" src="${characterImage(value)}" alt="" width="64" height="80">`;
@@ -171,7 +175,23 @@ function adventure() {
   const place = p(state.place),
     done = state.adventures.some((a) => a.day === state.day),
     selected = state.choices.find((c) => c.member_id === state.active)?.item;
-  return `<section class="intro"><div><span class="eyebrow">A LITTLE ADVENTURE</span><h1>${r("今日《きょう》のぼうけん")}</h1><p>じゅんびは１ぷん。あとは、のんびり。</p></div><span class="date-chip">${state.day.slice(5).replace("-", " / ")}</span></section><article class="adventure-card">${scene(place.id)}<div class="adventure-copy"><span class="pill">きょうのいきさき</span><h2>${r(place.name)}</h2><p>${r(place.preview)}</p></div></article><section class="section-head"><h2>${done ? "きょうのぼうけん、おつかれさま！" : "なにをもっていく？"}</h2><p>${done ? "えにっきをひらいてみよう。" : "ひとつえらんでね。１８じまではかえられるよ。"}</p></section>${done ? '<button class="primary wide" data-action="read-today">📖 えにっきをよむ</button>' : `<div class="items">${catalog.items.map((i) => `<button class="item ${selected === i.id ? "selected" : ""}" data-action="choose" data-id="${i.id}" aria-pressed="${selected === i.id}">${equipmentArt(i.id)}<strong>${r(i.name)}</strong><small>${selected === i.id ? "✓ これにした！" : "もっていく"}</small></button>`).join("")}</div><p class="note">🌿 あそべないひも、みんなといっしょにぼうけんするよ。</p>`}`;
+  return `<section class="intro"><div><span class="eyebrow">A LITTLE ADVENTURE</span><h1>${r("今日《きょう》のぼうけん")}</h1><p>じゅんびは１ぷん。あとは、のんびり。</p></div><span class="date-chip">${state.day.slice(5).replace("-", " / ")}</span></section><article class="adventure-card">${scene(place.id)}<div class="adventure-copy"><span class="pill">きょうのいきさき</span><h2>${r(place.name)}</h2><p>${r(place.preview)}</p></div></article><section class="section-head"><h2>${done ? "きょうのぼうけん、おつかれさま！" : "なにをもっていく？"}</h2><p>${done ? "えにっきをひらいてみよう。" : "ひとつえらんでね。１８じまではかえられるよ。"}</p></section>${
+    done
+      ? '<button class="primary wide" data-action="read-today">📖 えにっきをよむ</button>'
+      : `<div class="items">${catalog.items
+          .filter((i) =>
+            (state.itemIds || itemIdsFor(state.place, state.day)).includes(
+              i.id,
+            ),
+          )
+          .map(
+            (i) =>
+              `<button class="item ${selected === i.id ? "selected" : ""}" data-action="choose" data-id="${i.id}" aria-pressed="${selected === i.id}">${equipmentArt(i.id)}<strong>${r(i.name)}</strong><small>${selected === i.id ? "✓ これにした！" : "もっていく"}</small></button>`,
+          )
+          .join(
+            "",
+          )}</div><p class="note">🌿 あそべないひも、みんなといっしょにぼうけんするよ。</p>`
+  }`;
 }
 function journal() {
   journalMember = state.members.some((m) => m.id === journalMember)
@@ -217,7 +237,7 @@ function diary(a, mid, sample = false) {
     own = a.participants.find((m) => m.id === mid) || a.participants[0],
     ordered = [own, ...a.participants.filter((m) => m.id !== own.id)];
   modal(
-    `<article class="diary"><span class="eyebrow">${sample ? "サンプルのおはなし" : a.day.replaceAll("-", " / ")}</span><h1>${characterArt(own.avatar)} ${esc(own.name)}のえにっき</h1>${scene(place.id, "after", own.item)}<h2>${r(place.name)}</h2><p>${r(a.intro)}</p>${ordered.map((m) => `<p class="diary-action">${m.item ? equipmentArt(m.item) : ""}<strong>${characterArt(m.avatar)} ${esc(m.name)}</strong>は、${m.item ? r(catalog.items.find((i) => i.id === m.item).action) : "みんなをおうえんしました。"}</p>`).join("")}<p>${r(a.ending)}</p>${resultFlipbook(place.id)}<div class="souvenir">${treasureArt(place.id)}<div><small>みつけたたからもの</small><h2>${r(place.treasure)}</h2></div></div><p class="fine">きょうのぼうけん、だれかにはなしてみよう。</p></article>`,
+    `<article class="diary"><span class="eyebrow">${sample ? "サンプルのおはなし" : a.day.replaceAll("-", " / ")}</span><h1>${characterArt(own.avatar)} ${esc(own.name)}のえにっき</h1>${scene(place.id, "after", own.item)}<h2>${r(place.name)}</h2><p>${r(a.intro)}</p>${ordered.map((m) => `<p class="diary-action">${m.item ? equipmentArt(m.item) : ""}<strong>${characterArt(m.avatar)} ${esc(m.name)}</strong>は、${m.item ? r(m.action || catalog.items.find((i) => i.id === m.item).action) : "みんなをおうえんしました。"}</p>`).join("")}<p>${r(a.ending)}</p>${resultFlipbook(place.id)}<div class="souvenir">${treasureArt(place.id)}<div><small>みつけたたからもの</small><h2>${r(place.treasure)}</h2></div></div><p class="fine">きょうのぼうけん、だれかにはなしてみよう。</p></article>`,
   );
 }
 function sample() {
@@ -461,7 +481,7 @@ const actions = {
   },
   about: () =>
     modal(
-      `<h1>このゲームについて</h1><p>１にち５ふん。かぞくでぼうけんする、ちいさなゲームです。</p><h2>おとなのかたへ</h2><p>なまえはニックネームでどうぞ。ほんみょう・たんじょうび・メールアドレスはひつようありません。</p><p>かぞくのデータはCloudflareにほぞんします。ほかのかぞくにはみせません。こうこくやアクセスかいせきはつかっていません。</p><p>カメラのえいぞうは、QRをよむためだけにつかいます。サーバーにはおくりません。</p><p>１８じは日本《にほん》のじかんです。さいしょのばんには７つのぼうけんがはいっています。</p><p>ベータばんです。すべてのスマホのせつぞくをなくすと、ふっきゅうできません。おとなのスマホをのこしてね。</p>`.replace(
+      `<h1>このゲームについて</h1><p>１にち５ふん。かぞくでぼうけんする、ちいさなゲームです。</p><h2>おとなのかたへ</h2><p>なまえはニックネームでどうぞ。ほんみょう・たんじょうび・メールアドレスはひつようありません。</p><p>かぞくのデータはCloudflareにほぞんします。ほかのかぞくにはみせません。こうこくやアクセスかいせきはつかっていません。</p><p>カメラのえいぞうは、QRをよむためだけにつかいます。サーバーにはおくりません。</p><p>１８じは日本《にほん》のじかんです。ぼうけんのおはなしは、すこしずつふえていきます。</p><p>ベータばんです。すべてのスマホのせつぞくをなくすと、ふっきゅうできません。おとなのスマホをのこしてね。</p>`.replace(
         "日本《にほん》",
         r("日本《にほん》"),
       ),

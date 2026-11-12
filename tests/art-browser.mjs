@@ -2,7 +2,7 @@ import { chromium } from "@playwright/test";
 import assert from "node:assert/strict";
 import { mkdir } from "node:fs/promises";
 import { places, items, makeAdventure } from "../src/stories.js";
-import { sceneImage, treasureImage } from "../src/art.js";
+import { sceneImage, treasureImage, legacyPlaceIds } from "../src/art.js";
 const b = await chromium.launch({ headless: true, args: ["--no-sandbox"] });
 try {
   const c = await b.newContext({ viewport: { width: 390, height: 844 } }),
@@ -17,14 +17,19 @@ try {
   let data;
   await page.route("**/api/state", (route) => route.fulfill({ json: data }));
   await mkdir("test-results", { recursive: true });
-  for (const [index, place] of places.entries()) {
+  const legacyPlaces = places.filter((p) => legacyPlaceIds.includes(p.id));
+  for (const [index, place] of legacyPlaces.entries()) {
     const a = {
       day: "2026-11-11",
       place: place.id,
       intro: place.intro,
       ending: place.ending,
       treasure: place.id,
-      participants: members.map((m, i) => ({ ...m, item: items[i].id })),
+      participants: members.map((m, i) => ({
+        ...m,
+        item: items[i].id,
+        action: place.itemActions?.[items[i].id],
+      })),
     };
     data = {
       family: { name: "テストのおうち", revealHour: 18 },
@@ -47,9 +52,9 @@ try {
     );
     await page.locator(".story-scene img").evaluate((img) => img.decode());
     assert.equal(await page.locator(".items .equipment-image").count(), 6);
-    if (place.id === "garden")
+    if (place.id === "garden" || place.id === "post")
       await page.screenshot({
-        path: "test-results/garden-before.png",
+        path: `test-results/${place.id}-before.png`,
         fullPage: true,
       });
     await page.locator("[data-action=tab][data-id=journal]").click();
@@ -66,13 +71,19 @@ try {
         sceneImage(place.id, "after", item.id),
       );
       await img.evaluate((img) => img.decode());
+      if (place.itemActions)
+        assert.ok(
+          (await page.locator(".diary-action").first().textContent()).includes(
+            place.itemActions[item.id],
+          ),
+        );
       assert.equal(
         await page.locator(".souvenir .treasure-image").getAttribute("src"),
         treasureImage(place.id),
       );
-      if (place.id === "garden" && item.id === "umbrella")
+      if (["garden", "post"].includes(place.id) && item.id === "umbrella")
         await page.screenshot({
-          path: "test-results/garden-diary-umbrella.png",
+          path: `test-results/${place.id}-diary-umbrella.png`,
         });
       await page.locator("[data-action=close]").click();
     }
@@ -84,9 +95,9 @@ try {
     await page
       .locator(".collection .treasure-image")
       .evaluate((img) => img.decode());
-    if (place.id === "garden")
+    if (place.id === "garden" || place.id === "post")
       await page.screenshot({
-        path: "test-results/laughing-flower.png",
+        path: `test-results/${place.id}-treasure.png`,
         fullPage: true,
       });
     assert.equal(
@@ -103,11 +114,11 @@ try {
   await page.locator("[data-action=entry]").click();
   assert.equal(
     await page.locator("dialog .story-scene img").getAttribute("src"),
-    sceneImage("garden", "after"),
+    sceneImage(legacyPlaces.at(-1).id, "after"),
   );
   assert.deepEqual(errors, []);
   console.log(
-    "PASS: 7 departures, 42 personalized diary images, 7 treasures, 6 equipment images, historical fallback, mobile layout",
+    `PASS: ${legacyPlaces.length} departures, ${legacyPlaces.length * items.length} personalized diaries, ${legacyPlaces.length} treasures, ${items.length} equipment, historical fallback, mobile layout`,
   );
 } finally {
   await b.close();

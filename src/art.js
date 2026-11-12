@@ -1,4 +1,6 @@
-export const placeIds = [
+import { adventureEquipment } from "./equipment.js";
+import { places, items, allItems } from "./stories.js";
+export const legacyPlaceIds = [
   "river",
   "cloud",
   "forest",
@@ -6,22 +8,19 @@ export const placeIds = [
   "sea",
   "snow",
   "garden",
+  "post",
 ];
-export const itemIds = [
-  "pudding",
-  "umbrella",
-  "rope",
-  "flute",
-  "pillow",
-  "banana",
-];
+export const placeIds = places.map((p) => p.id);
+export const itemIds = items.map((i) => i.id);
+const allItemIds = allItems.map((i) => i.id);
 const root = "/art/adventures/v1";
 export function sceneImage(place, phase = "before", item = null) {
   if (!placeIds.includes(place))
     throw new Error("Unknown illustrated adventure");
   const file =
     phase === "after"
-      ? itemIds.includes(item)
+      ? (legacyPlaceIds.includes(place) && itemIds.includes(item)) ||
+        adventureEquipment[place]?.some((i) => i.id === item)
         ? `after-${item}`
         : "after"
       : "before";
@@ -36,6 +35,6 @@ export function hostImage(place) {
   return `${root}/${place}/host.webp`;
 }
 export function equipmentImage(item) {
-  if (!itemIds.includes(item)) throw new Error("Unknown equipment");
+  if (!allItemIds.includes(item)) throw new Error("Unknown equipment");
   return `${root}/equipment/${item}.webp`;
 }

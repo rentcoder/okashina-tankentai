@@ -1,0 +1,19 @@
+[
+  {
+    "from": "1970-01-01",
+    "places": ["river", "cloud", "forest", "moon", "sea", "snow", "garden"]
+  },
+  {
+    "from": "2026-11-14",
+    "places": [
+      "post",
+      "river",
+      "cloud",
+      "forest",
+      "moon",
+      "sea",
+      "snow",
+      "garden"
+    ]
+  }
+]

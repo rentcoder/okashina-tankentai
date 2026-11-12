@@ -1,7 +1,6 @@
 import sharp from "sharp";
 import { readFile, mkdir } from "node:fs/promises";
 import { join } from "node:path";
-import { placeIds } from "../src/art.js";
 const sources = JSON.parse(
   await readFile("docs/home-art-sources.json", "utf8"),
 );
@@ -22,7 +21,7 @@ async function crop(file, index) {
     .toBuffer();
 }
 await mkdir("public/art/treasures/v2", { recursive: true });
-for (const [i, id] of placeIds.entries()) {
+for (const [i, id] of sources.treasureOrder.entries()) {
   const buf = await crop(sources.treasures, i);
   await sharp(buf)
     .trim()

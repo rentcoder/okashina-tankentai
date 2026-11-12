@@ -1,13 +1,14 @@
 import { placeIds } from "./art.js";
 // Milliseconds per frame; the reveal and final tableau have room to breathe.
 export const timings = {
-  river: [500, 500, 700, 500, 1000],
-  cloud: [500, 500, 500, 800, 1000],
-  forest: [500, 800, 500, 500, 1000],
-  moon: [500, 700, 500, 500, 1000],
-  sea: [500, 500, 700, 500, 1000],
-  snow: [500, 700, 500, 500, 1000],
-  garden: [500, 500, 700, 700, 1000],
+  post: [500, 500, 800, 500, 3000],
+  river: [500, 500, 700, 500, 3000],
+  cloud: [500, 500, 500, 800, 3000],
+  forest: [500, 800, 500, 500, 3000],
+  moon: [500, 700, 500, 500, 3000],
+  sea: [500, 500, 700, 500, 3000],
+  snow: [500, 700, 500, 500, 3000],
+  garden: [500, 500, 700, 700, 3000],
 };
 export function frames(place) {
   if (!placeIds.includes(place)) throw new Error("Unknown flipbook");
@@ -64,11 +65,8 @@ export async function playFlipbook(button) {
       box.querySelector(".flipbook-count").textContent =
         `${index + 1} / ${sequence.length}`;
       timer = setTimeout(() => {
-        if (++index < sequence.length) show();
-        else {
-          stopFlipbook();
-          status.textContent = "おしまい";
-        }
+        index = (index + 1) % sequence.length;
+        show();
       }, sequence[index].duration);
     };
     show();

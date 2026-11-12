@@ -5,6 +5,7 @@ import { createHash } from "node:crypto";
 import sharp from "sharp";
 import {
   placeIds,
+  legacyPlaceIds,
   itemIds,
   sceneImage,
   treasureImage,
@@ -16,6 +17,7 @@ test("every story and item has unique complete pre-generated imagery", async () 
   assert.deepEqual(
     places.map((p) => p.id),
     placeIds,
+    legacyPlaceIds,
   );
   assert.deepEqual(
     items.map((i) => i.id),
@@ -27,12 +29,18 @@ test("every story and item has unique complete pre-generated imagery", async () 
       sceneImage(p, "after"),
       treasureImage(p),
       hostImage(p),
-      ...itemIds.map((i) => sceneImage(p, "after", i)),
+      ...(legacyPlaceIds.includes(p)
+        ? itemIds.map((i) => sceneImage(p, "after", i))
+        : []),
     ]),
     ...itemIds.map(equipmentImage),
   ];
-  assert.equal(paths.length, 76);
-  assert.equal(new Set(paths).size, 76);
+  const total =
+    placeIds.length * 4 +
+    legacyPlaceIds.filter((p) => placeIds.includes(p)).length * itemIds.length +
+    itemIds.length;
+  assert.equal(paths.length, total);
+  assert.equal(new Set(paths).size, total);
   const hashes = new Set();
   for (const path of paths) {
     const file = await readFile("public" + path),
@@ -42,12 +50,12 @@ test("every story and item has unique complete pre-generated imagery", async () 
     assert.equal(meta.format, "webp");
     hashes.add(createHash("sha256").update(file).digest("hex"));
   }
-  assert.equal(hashes.size, 76);
+  assert.equal(hashes.size, total);
 });
 test("old diary records use saved choice and missing choice has an illustrated fallback", () => {
   for (const place of placeIds) {
     assert.equal(sceneImage(place, "after", null), sceneImage(place, "after"));
-    for (const item of itemIds) {
+    for (const item of legacyPlaceIds.includes(place) ? itemIds : []) {
       assert.ok(
         sceneImage(place, "after", item).endsWith(`/after-${item}.webp`),
       );

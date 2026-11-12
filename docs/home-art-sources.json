@@ -8,5 +8,6 @@
     "boy-blue": "exec-80e8dab1-ce6d-4606-8932-a226b2fde19a.png",
     "boy-red": "exec-cb727ea8-b048-4665-8fac-632812fe581a.png",
     "girl-mint": "exec-7d4c63be-5d74-4e08-9e51-2da917be6062.png"
-  }
+  },
+  "treasureOrder": ["river", "cloud", "forest", "moon", "sea", "snow", "garden"]
 }

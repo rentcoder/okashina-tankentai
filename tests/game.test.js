@@ -200,7 +200,11 @@ test("daily results are immutable, personalized, and survive tidying", async () 
   await call("member", { name: "child", avatar: "🐰" }, a);
   const first = await current(a);
   assert.equal((await call("choice", { item: "invalid" }, a)).status, 400);
-  assert.equal((await call("choice", { item: "pudding" }, a)).status, 200);
+  const selectedItem = first.itemIds[0];
+  const catalog = (await call("catalog")).body;
+  const unavailable = catalog.items.find((i) => !first.itemIds.includes(i.id));
+  assert.equal((await call("choice", { item: unavailable.id }, a)).status, 400);
+  assert.equal((await call("choice", { item: selectedItem }, a)).status, 200);
   await db
     .prepare("UPDATE families SET reveal_hour=0 WHERE id=?")
     .bind(f)
@@ -211,7 +215,7 @@ test("daily results are immutable, personalized, and survive tidying", async () 
   const result = one.adventures[0];
   assert.equal(
     result.participants.find((m) => m.id === first.active).item,
-    "pudding",
+    selectedItem,
   );
   assert.equal(
     result.participants.find((m) => m.id !== first.active).item,

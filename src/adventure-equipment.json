@@ -1,0 +1,354 @@
+{
+  "river": [
+    {
+      "id": "river-oar",
+      "name": "オール",
+      "action": "オールでみずをかいて、はっぱのふねをすすめました。",
+      "icon": "wooden paddle",
+      "scene": "child paddles leaf boat with wooden paddle"
+    },
+    {
+      "id": "river-glass",
+      "name": "むしめがね",
+      "action": "むしめがねで、はっぱのうらのひみつのみちをみつけました。",
+      "icon": "magnifying glass",
+      "scene": "child inspects leaf boat underside through magnifier frog watches"
+    },
+    {
+      "id": "river-net",
+      "name": "あみ",
+      "action": "あみでながれたぼうしをすくい、カエルさんにかえしました。",
+      "icon": "small landing net",
+      "scene": "child scoops frog captain hat from river with net"
+    },
+    {
+      "id": "river-boots",
+      "name": "ながぐつ",
+      "action": "ながぐつであさせをあるき、ふねをそっとおしました。",
+      "icon": "pair yellow rain boots",
+      "scene": "child in yellow rain boots pushes leaf boat in shallow water"
+    },
+    {
+      "id": "river-map",
+      "name": "たからのちず",
+      "action": "たからのちずをひろげて、カエルさんとかえりみちをたしかめました。",
+      "icon": "folded treasure map without letters",
+      "scene": "child and frog examine map beside leaf boat"
+    },
+    {
+      "id": "river-bell",
+      "name": "すず",
+      "action": "すずをならすと、カエルさんがしゅっぱつのあいずをくれました。",
+      "icon": "little brass handbell",
+      "scene": "child rings bell frog salutes on leaf boat"
+    }
+  ],
+  "cloud": [
+    {
+      "id": "cloud-mitt",
+      "name": "ミトン",
+      "action": "ミトンであついパンをふんわりつかまえました。",
+      "icon": "quilted oven mitt",
+      "scene": "child catches floating warm loaf with oven mitt"
+    },
+    {
+      "id": "cloud-whisk",
+      "name": "あわだてき",
+      "action": "あわだてきでくもをまぜ、パンのクッションをつくりました。",
+      "icon": "wire whisk",
+      "scene": "child whisks fluffy cloud cushion under floating bread"
+    },
+    {
+      "id": "cloud-basket",
+      "name": "パンのかご",
+      "action": "パンのかごをひらくと、パンがぽんぽんとびこんできました。",
+      "icon": "wicker bread basket",
+      "scene": "floating buns hop into child wicker basket"
+    },
+    {
+      "id": "cloud-flour",
+      "name": "こむぎこ",
+      "action": "こむぎこをぱらり。パンのとおったあとが、しろいみちになりました。",
+      "icon": "small flour sack no text",
+      "scene": "child sprinkles flour revealing floating bread trail"
+    },
+    {
+      "id": "cloud-spatula",
+      "name": "フライがえし",
+      "action": "フライがえしでパンをぽんとはねあげ、かごにいれました。",
+      "icon": "wooden kitchen spatula",
+      "scene": "child flips bun with spatula into basket"
+    },
+    {
+      "id": "cloud-apron",
+      "name": "エプロン",
+      "action": "エプロンをひろげて、にげるパンをやさしくうけとめました。",
+      "icon": "yellow apron",
+      "scene": "child stretches apron to catch falling buns"
+    }
+  ],
+  "forest": [
+    {
+      "id": "forest-lantern",
+      "name": "ランタン",
+      "action": "ランタンをともすと、かえりみちがぽわっとひかりました。",
+      "icon": "warm camping lantern",
+      "scene": "child lights lantern revealing forest path beside sleepy acorn"
+    },
+    {
+      "id": "forest-acorn",
+      "name": "どんぐりのぼうし",
+      "action": "どんぐりのぼうしをかぶると、ねぼすけさんがなかまとまちがえました。",
+      "icon": "acorn cap hat",
+      "scene": "child wears acorn cap sleepy acorn recognizes friend"
+    },
+    {
+      "id": "forest-feather",
+      "name": "はね",
+      "action": "はねでこちょこちょ。どんぐりさんがわらってめをさましました。",
+      "icon": "large soft feather",
+      "scene": "child tickles acorn guide with feather gently"
+    },
+    {
+      "id": "forest-compass",
+      "name": "ほういじしん",
+      "action": "ほういじしんをみながら、みんなでかえりみちをさがしました。",
+      "icon": "brass compass",
+      "scene": "children and acorn study compass in forest"
+    },
+    {
+      "id": "forest-blanket",
+      "name": "もうふ",
+      "action": "もうふをかけると、どんぐりさんがねごとでみちをおしえてくれました。",
+      "icon": "folded plaid blanket",
+      "scene": "child tucks blanket around sleeping acorn"
+    },
+    {
+      "id": "forest-nuts",
+      "name": "くるみ",
+      "action": "くるみをころころならべて、かえりみちのめじるしをつくりました。",
+      "icon": "three walnuts",
+      "scene": "child lays walnut trail forest acorn points"
+    }
+  ],
+  "moon": [
+    {
+      "id": "moon-scoop",
+      "name": "おたま",
+      "action": "おたまでぷかぷかのおにぎりをすくいました。",
+      "icon": "kitchen ladle",
+      "scene": "child scoops floating rice ball with ladle beside moon rabbit"
+    },
+    {
+      "id": "moon-jar",
+      "name": "ほしのびん",
+      "action": "ほしのびんにあかりをあつめ、くらいところのおにぎりをみつけました。",
+      "icon": "glass jar of glowing stars",
+      "scene": "child lights jar of stars finding rice balls on moon"
+    },
+    {
+      "id": "moon-fan",
+      "name": "うちわ",
+      "action": "うちわであおいで、おにぎりをウサギさんのほうへもどしました。",
+      "icon": "round paper hand fan",
+      "scene": "child fans floating rice ball toward rabbit basket"
+    },
+    {
+      "id": "moon-tongs",
+      "name": "トング",
+      "action": "トングでおにぎりをそっとつまみ、おべんとうにもどしました。",
+      "icon": "kitchen tongs",
+      "scene": "child catches rice ball with tongs on moon"
+    },
+    {
+      "id": "moon-mat",
+      "name": "レジャーシート",
+      "action": "レジャーシートをひろげると、おにぎりがぽすぽすおりてきました。",
+      "icon": "checkered picnic mat",
+      "scene": "children hold picnic mat catching floating rice balls"
+    },
+    {
+      "id": "moon-telescope",
+      "name": "ぼうえんきょう",
+      "action": "ぼうえんきょうで、ほしのうしろのおにぎりをみつけました。",
+      "icon": "small telescope",
+      "scene": "child peers telescope at rice ball behind star moon rabbit"
+    }
+  ],
+  "sea": [
+    {
+      "id": "sea-baton",
+      "name": "しきぼう",
+      "action": "しきぼうをふると、タコさんのてがじゅんばんにうごきました。",
+      "icon": "orchestra conductor baton",
+      "scene": "child conducts octopus orchestra with baton"
+    },
+    {
+      "id": "sea-drum",
+      "name": "たいこ",
+      "action": "たいこでとんとん。タコさんといっしょにリズムをとりました。",
+      "icon": "small red drum",
+      "scene": "child plays red drum octopus orchestra"
+    },
+    {
+      "id": "sea-ribbon",
+      "name": "リボン",
+      "action": "リボンをてにむすんで、タコさんがじぶんのてをみわけました。",
+      "icon": "colorful ribbon bow",
+      "scene": "child ties colored ribbon bows to octopus arms"
+    },
+    {
+      "id": "sea-brush",
+      "name": "ブラシ",
+      "action": "ブラシでかいがらをみがくと、ぴかぴかのこえでうたいだしました。",
+      "icon": "small wooden brush",
+      "scene": "child brushes pink singing seashell beside octopus"
+    },
+    {
+      "id": "sea-bubbles",
+      "name": "しゃぼんだま",
+      "action": "しゃぼんだまをふくと、あわがリズムにあわせておどりました。",
+      "icon": "bubble wand and bottle",
+      "scene": "child blows musical bubbles underwater octopus smiles"
+    },
+    {
+      "id": "sea-triangle",
+      "name": "トライアングル",
+      "action": "トライアングルをちん。おとにあわせて、みんなでえんそうしました。",
+      "icon": "metal musical triangle and beater",
+      "scene": "child plays triangle in octopus orchestra"
+    }
+  ],
+  "snow": [
+    {
+      "id": "snow-scarf",
+      "name": "マフラー",
+      "action": "マフラーをまくと、ゆきだるまさんがぽかぽかのきぶんになりました。",
+      "icon": "red knitted scarf",
+      "scene": "child wraps red scarf on intact snowman in cold tub"
+    },
+    {
+      "id": "snow-bucket",
+      "name": "バケツ",
+      "action": "バケツでつめたいみずをはこび、とけないおふろをつくりました。",
+      "icon": "blue bucket",
+      "scene": "child pours cold water bucket into snowman tub ice visible"
+    },
+    {
+      "id": "snow-ice",
+      "name": "こおり",
+      "action": "こおりをうかべて、ゆきだるまさんもあんしんのおふろにしました。",
+      "icon": "three ice cubes",
+      "scene": "child drops ice cubes into tub with intact snowman"
+    },
+    {
+      "id": "snow-thermometer",
+      "name": "おんどけい",
+      "action": "おんどけいでつめたさをたしかめ、ゆきだるまさんにおしえました。",
+      "icon": "large simple thermometer no text",
+      "scene": "child checks thermometer cold snowman tub"
+    },
+    {
+      "id": "snow-towel",
+      "name": "タオル",
+      "action": "タオルをあたまにのせると、ゆきだるまさんがいいゆだなとわらいました。",
+      "icon": "folded blue towel",
+      "scene": "child puts folded towel on snowman head in icy tub"
+    },
+    {
+      "id": "snow-sled",
+      "name": "そり",
+      "action": "そりでゆきだるまさんをおふろまでつれていきました。",
+      "icon": "small wooden sled",
+      "scene": "children pull snowman on sled toward cold outdoor tub"
+    }
+  ],
+  "garden": [
+    {
+      "id": "garden-watering",
+      "name": "じょうろ",
+      "action": "じょうろのみずでくすぐると、おはながくすくすわらいました。",
+      "icon": "green watering can",
+      "scene": "child waters flower bud friendly ghost giggles"
+    },
+    {
+      "id": "garden-mask",
+      "name": "おめん",
+      "action": "へんてこなおめんをかぶると、おはながわらってひらきました。",
+      "icon": "funny friendly smiling mask",
+      "scene": "child holds silly smiling mask flower laughs ghost smiles"
+    },
+    {
+      "id": "garden-pinwheel",
+      "name": "かざぐるま",
+      "action": "かざぐるまがくるくる。おはなもつられてゆらゆらしました。",
+      "icon": "colorful paper pinwheel",
+      "scene": "child spins pinwheel flower sways ghost happy"
+    },
+    {
+      "id": "garden-mirror",
+      "name": "てかがみ",
+      "action": "てかがみでじぶんのかおをみたおはなが、てれてわらいました。",
+      "icon": "oval handheld mirror",
+      "scene": "child holds mirror to smiling potted flower ghost watches"
+    },
+    {
+      "id": "garden-puppet",
+      "name": "ゆびにんぎょう",
+      "action": "ゆびにんぎょうがこんにちは。おはながぱっとわらいました。",
+      "icon": "small rabbit finger puppet",
+      "scene": "child performs rabbit finger puppet flower opens laughing"
+    },
+    {
+      "id": "garden-rattle",
+      "name": "がらがら",
+      "action": "がらがらをふると、おばけとおはながいっしょにおどりました。",
+      "icon": "wooden baby rattle",
+      "scene": "child shakes rattle ghost and flower dance"
+    }
+  ],
+  "post": [
+    {
+      "id": "post-stamp",
+      "name": "きって",
+      "action": "きってをぺたり。てがみがとどくじゅんびができました。",
+      "icon": "sheet of postage stamps leaf pictures no text",
+      "scene": "child sticks leaf postage stamps on envelopes hedgehog watches"
+    },
+    {
+      "id": "post-clips",
+      "name": "せんたくばさみ",
+      "action": "せんたくばさみでてがみをとめて、かぜにとばされないようにしました。",
+      "icon": "three wooden clothespins",
+      "scene": "child clips envelopes to line between sock houses"
+    },
+    {
+      "id": "post-bag",
+      "name": "ゆうびんかばん",
+      "action": "ゆうびんかばんにてがみをいれ、ひとつずつおうちにとどけました。",
+      "icon": "teal postal satchel with envelope emblem",
+      "scene": "child carries teal mailbag delivering envelopes to sock house"
+    },
+    {
+      "id": "post-crayon",
+      "name": "クレヨン",
+      "action": "クレヨンでおうちのえをかいて、てがみのいきさきをおしえました。",
+      "icon": "three colorful wax crayons",
+      "scene": "child draws sock house pictures on envelope using crayons"
+    },
+    {
+      "id": "post-windmill",
+      "name": "ふうこうけい",
+      "action": "ふうこうけいでかぜのむきをしらべ、とんだてがみをみつけました。",
+      "icon": "small portable arrow weather vane",
+      "scene": "child holds weather vane pointing toward flying envelopes hedgehog searches"
+    },
+    {
+      "id": "post-cart",
+      "name": "ておしぐるま",
+      "action": "ておしぐるまでてがみをはこぶと、ハリネズミさんもらくらくでした。",
+      "icon": "small red wooden handcart",
+      "scene": "child pushes red handcart piled envelopes hedgehog waves at sock houses"
+    }
+  ]
+}

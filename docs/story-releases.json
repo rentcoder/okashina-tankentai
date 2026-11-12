@@ -1,0 +1,11 @@
+[
+  {
+    "dateJST": "2026-11-13",
+    "id": "post",
+    "title": "ハリネズミのくつした郵便",
+    "availableFromJST": "2026-11-14",
+    "status": "validated",
+    "notes": "翌日から新話を先頭にした８話の巡回。追加指示により８冒険固有の48種類の持ち物と結果画像、自動ループ（最終コマ３秒）を同時に実装。",
+    "validation": "npm test: 21 passed; npm run build; mobile equipment 8 menus/48 outcomes; legacy art 8 adventures; flipbook autoplay/loop/3-second final hold"
+  }
+]

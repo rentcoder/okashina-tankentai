@@ -53,13 +53,13 @@ await page.waitForFunction(
   () => document.body.getAttribute("aria-busy") !== "true",
 );
 await page.locator(".profile").click();
-await page.getByRole("button", { name: "🐰 こども" }).click();
+await page.getByRole("button", { name: "こども" }).click();
 await page.locator("[data-action=prepare]").click();
-await page.locator("[data-id=pudding]").click();
+await page.locator("[data-action=choose]").first().click();
 await page.waitForFunction(
   () =>
     document
-      .querySelector("[data-id=pudding]")
+      .querySelector("[data-action=choose]")
       ?.getAttribute("aria-pressed") === "true",
 );
 await page.waitForFunction(

@@ -8,7 +8,7 @@ import {
   legacyAvatars,
 } from "../src/characters.js";
 import { placeIds, treasureImage } from "../src/art.js";
-test("six characters and seven treasures use true alpha cutouts", async () => {
+test("all characters and treasures use true alpha cutouts", async () => {
   for (const path of [
     ...characters.flatMap((c) =>
       Array.from({ length: 8 }, (_, i) => characterImage(c.id, i + 1)),

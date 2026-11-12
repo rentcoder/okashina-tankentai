@@ -1,0 +1,20 @@
+{
+  "id": "post",
+  "generatedDateJST": "2026-11-13",
+  "style": "Original autumn watercolor and cut-paper collage; no named artist imitation",
+  "scenes": "exec-8f724af0-d095-48d1-99ec-5aa8e057279b.png",
+  "outcomes": "exec-370a4f4a-981c-4ae3-9f74-05168f17cfce.png",
+  "flipbook": "exec-5c73eaae-0510-432d-8ece-653700c00ec4.png",
+  "treasure": "exec-5a8b7e00-32b2-4fcf-9bb6-1837b867dafc.png",
+  "layout": "scenes: 2x2 before/after/unused treasure/host; outcomes: 3x2 pudding/umbrella/rope/flute/pillow/banana; flipbook: 3x2 first five; treasure: full alpha cutout",
+  "reproduction": "node scripts/prepare-story-art.mjs docs/story-art/post.json /workspace/generated_images",
+  "itemIds": [
+    "pudding",
+    "umbrella",
+    "rope",
+    "flute",
+    "pillow",
+    "banana"
+  ],
+  "equipmentUpdate": "Current adventure-specific tool icons and outcomes are in docs/equipment-art-sources.json. These initial six legacy scenes remain for compatibility."
+}
