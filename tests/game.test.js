@@ -228,11 +228,18 @@ test("daily results are immutable, personalized, and survive tidying", async () 
   await call("switch", { member: child.id }, a);
   assert.equal(
     (await call("decorate", { slot: 0, treasure: result.treasure }, a)).status,
-    400,
+    200,
   );
-  await call("decorate", { slot: 0, treasure: null }, a);
-  assert.equal((await current(a)).decorations.length, 1);
+  const taken = await current(a);
+  assert.equal(taken.decorations.length, 1);
+  assert.equal(taken.decorations[0].member_id, child.id);
+  assert.deepEqual(taken.adventures, one.adventures);
   await call("switch", { member: first.active }, a);
+  await call("decorate", { slot: 0, treasure: null }, a);
+  assert.equal((await current(a)).decorations[0].member_id, child.id);
+  // Reclaiming a spot changes its owner without changing the diary/collection.
+  await call("decorate", { slot: 0, treasure: result.treasure }, a);
+  assert.equal((await current(a)).decorations[0].member_id, first.active);
   await call("decorate", { slot: 0, treasure: null }, a);
   const clean = await current(a);
   assert.equal(clean.decorations.length, 0);
@@ -261,4 +268,25 @@ test("kanji in authored adventure prose always has ruby", () => {
         /[一-龯々]/,
       );
   }
+});
+
+test("illustrated character changes affect only the active member and preserve diary snapshots", async () => {
+  const a = await create(),
+    b = await create("other family");
+  const before = await current(a),
+    other = await current(b);
+  assert.equal((await call("character", { avatar: "missing" }, a)).status, 400);
+  assert.equal(
+    (await call("character", { avatar: "girl-pink", member: other.active }, a))
+      .status,
+    200,
+  );
+  const changed = await current(a);
+  assert.equal(
+    changed.members.find((m) => m.id === before.active).avatar,
+    "girl-pink",
+  );
+  assert.deepEqual(changed.adventures, before.adventures);
+  assert.deepEqual((await current(b)).members, other.members);
+  assert.equal((await call("character", { avatar: "boy-blue" })).status, 401);
 });

@@ -29,7 +29,7 @@ export function sceneImage(place, phase = "before", item = null) {
 }
 export function treasureImage(place) {
   if (!placeIds.includes(place)) throw new Error("Unknown treasure");
-  return `${root}/${place}/treasure.webp`;
+  return `/art/treasures/v2/${place}.webp`;
 }
 export function hostImage(place) {
   if (!placeIds.includes(place)) throw new Error("Unknown host");

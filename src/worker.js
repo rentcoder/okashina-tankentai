@@ -1,3 +1,4 @@
+import { characters, legacyAvatars } from "./characters.js";
 import { items, places, dayInfo, placeFor, makeAdventure } from "./stories.js";
 const now = () => Math.floor(Date.now() / 1000),
   random = () => crypto.randomUUID() + crypto.randomUUID();
@@ -42,14 +43,14 @@ const json = (data, status = 200, headers = {}) =>
 function fail(message, status = 400) {
   throw Object.assign(new Error(message), { status });
 }
-const avatarList = ["🦊", "🐰", "🐻", "🐱", "🐼", "🐸", "🐨", "🐯"];
+const avatarList = characters.map((c) => c.id);
 function name(s) {
   if (typeof s !== "string" || s.trim().length < 1 || s.trim().length > 16)
     fail("なまえは１〜１６もじにしてね。");
   return s.trim();
 }
 function avatar(a) {
-  return avatarList.includes(a) ? a : "🦊";
+  return [...avatarList, ...legacyAvatars].includes(a) ? a : avatarList[0];
 }
 function pin(p) {
   if (typeof p !== "string" || !/^\d{6,12}$/.test(p))
@@ -362,6 +363,14 @@ async function api(req, env) {
       .run();
     return json({ ok: true });
   }
+  if (path === "/character") {
+    if (!avatarList.includes(b.avatar)) fail("キャラクターをえらんでね。");
+    await db
+      .prepare("UPDATE members SET avatar=? WHERE id=? AND family_id=?")
+      .bind(b.avatar, s.member_id, f.id)
+      .run();
+    return json({ ok: true });
+  }
   if (path === "/decorate") {
     if (!Number.isInteger(b.slot) || b.slot < 0 || b.slot > 7)
       fail("ばしょをえらんでね。");
@@ -390,13 +399,13 @@ async function api(req, env) {
       )
     )
       fail("まだみつけていないたからものです。");
-    const result = await db
+    await db
       .prepare(
-        "INSERT INTO decorations(family_id,slot,member_id,treasure) VALUES(?,?,?,?) ON CONFLICT(family_id,slot) DO UPDATE SET treasure=excluded.treasure WHERE decorations.member_id=excluded.member_id",
+        "INSERT INTO decorations(family_id,slot,member_id,treasure) VALUES(?,?,?,?) ON CONFLICT(family_id,slot) DO UPDATE SET treasure=excluded.treasure,member_id=excluded.member_id",
       )
       .bind(f.id, b.slot, s.member_id, b.treasure)
       .run();
-    if (!result.meta.changes) fail("ここはほかのなかまがかざっています。");
+
     return json({ ok: true });
   }
   parent(s);

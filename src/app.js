@@ -1,3 +1,5 @@
+import { characters, characterFor, characterImage } from "./characters.js";
+import { roomSpots } from "./room.js";
 import { frames, playFlipbook, stopFlipbook } from "./flipbook.js";
 import { sceneImage, treasureImage, hostImage, equipmentImage } from "./art.js";
 import { setupPwa, installApp, isInstalled } from "./pwa.js";
@@ -12,6 +14,7 @@ let catalog,
   scanTimer,
   poll,
   busy = false;
+let roomMotion = true;
 const $ = (s) => document.querySelector(s),
   esc = (s) =>
     String(s ?? "").replace(
@@ -62,14 +65,31 @@ function modal(html) {
     `<button class="close" data-action="close" aria-label="とじる">×</button>${html}`;
   if (!$("#modal").open) $("#modal").showModal();
 }
-function avatars() {
-  return `<label>キャラクター<select name="avatar">${catalog.avatars.map((a) => `<option>${a}</option>`).join("")}</select></label>`;
+function characterArt(value) {
+  return `<img class="character-avatar" src="${characterImage(value)}" alt="" width="64" height="80">`;
+}
+function avatars(selected = characters[0].id) {
+  return `<fieldset class="character-picker"><legend>すきなキャラクターをえらんでね</legend><div>${characters.map((c) => `<label><input type="radio" name="avatar" value="${c.id}" ${characterFor(selected).id === c.id ? "checked" : ""} required><span>${characterArt(c.id)}<small>${c.name}</small></span></label>`).join("")}</div></fieldset>`;
+}
+function roomResidents() {
+  const activities = [
+    "いすで のんびり",
+    "ソファで ひとやすみ",
+    "たからものを ながめている",
+    "たからものを ながめている",
+    "たからものを のぞいている",
+    "ゆかで のんびり",
+    "おへやを ながめている",
+    "かごのそばで ひとやすみ",
+  ];
+  const poses = [2, 6, 4, 4, 4, 6, 4, 2];
+  return `<div class="room-residents" aria-label="おへやのなかま">${state.members.map((m, i) => `<div class="resident resident-${i}" aria-label="${esc(m.name)}：${activities[i]}"><div class="resident-pose"><img class="pose-first" src="${characterImage(m.avatar, poses[i])}" alt="" width="384" height="512"><img class="pose-second" src="${characterImage(m.avatar, poses[i] + 1)}" alt="" width="384" height="512"></div><small>${esc(m.name)}</small></div>`).join("")}</div>`;
 }
 function plain(s) {
   return s.replace(/《[^》]+》/g, "");
 }
 function treasureArt(id) {
-  return `<img class="treasure-image" src="${treasureImage(id)}" alt="${esc(plain(p(id).treasure))}" width="384" height="256" loading="lazy" decoding="async">`;
+  return `<img class="treasure-image" src="${treasureImage(id)}" alt="${esc(plain(p(id).treasure))}" width="384" height="384" loading="lazy" decoding="async">`;
 }
 function equipmentArt(id) {
   return `<img class="equipment-image" src="${equipmentImage(id)}" alt="" width="256" height="256" decoding="async">`;
@@ -99,7 +119,7 @@ function navIcon(id) {
   return `<svg class="nav-art" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${paths[id]}"></path></svg>`;
 }
 function shell(content) {
-  return `<div class="shell"><header><a class="brand" href="/">🧭 <span>${title}<small>ちいさな ぼうけん、おおきな おもいで。</small></span></a>${state ? `<button class="profile" data-action="profiles">${me()?.avatar || "🏡"} <span>${esc(me()?.name)}</span>⌄</button>` : ""}</header>${content}<footer>いっしょにいなくても、いっしょのぼうけん。${!isInstalled() ? '<button class="text" data-action="install">📲 ホームがめんにおく</button>' : ""}<button class="text" data-action="about">このゲームについて</button></footer>${
+  return `<div class="shell"><header><a class="brand" href="/">🧭 <span>${title}<small>ちいさな ぼうけん、おおきな おもいで。</small></span></a>${state ? `<button class="profile" data-action="profiles">${characterArt(me()?.avatar)} <span>${esc(me()?.name)}</span>⌄</button>` : ""}</header>${content}<footer>いっしょにいなくても、いっしょのぼうけん。${!isInstalled() ? '<button class="text" data-action="install">📲 ホームがめんにおく</button>' : ""}<button class="text" data-action="about">このゲームについて</button></footer>${
     state
       ? `<nav aria-label="メニュー">${[
           ["home", "🏡", "おうち"],
@@ -137,16 +157,15 @@ function render() {
 }
 function home() {
   const today = state.adventures.find((a) => a.day === state.day);
-  return `<section class="intro"><div><span class="eyebrow">OUR LITTLE HOME</span><h1>おかえり、${esc(me().name)}。</h1><p>きょうも、みんなとちょっとだけ。</p></div><button class="icon-button" data-action="settings" aria-label="おとなのせってい">⚙</button></section><section class="house-card"><div class="house-heading"><span>🏡 ${esc(state.family.name)}</span><span class="pill">${state.members.length}にんの なかま</span></div><div class="room"><div class="window"><span>☁️</span>☀️</div><div class="wall-note">HOME<br><span>sweet home</span></div><div class="shelves">${Array.from(
-    { length: 8 },
-    (_, slot) => {
-      const d = state.decorations.find((d) => d.slot === slot),
-        owner = d && state.members.find((m) => m.id === d.member_id);
-      return `<button class="shelf-slot ${d ? "filled" : ""}" data-action="slot" data-slot="${slot}" aria-label="${d ? "かざってあるたからもの" : "たからものをかざる"}">${d ? `${treasureArt(d.treasure)}<small>${esc(owner?.name)}</small>` : "<span>＋</span>"}</button>`;
-    },
-  ).join(
-    "",
-  )}</div><div class="family-line">${state.members.map((m) => `<div><span>${m.avatar}</span><small>${esc(m.name)}</small></div>`).join("")}</div><div class="rug"></div></div><p class="card-caption">おきにいりを８こまで。おもいでは、ずっと。</p></section><button type="button" class="daily-card" data-action="${today ? "read-today" : "prepare"}" aria-label="${today ? "きょうのえにっきをよむ" : "ぼうけんのじゅんびをする"}"><img class="daily-icon host-art" src="${hostImage(state.place)}" alt="" width="64" height="64"><span class="daily-copy"><span class="eyebrow">${today ? "きょうのおたより" : "きょうのぼうけん"}</span><span class="daily-title">${r(p(state.place).name)}</span><span class="daily-description">${today ? "えにっきと、たからものがとどいたよ。" : `${state.family.revealHour}じに、みんなのおはなしがとどくよ。`}</span></span><span class="round" aria-hidden="true">↗</span></button><div class="status-row">${state.members.map((m) => `<span>${m.avatar} ${esc(m.name)}<small>${state.choices.some((c) => c.member_id === m.id) ? "🎒 じゅんびできた" : "🌱 のんびりしてる"}</small></span>`).join("")}</div>`;
+  return `<section class="intro"><div><span class="eyebrow">OUR LITTLE HOME</span><h1>おかえり、${esc(me().name)}。</h1><p>きょうも、みんなとちょっとだけ。</p></div><button class="icon-button" data-action="settings" aria-label="おとなのせってい">⚙</button></section><section class="house-card"><div class="house-heading"><span>🏡 ${esc(state.family.name)}</span><span class="pill">${state.members.length}にんの なかま</span></div><div class="storybook-room ${roomMotion ? "" : "motion-paused"}" aria-label="たからものをかざるおへや"><img class="room-backdrop" src="/art/home/room-v1.webp" alt="ひだまりのまど、きのつくえ、とだな、みどりのれいぞうこがあるおへや" width="1024" height="1536">${roomSpots
+    .map((spot, slot) => {
+      const d = state.decorations.find((d) => d.slot === slot);
+      const owner = d && state.members.find((m) => m.id === d.member_id);
+      return `<button class="room-spot ${d ? "filled" : "vacant"}" data-action="slot" data-slot="${slot}" aria-label="${spot.name}：${d ? `${esc(owner?.name)}の${esc(plain(p(d.treasure).treasure))}。おきかえもできるよ` : "たからものをかざる"}">${d ? treasureArt(d.treasure) : '<span class="spot-plus" aria-hidden="true">＋</span>'}<small>${d ? esc(owner?.name) : spot.name}</small></button>`;
+    })
+    .join(
+      "",
+    )}${roomResidents()}</div><button class="text room-motion" data-action="room-motion" aria-pressed="${!roomMotion}">${roomMotion ? "うごきをとめる" : "うごかす"}</button><p class="card-caption">すきなばしょをタップして、たからものをかざろう。<br>ばしょはとりあいっこ。おもいでは、ずっと。</p></section><button type="button" class="daily-card" data-action="${today ? "read-today" : "prepare"}" aria-label="${today ? "きょうのえにっきをよむ" : "ぼうけんのじゅんびをする"}"><img class="daily-icon host-art" src="${hostImage(state.place)}" alt="" width="64" height="64"><span class="daily-copy"><span class="eyebrow">${today ? "きょうのおたより" : "きょうのぼうけん"}</span><span class="daily-title">${r(p(state.place).name)}</span><span class="daily-description">${today ? "えにっきと、たからものがとどいたよ。" : `${state.family.revealHour}じに、みんなのおはなしがとどくよ。`}</span></span><span class="round" aria-hidden="true">↗</span></button><div class="status-row">${state.members.map((m) => `<span>${characterArt(m.avatar)} ${esc(m.name)}<small>${state.choices.some((c) => c.member_id === m.id) ? "🎒 じゅんびできた" : "🌱 のんびりしてる"}</small></span>`).join("")}</div>`;
 }
 function adventure() {
   const place = p(state.place),
@@ -163,7 +182,7 @@ function journal() {
     ),
     months = [...new Set(entries.map((a) => a.day.slice(0, 7)))];
   if (!months.includes(journalMonth)) journalMonth = months[0];
-  return `<section class="intro"><div><span class="eyebrow">OUR ADVENTURE BOOKS</span><h1>${r("絵日記帳《えにっきちょう》")}</h1><p>あのひのぼうけんを、もういちど。</p></div><span class="large-icon">📖</span></section><div class="book-tabs">${state.members.map((m) => `<button data-action="book" data-id="${m.id}" class="${m.id === journalMember ? "selected" : ""}">${m.avatar} ${esc(m.name)}</button>`).join("")}</div>${
+  return `<section class="intro"><div><span class="eyebrow">OUR ADVENTURE BOOKS</span><h1>${r("絵日記帳《えにっきちょう》")}</h1><p>あのひのぼうけんを、もういちど。</p></div><span class="large-icon">📖</span></section><div class="book-tabs">${state.members.map((m) => `<button data-action="book" data-id="${m.id}" class="${m.id === journalMember ? "selected" : ""}">${characterArt(m.avatar)} ${esc(m.name)}</button>`).join("")}</div>${
     entries.length
       ? `<label class="month-label">${r("日付《ひづけ》でえらぶ")}<select id="month">${months.map((m) => `<option ${m === journalMonth ? "selected" : ""}>${m}</option>`).join("")}</select></label><div class="entries">${entries
           .filter((a) => a.day.startsWith(journalMonth))
@@ -198,7 +217,7 @@ function diary(a, mid, sample = false) {
     own = a.participants.find((m) => m.id === mid) || a.participants[0],
     ordered = [own, ...a.participants.filter((m) => m.id !== own.id)];
   modal(
-    `<article class="diary"><span class="eyebrow">${sample ? "サンプルのおはなし" : a.day.replaceAll("-", " / ")}</span><h1>${own.avatar} ${esc(own.name)}のえにっき</h1>${scene(place.id, "after", own.item)}<h2>${r(place.name)}</h2><p>${r(a.intro)}</p>${ordered.map((m) => `<p class="diary-action">${m.item ? equipmentArt(m.item) : ""}<strong>${m.avatar} ${esc(m.name)}</strong>は、${m.item ? r(catalog.items.find((i) => i.id === m.item).action) : "みんなをおうえんしました。"}</p>`).join("")}<p>${r(a.ending)}</p>${resultFlipbook(place.id)}<div class="souvenir">${treasureArt(place.id)}<div><small>みつけたたからもの</small><h2>${r(place.treasure)}</h2></div></div><p class="fine">きょうのぼうけん、だれかにはなしてみよう。</p></article>`,
+    `<article class="diary"><span class="eyebrow">${sample ? "サンプルのおはなし" : a.day.replaceAll("-", " / ")}</span><h1>${characterArt(own.avatar)} ${esc(own.name)}のえにっき</h1>${scene(place.id, "after", own.item)}<h2>${r(place.name)}</h2><p>${r(a.intro)}</p>${ordered.map((m) => `<p class="diary-action">${m.item ? equipmentArt(m.item) : ""}<strong>${characterArt(m.avatar)} ${esc(m.name)}</strong>は、${m.item ? r(catalog.items.find((i) => i.id === m.item).action) : "みんなをおうえんしました。"}</p>`).join("")}<p>${r(a.ending)}</p>${resultFlipbook(place.id)}<div class="souvenir">${treasureArt(place.id)}<div><small>みつけたたからもの</small><h2>${r(place.treasure)}</h2></div></div><p class="fine">きょうのぼうけん、だれかにはなしてみよう。</p></article>`,
   );
 }
 function sample() {
@@ -232,7 +251,7 @@ function requestsHtml() {
     ? state.requests
         .map(
           (q) =>
-            `<div class="request"><p>${q.avatar} ${esc(q.member_id ? state.members.find((m) => m.id === q.member_id)?.name : q.name)} がはいりたいよ</p><div><button class="secondary" data-action="reject" data-id="${q.id}">やめる</button><button class="primary" data-action="approve" data-id="${q.id}">かぞくです</button></div></div>`,
+            `<div class="request"><p>${characterArt(q.avatar)} ${esc(q.member_id ? state.members.find((m) => m.id === q.member_id)?.name : q.name)} がはいりたいよ</p><div><button class="secondary" data-action="reject" data-id="${q.id}">やめる</button><button class="primary" data-action="approve" data-id="${q.id}">かぞくです</button></div></div>`,
         )
         .join("")
     : '<p class="fine">いまは、まっているひとはいません。</p>';
@@ -289,6 +308,14 @@ async function scan() {
   }
 }
 const actions = {
+  "room-motion": () => {
+    roomMotion = !roomMotion;
+    render();
+  },
+  character: () =>
+    modal(
+      `<h1>キャラクターをえらぼう</h1><p>${esc(me().name)}のすがたをかえるよ。</p><form data-form="character">${avatars(me().avatar)}<button class="primary wide">このこにする</button></form>`,
+    ),
   flipbook: playFlipbook,
   install: () => installApp(modal),
   close,
@@ -311,7 +338,7 @@ const actions = {
   },
   profiles: () =>
     modal(
-      `<h1>だれがあそぶ？</h1><div class="profiles">${state.members.map((m) => `<button class="secondary" data-action="switch" data-id="${m.id}" ${!state.shared && m.id !== state.active ? "disabled" : ""}><span>${m.avatar}</span>${esc(m.name)} ${m.id === state.active ? "✓" : ""}</button>`).join("")}</div>${!state.shared ? '<p class="fine">おとなのせっていで、みんなでつかうスマホにできます。</p>' : ""}<button class="text" data-action="settings">⚙ おとなのせってい</button>`,
+      `<h1>だれがあそぶ？</h1><div class="profiles">${state.members.map((m) => `<button class="secondary" data-action="switch" data-id="${m.id}" ${!state.shared && m.id !== state.active ? "disabled" : ""}><span>${characterArt(m.avatar)}</span>${esc(m.name)} ${m.id === state.active ? "✓" : ""}</button>`).join("")}</div>${!state.shared ? '<p class="fine">おとなのせっていで、みんなでつかうスマホにできます。</p>' : ""}<button class="primary wide" data-action="character">じぶんのキャラクターをかえる</button><button class="text" data-action="settings">⚙ おとなのせってい</button>`,
     ),
   switch: async (el) => {
     await api("switch", { member: el.dataset.id });
@@ -339,25 +366,19 @@ const actions = {
   slot: (el) => {
     const slot = Number(el.dataset.slot),
       d = state.decorations.find((d) => d.slot === slot);
-    if (d) {
-      const owner = state.members.find((m) => m.id === d.member_id);
-      modal(
-        `<h1>${treasureArt(d.treasure)} ${r(p(d.treasure).treasure)}</h1><p>${esc(owner?.name)}がかざったよ。</p>${d.member_id === state.active ? `<p>かたづけても、ずかんとえにっきにのこるよ。</p><button class="secondary" data-action="remove" data-slot="${slot}">かざるのをやめる</button>` : "<p>かたづけるときは、かざったなかまにたのんでね。</p>"}`,
-      );
-    } else {
-      modal(
-        `<h1>なにをかざる？</h1>${
-          found().length
-            ? `<div class="items">${found()
-                .map(
-                  (pl) =>
-                    `<button class="item" data-action="decorate" data-slot="${slot}" data-id="${pl.id}">${treasureArt(pl.id)}${r(pl.treasure)}</button>`,
-                )
-                .join("")}</div>`
-            : "<p>ぼうけんからもどると、たからものがふえるよ。</p>"
-        }`,
-      );
-    }
+    const owner = d && state.members.find((m) => m.id === d.member_id);
+    modal(
+      `<span class="eyebrow">おうちのかざりばしょ</span><h1>${roomSpots[slot].name}</h1>${d ? `<div class="souvenir">${treasureArt(d.treasure)}<div>${r(p(d.treasure).treasure)}<p>${esc(owner?.name)}がかざっているよ。</p></div></div><p>ここにかざると、いまのたからものとこうたいするよ。ずかんとえにっきには、ずっとのこるよ。</p>` : "<p>ここに、なにをかざる？</p>"}${
+        found().length
+          ? `<h2>${d ? "じぶんのたからものを、ここにかざる" : "たからものをえらんでね"}</h2><div class="items">${found()
+              .map(
+                (pl) =>
+                  `<button class="item" data-action="decorate" data-slot="${slot}" data-id="${pl.id}">${treasureArt(pl.id)}${r(pl.treasure)}</button>`,
+              )
+              .join("")}</div>`
+          : "<p>ぼうけんからもどると、たからものがふえるよ。</p>"
+      }${d?.member_id === state.active ? `<button class="secondary wide" data-action="remove" data-slot="${slot}">かざるのをやめる</button>` : ""}`,
+    );
   },
   decorate: async (el) => {
     await api("decorate", {
@@ -487,6 +508,12 @@ document.addEventListener("submit", async (e) => {
       await api("unlock", data);
       await refresh();
       settings();
+    }
+    if (kind === "character") {
+      await api("character", data);
+      close();
+      await refresh();
+      toast("あたらしいすがたで、おかえり！");
     }
     if (kind === "member") {
       await api("member", data);

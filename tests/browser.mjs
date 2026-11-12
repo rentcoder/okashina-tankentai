@@ -46,7 +46,7 @@ localSQL(
 );
 await page.getByRole("button", { name: "＋ なかまをつくる" }).click();
 await page.locator("[name=name]").fill("こども");
-await page.locator("select[name=avatar]").selectOption("🐰");
+await page.locator('input[name=avatar][value="girl-yellow"]').check();
 await page.locator("form .primary").click();
 await page.getByRole("button", { name: "🔒 ロックしてとじる" }).click();
 await page.waitForFunction(

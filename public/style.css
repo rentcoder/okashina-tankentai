@@ -1424,3 +1424,308 @@ hr {
   min-height: 1.5em;
   margin-bottom: 0;
 }
+
+.storybook-room {
+  position: relative;
+  width: 100%;
+  max-width: 620px;
+  margin: auto;
+  isolation: isolate;
+}
+.room-backdrop {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.room-spot {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  transform: translate(-50%, -100%);
+  width: 20%;
+  min-height: 44px;
+  padding: 0;
+  background: none;
+  border: none;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+.room-spot .treasure-image {
+  width: 100%;
+  height: auto;
+  margin: 0;
+  mix-blend-mode: multiply;
+  filter: drop-shadow(0 3px 2px #58371733);
+}
+.room-spot small {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #fff9e8ed;
+  color: #4c5037;
+  padding: 2px 6px;
+  border-radius: 12px;
+  font-size: clamp(9px, 2.4vw, 12px);
+  max-width: 125%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.spot-plus {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 3px;
+  border: 1px dashed #786245;
+  border-radius: 50%;
+  background: #fff9e8d9;
+  font-size: 25px;
+  color: #68593e;
+  box-shadow: 0 2px 6px #503a1720;
+}
+.room-spot:hover .spot-plus,
+.room-spot:focus-visible .spot-plus {
+  background: #fff9e8;
+}
+.room-spot:focus-visible {
+  outline: 3px solid #385e48;
+  outline-offset: 4px;
+}
+
+.room-spot[data-slot="0"] {
+  --x: 15%;
+  --y: 32%;
+}
+.room-spot[data-slot="1"] {
+  --x: 78%;
+  --y: 20.5%;
+}
+.room-spot[data-slot="2"] {
+  --x: 44%;
+  --y: 41%;
+}
+.room-spot[data-slot="3"] {
+  --x: 78%;
+  --y: 38.5%;
+}
+.room-spot[data-slot="4"] {
+  --x: 49%;
+  --y: 50%;
+}
+.room-spot[data-slot="5"] {
+  --x: 74%;
+  --y: 59%;
+}
+.room-spot[data-slot="6"] {
+  --x: 30%;
+  --y: 83%;
+}
+.room-spot[data-slot="7"] {
+  --x: 75%;
+  --y: 79.5%;
+}
+.character-avatar {
+  display: inline-block;
+  width: 38px;
+  height: 46px;
+  object-fit: contain;
+  vertical-align: middle;
+}
+.profile .character-avatar {
+  width: 32px;
+  height: 40px;
+}
+.profiles .character-avatar {
+  width: 64px;
+  height: 80px;
+}
+.character-picker {
+  border: 0;
+  padding: 0;
+  margin: 20px 0;
+}
+.character-picker legend {
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+.character-picker > div {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+.character-picker label {
+  margin: 0;
+  position: relative;
+}
+.character-picker input {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  top: 8px;
+  left: 8px;
+  margin: 0;
+  accent-color: #41674e;
+}
+.character-picker label > span {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  border: 2px solid #e2dfcf;
+  border-radius: 18px;
+  padding: 16px 4px 8px;
+  background: #fffdf5;
+  height: 100%;
+}
+.character-picker input:checked + span {
+  background: #e9efdf;
+  border-color: #41674e;
+}
+.character-picker input:focus-visible + span {
+  outline: 3px solid #ba7e3f;
+  outline-offset: 2px;
+}
+.character-picker .character-avatar {
+  width: 100%;
+  height: 110px;
+}
+.character-picker small {
+  font-size: 11px;
+  text-align: center;
+}
+.room-spot {
+  z-index: 3;
+}
+.room-spot .treasure-image {
+  mix-blend-mode: normal;
+  border-radius: 0;
+}
+.room-spot .spot-plus {
+  font-size: 25px;
+  margin-bottom: 3px;
+  display: grid;
+}
+.room-residents {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.resident {
+  position: absolute;
+  width: 24%;
+  transform: translate(-50%, -100%);
+}
+.resident-pose {
+  position: relative;
+  aspect-ratio: 3/4;
+}
+.resident img {
+  display: block;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.resident small {
+  position: absolute;
+  left: 50%;
+  top: 88%;
+  transform: translateX(-50%);
+  background: #fff9e8e8;
+  color: #4c5037;
+  padding: 1px 5px;
+  border-radius: 10px;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 10px;
+}
+.resident-0 {
+  left: 29%;
+  top: 71%;
+}
+.resident-1 {
+  left: 12%;
+  top: 68%;
+}
+.resident-2 {
+  left: 57%;
+  top: 77%;
+}
+.resident-3 {
+  left: 86%;
+  top: 80%;
+}
+.resident-4 {
+  left: 90%;
+  top: 91%;
+}
+.resident-5 {
+  left: 31%;
+  top: 94%;
+}
+.resident-6 {
+  left: 57%;
+  top: 94%;
+}
+.resident-7 {
+  left: 83%;
+  top: 80%;
+}
+.pose-first {
+  animation: pose-first 1.6s steps(1, end) infinite;
+}
+.pose-second {
+  animation: pose-second 1.6s steps(1, end) infinite;
+}
+.resident:nth-child(2n) img {
+  animation-duration: 2.2s;
+}
+.resident:nth-child(3n) img {
+  animation-duration: 2.8s;
+}
+@keyframes pose-first {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+@keyframes pose-second {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+.motion-paused .pose-first {
+  animation: none;
+  opacity: 1;
+}
+.motion-paused .pose-second {
+  animation: none;
+  opacity: 0;
+}
+.room-motion {
+  display: block;
+  margin: 8px auto;
+}
+@media (prefers-reduced-motion: reduce) {
+  .resident .pose-first {
+    animation: none;
+    opacity: 1;
+  }
+  .resident .pose-second {
+    animation: none;
+    opacity: 0;
+  }
+}
