@@ -350,5 +350,49 @@
       "icon": "small red wooden handcart",
       "scene": "child pushes red handcart piled envelopes hedgehog waves at sock houses"
     }
+  ],
+  "stage": [
+    {
+      "id": "stage-spotlight",
+      "name": "スポットライト",
+      "action": "スポットライトをむけると、まいごのかげがまくにうつりました。",
+      "icon": "blue theatre spotlight on stand",
+      "scene": "child aims spotlight at turtle shadow on screen"
+    },
+    {
+      "id": "stage-screen",
+      "name": "しろいまく",
+      "action": "しろいまくをぴんとはって、かげがのびのびおどれるぶたいをつくりました。",
+      "icon": "folded white fabric projection screen",
+      "scene": "children stretch white screen for shadow"
+    },
+    {
+      "id": "stage-rabbit",
+      "name": "かげえのウサギ",
+      "action": "かげえのウサギをぺこり。カメさんのかげも、まねしておじぎしました。",
+      "icon": "black rabbit silhouette on stick",
+      "scene": "child moves rabbit shadow puppet bowing beside turtle shadow"
+    },
+    {
+      "id": "stage-crown",
+      "name": "かみのおうかん",
+      "action": "かみのおうかんをかぶって、かげといっしょにおうさまのポーズをきめました。",
+      "icon": "gold paper crown purple jewel",
+      "scene": "child wears crown with hands on hips, turtle shadow imitates proud royal pose"
+    },
+    {
+      "id": "stage-clapper",
+      "name": "カチンコ",
+      "action": "カチンコをならして、はい、ぺこり！ おじぎのタイミングがぴったりあいました。",
+      "icon": "black white clapperboard no lettering",
+      "scene": "child claps clapperboard as shadow freezes bowing"
+    },
+    {
+      "id": "stage-confetti",
+      "name": "かみふぶき",
+      "action": "かみふぶきをひらひら。かげがおれいのおじぎをすると、ぶたいじゅうがにじいろになりました。",
+      "icon": "open packet colorful confetti",
+      "scene": "child scatters confetti around bowing shadow"
+    }
   ]
 }

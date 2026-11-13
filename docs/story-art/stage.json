@@ -1,0 +1,16 @@
+{
+  "id": "stage",
+  "generatedDateJST": "2026-11-14",
+  "tool": "image_gen",
+  "style": "Original cut-paper silhouettes and chalk pastel texture, purple curtains, honey gold lighting and teal accents; no named artist imitation",
+  "characters": "Friendly olive-green turtle director in purple beret and red bow tie, children in yellow and blue; harmless independent turtle shadow",
+  "scenes": "exec-1b71c7a2-c8f9-4c80-a030-0730a53720df.png",
+  "outcomes": "exec-af212dad-e5e0-472c-b178-6dcd53ef773d.png",
+  "flipbook": "exec-26af3bbc-db1b-4537-945a-3773da17a592.png",
+  "treasure": "exec-ae152306-a6d5-4390-8a8c-ad0e78d98687.png",
+  "layout": "scenes 2x2: confused director with upside-down shadow / family applause at bowing shadows / unused miniature stage / director portrait. outcomes 3x2: spotlight / white screen / rabbit shadow puppet / paper crown / clapperboard / confetti. flipbook 3x2 first five: failed bow / upside-down shadow / children demonstrate / synchronized bow / stage gift; sixth spare.",
+  "treasurePrompt": "Small freestanding wooden theatre with purple curtains, golden star and cream screen; clearly bowing black turtle silhouette inside. Opaque object, transparent surrounding background, no text or cast shadow.",
+  "reproduction": "node scripts/prepare-story-art.mjs docs/story-art/stage.json /workspace/generated_images",
+  "processing": "Crop equal grid cells with 2px inset, resize scenes768/host384/outcomes512/flipbook512, WebP88. Treasure trimmed, contained352 plus16px alpha padding, WebP90. Originals preserved in generated_images. Crown action text follows the generated royal pose.",
+  "equipmentSources": "docs/equipment-art-sources.json: stage"
+}

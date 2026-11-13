@@ -45,7 +45,7 @@ test("each adventure has six distinct illustrated choices and matching outcomes"
 test("new diary snapshots the selected tool while old diaries retain legacy paths", () => {
   const member = { id: "m", name: "こども", avatar: "boy-green" };
   for (let n = 0; n < calendar.at(-1).places.length; n++) {
-    const day = new Date(Date.parse("2026-11-14") + n * 86400000)
+    const day = new Date(Date.parse(calendar.at(-1).from) + n * 86400000)
       .toISOString()
       .slice(0, 10);
     const p = calendar.at(-1).places[n];

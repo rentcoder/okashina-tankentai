@@ -32,5 +32,15 @@
   "moon": {
     "icons": "exec-98a1811f-6d34-47f1-802c-8b8869464171.png",
     "outcomes": "exec-b9154b2a-99ec-475f-b7bd-d10ad1d7ab67.png"
+  },
+  "stage": {
+    "icons": "exec-b3fd3009-e1f3-438c-a0e8-793e8f2dfde7.png",
+    "outcomes": "exec-af212dad-e5e0-472c-b178-6dcd53ef773d.png",
+    "tool": "image_gen",
+    "layout": "3x2 row major: spotlight, screen, rabbit, crown, clapper, confetti",
+    "style": "original cut-paper and pastel storybook props; icons true alpha",
+    "reproduction": "node scripts/prepare-equipment-art.mjs /workspace/generated_images stage",
+    "originalIcons": "exec-5b356ff6-93d5-447e-836b-4465af942171.png",
+    "note": "Image generation edit removed the backdrop to alpha zero, retaining opaque white screen prop."
   }
 }

@@ -58,9 +58,9 @@ try {
     await page
       .locator(".items img")
       .evaluateAll((ns) => Promise.all(ns.map((n) => n.decode())));
-    if (place.id === "post")
+    if (place.id === places.at(-1).id)
       await page.screenshot({
-        path: "test-results/post-equipment.png",
+        path: `test-results/${place.id}-equipment.png`,
         fullPage: true,
       });
     await page.locator("[data-action=tab][data-id=journal]").click();
@@ -78,9 +78,9 @@ try {
       await expect(
         page.locator(".diary-action .equipment-image").first(),
       ).toHaveAttribute("src", equipmentImage(item.id));
-      if (place.id === "post" && i === 1)
+      if (place.id === places.at(-1).id && i === 1)
         await page.screenshot({
-          path: "test-results/post-new-diary.png",
+          path: `test-results/${place.id}-new-diary.png`,
           fullPage: true,
         });
       await page.locator("[data-action=close]").click();
@@ -93,7 +93,7 @@ try {
   }
   assert.deepEqual(errors, []);
   console.log(
-    "Eight story-specific menus and 48 matching illustrated outcomes passed.",
+    `${places.length} story-specific menus and ${places.length * 6} matching illustrated outcomes passed.`,
   );
 } finally {
   await b.close();

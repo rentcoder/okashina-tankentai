@@ -12,5 +12,14 @@
     "cloudflareVersion": "57a69295-e511-4706-810d-83ab932775fc",
     "publishedAt": "2026-11-12T23:49:35.662642+00:00",
     "liveVerification": "113 static files SHA-256 match dist; catalog 8 adventures/54 current and legacy tools; GitHub CI passed"
+  },
+  {
+    "dateJST": "2026-11-14",
+    "id": "stage",
+    "title": "カメのかげっこ劇場",
+    "treasure": "おじぎするかげのぶたい",
+    "availableFromJST": "2026-11-15",
+    "status": "validated",
+    "validation": "npm test: 28 passed; npm run build; mobile 9 menus/54 tool outcomes; 9 flipbooks autoplay, two loops, final 3s, stop/retry/reduced motion; all 21 new assets visually inspected and alpha verified"
   }
 ]

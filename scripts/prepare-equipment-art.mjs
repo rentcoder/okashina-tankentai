@@ -23,6 +23,7 @@ async function crop(file, index) {
 }
 await mkdir("public/art/adventures/v1/equipment", { recursive: true });
 for (const [place, files] of Object.entries(sources)) {
+  if (process.argv[3] && place !== process.argv[3]) continue;
   await mkdir(`public/art/adventures/v1/${place}`, { recursive: true });
   for (const [i, item] of sets[place].entries()) {
     await sharp(await crop(files.icons, i))

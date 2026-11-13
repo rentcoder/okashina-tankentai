@@ -17,14 +17,14 @@ test("all old and prepared dates retain the original seven-place assignment", ()
     );
   }
   assert.equal(placeFor("2026-11-14").id, "post");
-  assert.equal(placeFor("2026-11-22").id, "post");
-  const later = [
-    ...calendar,
-    { from: "2026-12-01", places: ["river", "post"] },
-  ];
+  assert.equal(placeFor("2026-11-22", calendar.slice(0, 2)).id, "post");
+  const nextFrom = new Date(Date.parse(calendar.at(-1).from) + 30 * 86400000)
+    .toISOString()
+    .slice(0, 10);
+  const later = [...calendar, { from: nextFrom, places: ["river", "post"] }];
   for (
     let stamp = Date.parse("2026-11-14");
-    stamp < Date.parse("2026-12-01");
+    stamp < Date.parse(nextFrom);
     stamp += 86400000
   ) {
     const day = new Date(stamp).toISOString().slice(0, 10);
@@ -69,4 +69,35 @@ test("new story snapshots distinct tool-specific actions and ruby", () => {
     makeAdventure("2026-11-14", members, []).participants[0].action,
     null,
   );
+});
+
+// Newly appended versions must leave all previously effective dates unchanged.
+test("each release preserves every date before its activation", () => {
+  for (let i = 1; i < calendar.length; i++) {
+    const before = calendar.slice(0, i),
+      after = calendar.slice(0, i + 1);
+    for (
+      let stamp = Date.parse(calendar[i].from) - 30 * 86400000;
+      stamp < Date.parse(calendar[i].from);
+      stamp += 86400000
+    ) {
+      const day = new Date(stamp).toISOString().slice(0, 10);
+      assert.equal(placeFor(day, before).id, placeFor(day, after).id);
+    }
+    assert.equal(placeFor(calendar[i].from, after).id, calendar[i].places[0]);
+  }
+});
+
+test("release ledger contains only one story per Japanese date and schedules each new story", async () => {
+  const { readFile } = await import("node:fs/promises");
+  const releases = JSON.parse(
+    await readFile("docs/story-releases.json", "utf8"),
+  );
+  assert.equal(new Set(releases.map((r) => r.dateJST)).size, releases.length);
+  assert.equal(new Set(releases.map((r) => r.id)).size, releases.length);
+  for (const release of releases) {
+    assert.ok(release.availableFromJST > release.dateJST);
+    assert.equal(placeFor(release.availableFromJST).id, release.id);
+    assert.ok(places.some((p) => p.id === release.id));
+  }
 });
