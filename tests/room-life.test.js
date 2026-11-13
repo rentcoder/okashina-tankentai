@@ -1,6 +1,12 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { createResidents, advanceResidents } from "../src/room-life.js";
+import {
+  createResidents,
+  advanceResidents,
+  adjacentPositions,
+  syncResidents,
+  residentPositions,
+} from "../src/room-life.js";
 function seeded() {
   let n = 52;
   return () => (n = (n * 1664525 + 1013904223) >>> 0) / 4294967296;
@@ -22,12 +28,15 @@ test("residents act independently; conversations are local pairs and positions r
       assert.ok(p.x >= 10 && p.x <= 92 && p.y >= 65 && p.y <= 96);
       if (p.kind === "chat") {
         const peer = people.find((a) => a.id === p.partner);
-        assert.ok(Math.hypot(p.x - peer.x, (p.y - peer.y) * 1.5) < 30);
+        assert.ok(adjacentPositions(p.position, peer.position));
         partners.add([p.id, peer.id].sort().join("-"));
         conversations++;
       }
     }
-    assert.ok(people.filter((p) => p.kind === "chat").length <= 2);
+    const occupied = people.flatMap((p) =>
+      [p.position, p.destination].filter((id) => id !== null),
+    );
+    assert.equal(new Set(occupied).size, occupied.length);
   }
   assert.deepEqual([...seen].sort(), ["chat", "look", "rest", "walk"]);
   assert.ok(mixed);
@@ -69,4 +78,53 @@ test("six characters have four distinct alpha walking frames at a shared canvas 
     }
     assert.equal(hashes.size, 4);
   }
+});
+
+test("eight residents never share occupied or reserved positions, including arrivals", () => {
+  const random = seeded();
+  let people = createResidents(
+    Array.from({ length: 8 }, (_, i) => ({ id: String(i) })),
+    random,
+  );
+  for (let i = 0; i < 15000; i++) {
+    advanceResidents(people, 0.1, [0, 1, 2, 3, 4, 5, 6, 7], random);
+    const claims = people.flatMap((r) =>
+      [r.position, r.destination].filter((id) => id !== null),
+    );
+    assert.equal(new Set(claims).size, claims.length);
+    for (const r of people)
+      if (r.kind !== "walk") {
+        assert.equal(r.x, residentPositions[r.position].x);
+        assert.equal(r.y, residentPositions[r.position].y);
+      }
+  }
+  const updated = syncResidents(
+    [...people.slice(1).map((r) => ({ id: r.id })), { id: "new" }],
+    people,
+    random,
+  );
+  const claims = updated.flatMap((r) =>
+    [r.position, r.destination].filter((id) => id !== null),
+  );
+  assert.equal(new Set(claims).size, claims.length);
+});
+test("adjacent settled residents start talking; non-neighbors and walkers do not", () => {
+  const people = createResidents(members.slice(0, 2), () => 0.5);
+  people.forEach((r) => (r.wait = 100));
+  advanceResidents(people, 0.1, [], () => 0.5);
+  assert.ok(people.every((r) => r.kind === "chat"));
+  assert.equal(people[0].partner, people[1].id);
+  const apart = createResidents(members.slice(0, 2), () => 0.5);
+  Object.assign(apart[1], { position: 15, x: 87, y: 95 });
+  advanceResidents(apart, 0.1, [], () => 0.5);
+  assert.ok(apart.every((r) => r.kind === "rest"));
+  const moving = createResidents(members.slice(0, 2), () => 0.5);
+  Object.assign(moving[1], {
+    kind: "walk",
+    destination: 5,
+    target: [37, 77],
+    next: "rest",
+  });
+  advanceResidents(moving, 0.1, [], () => 0.5);
+  assert.equal(moving[0].kind, "rest");
 });
