@@ -19,7 +19,11 @@
     "title": "カメのかげっこ劇場",
     "treasure": "おじぎするかげのぶたい",
     "availableFromJST": "2026-11-15",
-    "status": "validated",
-    "validation": "npm test: 28 passed; npm run build; mobile 9 menus/54 tool outcomes; 9 flipbooks autoplay, two loops, final 3s, stop/retry/reduced motion; all 21 new assets visually inspected and alpha verified"
+    "status": "published",
+    "validation": "npm test: 28 passed; npm run build; mobile 9 menus/54 tool outcomes; 9 flipbooks autoplay, two loops, final 3s, stop/retry/reduced motion; all 21 new assets visually inspected and alpha verified",
+    "codeCommit": "2b5255cfe4f6ef163ada41549bb6dc4f313aa7ef",
+    "cloudflareVersion": "937cc1f2-f62f-49d8-a73e-6c6462df5ae0",
+    "publishedAt": "2026-11-13T23:10:25.759250+00:00",
+    "liveVerification": "23 static files SHA-256 match dist (21 new images, app.js, index.html); live catalog 9 adventures/60 current and legacy tools; GitHub CI passed"
   }
 ]
