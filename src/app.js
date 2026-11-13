@@ -1,3 +1,4 @@
+import { mountRoomLife } from "./room-life.js";
 import { itemIdsFor } from "./equipment.js";
 import { characters, characterFor, characterImage } from "./characters.js";
 import { roomSpots } from "./room.js";
@@ -16,6 +17,7 @@ let catalog,
   poll,
   busy = false;
 let roomMotion = true;
+let stopRoomLife = () => {};
 const $ = (s) => document.querySelector(s),
   esc = (s) =>
     String(s ?? "").replace(
@@ -76,18 +78,7 @@ function avatars(selected = characters[0].id) {
   return `<fieldset class="character-picker"><legend>すきなキャラクターをえらんでね</legend><div>${characters.map((c) => `<label><input type="radio" name="avatar" value="${c.id}" ${characterFor(selected).id === c.id ? "checked" : ""} required><span>${characterArt(c.id)}<small>${c.name}</small></span></label>`).join("")}</div></fieldset>`;
 }
 function roomResidents() {
-  const activities = [
-    "いすで のんびり",
-    "ソファで ひとやすみ",
-    "たからものを ながめている",
-    "たからものを ながめている",
-    "たからものを のぞいている",
-    "ゆかで のんびり",
-    "おへやを ながめている",
-    "かごのそばで ひとやすみ",
-  ];
-  const poses = [2, 6, 4, 4, 4, 6, 4, 2];
-  return `<div class="room-residents" aria-label="おへやのなかま">${state.members.map((m, i) => `<div class="resident resident-${i} ${i % 2 ? "partner-right" : "partner-left"} ${state.members[i ^ 1] ? "has-partner" : ""}" style="--meet-x:${state.members.length > 4 ? 18 + (Math.floor(i / 2) % 2) * 46 + (i % 2) * 20 : i % 2 ? 68 : 36}%;--meet-y:${state.members.length > 4 ? 77 + Math.floor(i / 4) * 19 : 77 + Math.floor(i / 2) * 19}%;${state.members.length > 4 ? "width:19%;" : ""}" aria-label="${esc(m.name)}：${activities[i]}、おへやをおさんぽ${state.members[i ^ 1] ? "、なかまとおしゃべり" : ""}"><div class="resident-pose"><img class="pose-first" src="${characterImage(m.avatar, poses[i])}" alt="" width="384" height="512"><img class="pose-second" src="${characterImage(m.avatar, poses[i] + 1)}" alt="" width="384" height="512"></div><div class="resident-walking"><img src="${characterImage(m.avatar, 1)}" alt="" width="384" height="512"></div>${state.members[i ^ 1] ? '<span class="resident-chat" aria-hidden="true">♪</span>' : ""}<small>${esc(m.name)}</small></div>`).join("")}</div>`;
+  return `<div class="room-residents" aria-label="おへやのなかま">${state.members.map((m, i) => `<div class="resident resident-${i}" style="${state.members.length > 4 ? "width:19%;" : ""}"><div class="resident-pose"><img src="${characterImage(m.avatar)}" alt="" width="384" height="512"></div><span class="resident-chat" aria-hidden="true">♪</span><small>${esc(m.name)}</small></div>`).join("")}</div>`;
 }
 function plain(s) {
   return s.replace(/《[^》]+》/g, "");
@@ -150,6 +141,7 @@ async function refresh() {
   render();
 }
 function render() {
+  stopRoomLife();
   if (!state) return landing();
   const views = {
     home: home,
@@ -158,6 +150,12 @@ function render() {
     collection: collection,
   };
   $("#app").innerHTML = shell(`<main>${views[tab]()}</main>`);
+  stopRoomLife = mountRoomLife(
+    $(".room-residents"),
+    state.members,
+    state.decorations,
+    roomMotion,
+  );
 }
 function home() {
   const today = state.adventures.find((a) => a.day === state.day);

@@ -1,0 +1,15 @@
+{
+  "generatedDateJST": "2026-11-14",
+  "tool": "image_gen",
+  "reference": "Existing six character frame-1 images, arranged into one reference strip; originals in docs/home-art-sources.json",
+  "prompt": "Match each reference character. Four full-body side-profile walking poses facing right in a 2x2 grid: left stride, passing right knee, right stride, passing left knee. Original watercolor picture-book rendering. Fully transparent background, consistent proportions and ground baseline, no text.",
+  "processing": "scripts/prepare-walk-art.mjs: crop 2x2 with 3px grid inset, trim transparent margins, one shared scale per character, center and align feet at y=368 on 288x384 transparent canvases, WebP quality90. Original sheets preserved in generated_images. Left walking mirrors these right-facing frames at runtime.",
+  "sources": {
+    "boy-green": "exec-3f458fd1-61a8-4b5b-98b6-e4729dde2998.png",
+    "boy-blue": "exec-0e425284-d17e-4207-acd1-b6d4ad53eef9.png",
+    "boy-red": "exec-19776fde-0c49-4185-b176-fae1d0cbc81b.png",
+    "girl-yellow": "exec-361622c8-2b24-4ccf-a73b-5f0217deb3d1.png",
+    "girl-pink": "exec-a5475b14-c1d5-4fd2-b81a-429b98527985.png",
+    "girl-mint": "exec-1d631783-9372-4499-b92a-09e52375e182.png"
+  }
+}
