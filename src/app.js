@@ -87,7 +87,7 @@ function roomResidents() {
     "かごのそばで ひとやすみ",
   ];
   const poses = [2, 6, 4, 4, 4, 6, 4, 2];
-  return `<div class="room-residents" aria-label="おへやのなかま">${state.members.map((m, i) => `<div class="resident resident-${i}" aria-label="${esc(m.name)}：${activities[i]}"><div class="resident-pose"><img class="pose-first" src="${characterImage(m.avatar, poses[i])}" alt="" width="384" height="512"><img class="pose-second" src="${characterImage(m.avatar, poses[i] + 1)}" alt="" width="384" height="512"></div><small>${esc(m.name)}</small></div>`).join("")}</div>`;
+  return `<div class="room-residents" aria-label="おへやのなかま">${state.members.map((m, i) => `<div class="resident resident-${i} ${i % 2 ? "partner-right" : "partner-left"} ${state.members[i ^ 1] ? "has-partner" : ""}" style="--meet-x:${state.members.length > 4 ? 18 + (Math.floor(i / 2) % 2) * 46 + (i % 2) * 20 : i % 2 ? 68 : 36}%;--meet-y:${state.members.length > 4 ? 77 + Math.floor(i / 4) * 19 : 77 + Math.floor(i / 2) * 19}%;${state.members.length > 4 ? "width:19%;" : ""}" aria-label="${esc(m.name)}：${activities[i]}、おへやをおさんぽ${state.members[i ^ 1] ? "、なかまとおしゃべり" : ""}"><div class="resident-pose"><img class="pose-first" src="${characterImage(m.avatar, poses[i])}" alt="" width="384" height="512"><img class="pose-second" src="${characterImage(m.avatar, poses[i] + 1)}" alt="" width="384" height="512"></div><div class="resident-walking"><img src="${characterImage(m.avatar, 1)}" alt="" width="384" height="512"></div>${state.members[i ^ 1] ? '<span class="resident-chat" aria-hidden="true">♪</span>' : ""}<small>${esc(m.name)}</small></div>`).join("")}</div>`;
 }
 function plain(s) {
   return s.replace(/《[^》]+》/g, "");
@@ -165,7 +165,7 @@ function home() {
     .map((spot, slot) => {
       const d = state.decorations.find((d) => d.slot === slot);
       const owner = d && state.members.find((m) => m.id === d.member_id);
-      return `<button class="room-spot ${d ? "filled" : "vacant"}" data-action="slot" data-slot="${slot}" aria-label="${spot.name}：${d ? `${esc(owner?.name)}の${esc(plain(p(d.treasure).treasure))}。おきかえもできるよ` : "たからものをかざる"}">${d ? treasureArt(d.treasure) : '<span class="spot-plus" aria-hidden="true">＋</span>'}<small>${d ? esc(owner?.name) : spot.name}</small></button>`;
+      return `<button class="room-spot ${d ? "filled" : "vacant"}" data-action="slot" data-slot="${slot}" aria-label="${spot.name}：${d ? `${esc(owner?.name)}の${esc(plain(p(d.treasure).treasure))}。おきかえもできるよ` : "たからものをかざる"}">${d ? treasureArt(d.treasure) : '<span class="spot-plus" aria-hidden="true">＋</span>'}${d ? `<small class="decoration-credit"><span>${esc(owner?.name)}</span>がかざった</small>` : ""}</button>`;
     })
     .join(
       "",
