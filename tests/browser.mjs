@@ -98,10 +98,12 @@ await page.locator(".profile").click();
 await page.getByRole("button", { name: "⚙ おとなのせってい" }).click();
 await page.locator("[name=pin]").fill("123456");
 await page.locator("form .primary").click();
-await page.getByRole("button", { name: "▦ QRでしょうたいする" }).click();
+await page.getByRole("button", { name: "リンク・QRでしょうたいする" }).click();
 await page.locator("form .primary").click();
 await page.locator("#invite-link").waitFor();
 const invite = await page.locator("#invite-link").inputValue();
+await page.getByText("QRでよみこむ", { exact: true }).click();
+await page.locator(".qr").evaluate(img => img.decode());
 const pixels = await page.locator(".qr").evaluate((img) => {
   const c = document.createElement("canvas");
   c.width = img.naturalWidth;

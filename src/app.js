@@ -50,6 +50,18 @@ async function api(path, data) {
     });
   return result;
 }
+async function copyInviteLink() {
+  const input = $("#invite-link");
+  try {
+    await navigator.clipboard.writeText(input.value);
+    toast("リンクをコピーしたよ。");
+  } catch {
+    input.focus();
+    input.select();
+    input.setSelectionRange(0, input.value.length);
+    toast("リンクをながくおして、コピーしてね。");
+  }
+}
 function toast(s) {
   $("#toast").textContent = s;
   $("#toast").classList.add("show");
@@ -133,7 +145,7 @@ function shell(content) {
 function landing() {
   state = null;
   $("#app").innerHTML = shell(
-    `<main class="welcome"><span class="eyebrow">１にち５ふんの、かぞくのじかん</span><h1>きょうは、どんな<br>ぼうけんだった？</h1><p>みんなのもちものが、おはなしになる。<br>たからものと、おもいでをもちかえろう。</p><picture class="storybook-hero"><source type="image/webp" srcset="/art/family-adventure-768.webp 768w, /art/family-adventure-1536.webp 1536w" sizes="(max-width: 600px) calc(100vw - 40px), 700px"><img src="/art/family-adventure-1536.webp" alt="かわのほとりで、カエルとたからものをみつけた４にんのかぞく" width="1536" height="1024" fetchpriority="high" decoding="async"></picture><div class="welcome-actions"><button class="primary" data-action="create">🏡 おうちをつくる</button><button class="secondary" data-action="join">📷 しょうたいをよみこむ</button></div><button class="text" data-action="sample">📖 えにっきのサンプルをよむ</button><p class="fine">むりょう・こうこくなし・おとなといっしょにはじめてね</p></main>`,
+    `<main class="welcome"><span class="eyebrow">１にち５ふんの、かぞくのじかん</span><h1>きょうは、どんな<br>ぼうけんだった？</h1><p>みんなのもちものが、おはなしになる。<br>たからものと、おもいでをもちかえろう。</p><picture class="storybook-hero"><source type="image/webp" srcset="/art/family-adventure-768.webp 768w, /art/family-adventure-1536.webp 1536w" sizes="(max-width: 600px) calc(100vw - 40px), 700px"><img src="/art/family-adventure-1536.webp" alt="かわのほとりで、カエルとたからものをみつけた４にんのかぞく" width="1536" height="1024" fetchpriority="high" decoding="async"></picture><div class="welcome-actions"><button class="primary" data-action="create">🏡 おうちをつくる</button><button class="secondary" data-action="join">リンク・QRでおうちにはいる</button></div><button class="text" data-action="sample">📖 えにっきのサンプルをよむ</button><p class="fine">むりょう・こうこくなし・おとなといっしょにはじめてね</p></main>`,
   );
 }
 async function refresh() {
@@ -261,7 +273,7 @@ function settings() {
       `<h1>おとなのせってい</h1><p>あんしょうばんごうをいれてね。</p><form data-form="unlock"><label>あんしょうばんごう<input name="pin" type="password" inputmode="numeric" pattern="[0-9]{6,12}" required autocomplete="off"></label><button class="primary">ひらく</button></form>`,
     );
   modal(
-    `<h1>おとなのせってい</h1><p class="fine">１０ぷんで、じどうでロックされます。</p><div class="settings-list"><button class="secondary" data-action="add-member">＋ なかまをつくる</button><button class="secondary" data-action="invite">▦ QRでしょうたいする</button><button class="secondary" data-action="toggle-shared">${state.shared ? "✓ みんなでつかうスマホ" : "ひとりでつかうスマホ"}<small>タップできりかえ</small></button></div><h2>しょうたいのかくにん</h2><div id="requests">${requestsHtml()}</div><hr><button class="text" data-action="revoke-invites">しょうたいをすべてとりけす</button><button class="text danger" data-action="revoke-devices">ほかのスマホとのせつぞくをきる</button><button class="primary wide" data-action="lock">🔒 ロックしてとじる</button>`,
+    `<h1>おとなのせってい</h1><p class="fine">１０ぷんで、じどうでロックされます。</p><div class="settings-list"><button class="secondary" data-action="add-member">＋ なかまをつくる</button><button class="secondary" data-action="invite">リンク・QRでしょうたいする</button><button class="secondary" data-action="toggle-shared">${state.shared ? "✓ みんなでつかうスマホ" : "ひとりでつかうスマホ"}<small>タップできりかえ</small></button></div><h2>しょうたいのかくにん</h2><div id="requests">${requestsHtml()}</div><hr><button class="text" data-action="revoke-invites">しょうたいをすべてとりけす</button><button class="text danger" data-action="revoke-devices">ほかのスマホとのせつぞくをきる</button><button class="primary wide" data-action="lock">🔒 ロックしてとじる</button>`,
   );
 }
 function requestsHtml() {
@@ -276,7 +288,7 @@ function requestsHtml() {
 }
 function joinForm(token = "") {
   modal(
-    `<h1>おうちにいこう</h1><p>おとなのスマホのQRをよみこんでね。</p>${token ? "" : '<button class="secondary wide" data-action="scan">📷 カメラでよみこむ</button><video id="camera" playsinline muted hidden></video>'}<form data-form="join"><label>しょうたいリンク<input name="token" value="${esc(token)}" required autocomplete="off" placeholder="リンクをはりつける"></label><label>なまえ<input name="name" maxlength="16" required placeholder="ニックネームでいいよ"></label>${avatars()}<button class="primary wide">おうちにはいる</button></form><p class="fine">すでにいるなかまのしょうたいなら、<br>もとのなまえとキャラクターをつかいます。</p>`,
+    `<h1>おうちにいこう</h1><p>もらったリンクをひらくか、はりつけてね。QRでもはいれるよ。</p>${token ? "" : '<button class="secondary wide" data-action="scan">📷 カメラでよみこむ</button><video id="camera" playsinline muted hidden></video>'}<form data-form="join"><label>しょうたいリンク<input name="token" value="${esc(token)}" required autocomplete="off" placeholder="リンクをはりつける"></label><label>なまえ<input name="name" maxlength="16" required placeholder="ニックネームでいいよ"></label>${avatars()}<button class="primary wide">おうちにはいる</button></form><p class="fine">すでにいるなかまのしょうたいなら、<br>もとのなまえとキャラクターをつかいます。</p>`,
   );
 }
 function stopCamera() {
@@ -435,7 +447,7 @@ const actions = {
     ),
   invite: () =>
     modal(
-      `<h1>QRでしょうたい</h1><form data-form="invite"><label>だれのスマホ？<select name="member"><option value="">あたらしいなかま</option>${state.members.map((m) => `<option value="${m.id}">${esc(m.name)}のつづきから</option>`).join("")}</select></label><button class="primary">QRをつくる</button></form><p class="fine">１０ぷん・１かいだけつかえます。<br>よみこんだあと、おとながかくにんします。</p>`,
+      `<h1>かぞくをしょうたい</h1><p>リンクをおくるか、QRをよみこんでもらおう。</p><form data-form="invite"><label>だれのスマホ？<select name="member"><option value="">あたらしいなかま</option>${state.members.map((m) => `<option value="${m.id}">${esc(m.name)}のつづきから</option>`).join("")}</select></label><button class="primary">しょうたいをつくる</button></form><p class="fine">１０ぷん・１かいだけつかえます。<br>よみこんだあと、おとながかくにんします。</p>`,
     ),
   "toggle-shared": async () => {
     await api("shared", { shared: !state.shared });
@@ -460,7 +472,7 @@ const actions = {
   },
   "revoke-devices": () =>
     modal(
-      '<h1>ほかのスマホをはずす？</h1><p>このスマホだけがのこります。<br>ほかのスマホは、QRでしょうたいしなおせます。<br>えにっきやたからものはきえません。</p><button class="primary" data-action="confirm-revoke">せつぞくをきる</button>',
+      '<h1>ほかのスマホをはずす？</h1><p>このスマホだけがのこります。<br>ほかのスマホは、リンクやQRでしょうたいしなおせます。<br>えにっきやたからものはきえません。</p><button class="primary" data-action="confirm-revoke">せつぞくをきる</button>',
     ),
   "confirm-revoke": async () => {
     await api("revoke-devices", {});
@@ -474,8 +486,19 @@ const actions = {
     await refresh();
   },
   copy: async () => {
-    await navigator.clipboard.writeText($("#invite-link").value);
-    toast("リンクをコピーしたよ。");
+    await copyInviteLink();
+  },
+  "share-invite": async () => {
+    if (!navigator.share) return copyInviteLink();
+    try {
+      await navigator.share({
+        title: "おかしな探検隊へのしょうたい",
+        text: "いっしょのおうちで、ぼうけんしよう。",
+        url: $("#invite-link").value,
+      });
+    } catch (error) {
+      if (error.name !== "AbortError") await copyInviteLink();
+    }
   },
   about: () =>
     modal(
@@ -545,9 +568,9 @@ document.addEventListener("submit", async (e) => {
           width: 280,
           margin: 2,
           color: { dark: "#304f40", light: "#fffdf7" },
-        });
+        }).catch(() => null);
       modal(
-        `<h1>かぞくをしょうたい</h1><img class="qr" src="${qr}" alt="しょうたいのQRコード"><p>１０ぷんだけ・１かいだけのしょうたいです。<br>カメラでよみこむか、リンクをわたしてね。</p><input id="invite-link" readonly value="${esc(url)}" aria-label="しょうたいリンク"><button class="secondary" data-action="copy">リンクをコピー</button><button class="primary" data-action="settings">よみこめたら、かくにんする</button>`,
+        `<h1>かぞくをしょうたい</h1><p>リンクをかぞくにおくってね。<br>ひらくと、さんかのがめんにすすみます。</p><button class="primary wide" data-action="share-invite">リンクをおくる</button><label>しょうたいリンク<input id="invite-link" readonly value="${esc(url)}" aria-label="しょうたいリンク"></label><button class="secondary wide" data-action="copy">リンクをコピー</button><p class="fine">１０ぷん・１かいだけつかえます。<br>さんかのあと、おとなのかくにんがひつようです。</p>${qr ? `<details><summary>QRでよみこむ</summary><img class="qr" src="${qr}" alt="しょうたいのQRコード"></details>` : ""}<button class="primary wide" data-action="settings">さんかのリクエストをかくにん</button>`,
       );
     }
     if (kind === "join") {
