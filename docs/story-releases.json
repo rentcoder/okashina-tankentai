@@ -32,7 +32,11 @@
     "title": "ネズミのくしゃみ時計店",
     "treasure": "くしゃみするめざましどけい",
     "availableFromJST": "2026-11-16",
-    "status": "validated",
-    "validation": "npm test: 28 passed; npm run build; mobile 10 menus/60 tool outcomes; 10 flipbooks autoplay, two loops, final 3s, stop/close/retry/reduced motion; all 21 new assets visually inspected and alpha verified"
+    "status": "published",
+    "validation": "npm test: 28 passed; npm run build; mobile 10 menus/60 tool outcomes; 10 flipbooks autoplay, two loops, final 3s, stop/close/retry/reduced motion; all 21 new assets visually inspected and alpha verified",
+    "codeCommit": "81be9bbcfda0fc8f2f599049f0e7bf93bed943f5",
+    "cloudflareVersion": "ba2e3b4f-f7e5-4946-b8d2-bd64df8994dc",
+    "publishedAt": "2026-11-15T23:53:15.469597+00:00",
+    "liveVerification": "23 static files SHA-256 match dist (21 new images, app.js, root HTML); live catalog 10 adventures/66 current and legacy tools; GitHub CI passed"
   }
 ]
