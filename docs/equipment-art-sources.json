@@ -42,5 +42,13 @@
     "reproduction": "node scripts/prepare-equipment-art.mjs /workspace/generated_images stage",
     "originalIcons": "exec-5b356ff6-93d5-447e-836b-4465af942171.png",
     "note": "Image generation edit removed the backdrop to alpha zero, retaining opaque white screen prop."
+  },
+  "clock": {
+    "icons": "exec-5f7179cd-eb68-4aa6-9dbe-218eb687c955.png",
+    "outcomes": "exec-f58528f5-12d3-42d9-95f5-0c44ec4d3a0c.png",
+    "tool": "image_gen",
+    "layout": "3x2 row major: key, hourglass, oilcan, tweezers, blower, earmuffs",
+    "style": "original comic gouache and pencil; icons true alpha",
+    "reproduction": "node scripts/prepare-equipment-art.mjs /workspace/generated_images clock"
   }
 }

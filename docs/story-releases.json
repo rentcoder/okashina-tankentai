@@ -25,5 +25,14 @@
     "cloudflareVersion": "937cc1f2-f62f-49d8-a73e-6c6462df5ae0",
     "publishedAt": "2026-11-13T23:10:25.759250+00:00",
     "liveVerification": "23 static files SHA-256 match dist (21 new images, app.js, index.html); live catalog 9 adventures/60 current and legacy tools; GitHub CI passed"
+  },
+  {
+    "dateJST": "2026-11-15",
+    "id": "clock",
+    "title": "ネズミのくしゃみ時計店",
+    "treasure": "くしゃみするめざましどけい",
+    "availableFromJST": "2026-11-16",
+    "status": "validated",
+    "validation": "npm test: 28 passed; npm run build; mobile 10 menus/60 tool outcomes; 10 flipbooks autoplay, two loops, final 3s, stop/close/retry/reduced motion; all 21 new assets visually inspected and alpha verified"
   }
 ]

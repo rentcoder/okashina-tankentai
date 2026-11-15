@@ -1,0 +1,15 @@
+{
+  "id": "clock",
+  "generatedDateJST": "2026-11-15",
+  "tool": "image_gen",
+  "style": "Original comic gouache and colored-pencil picture book, warm winter clock workshop, turquoise walls, brass and coral accents; no named artist imitation",
+  "characters": "Friendly gray mouse clockmaker with round glasses and blue apron; girl in orange cardigan, boy in green sweater; expressive sneezing brass alarm clocks",
+  "scenes": "exec-4764f170-47e2-4002-a5c5-a4d1a06f0c61.png",
+  "treasure": "exec-2b393fd6-8d99-48f9-8604-b5c024bc9906.png",
+  "layout": "scenes 2x2: before sneezing shop / after happy ticking clocks / unused treasure / host. Outcomes 3x2: key / hourglass / oilcan / tweezers / blower / earmuffs. Flipbook 3x2 first five chronological frames, sixth spare.",
+  "reproduction": "node scripts/prepare-story-art.mjs docs/story-art/clock.json /workspace/generated_images",
+  "processing": "Equal grid crop with2px inset; scenes768, host384, outcomes512, flipbook512, WebP88. Treasure alpha trim, contained352 with16px transparent padding, WebP90. Original sheets retained in generated_images.",
+  "equipmentSources": "docs/equipment-art-sources.json: clock",
+  "outcomes": "exec-f58528f5-12d3-42d9-95f5-0c44ec4d3a0c.png",
+  "flipbook": "exec-912e5a92-ac59-446d-be6f-df8a0424e815.png"
+}

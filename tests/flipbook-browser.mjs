@@ -88,7 +88,7 @@ try {
   );
   await page.locator("[data-action=flipbook]").click();
   await expect(page.locator("[data-flipbook] [role=status]")).toHaveText("");
-  await page.clock.runFor(500);
+  await page.clock.runFor(frames(place.id)[0].duration);
   await expect(page.locator("[data-flipbook] img")).toHaveAttribute(
     "src",
     frames(place.id)[1].src,

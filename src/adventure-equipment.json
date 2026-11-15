@@ -394,5 +394,49 @@
       "icon": "open packet colorful confetti",
       "scene": "child scatters confetti around bowing shadow"
     }
+  ],
+  "clock": [
+    {
+      "id": "clock-key",
+      "name": "ぜんまいのかぎ",
+      "action": "ぜんまいのかぎをくるり。とけいがめをさまして、げんきにこちこちいいました。",
+      "icon": "brass butterfly winding key",
+      "scene": "child winds key in clock back, clock wakes smiling"
+    },
+    {
+      "id": "clock-hourglass",
+      "name": "すなどけい",
+      "action": "すなどけいのすなをみながら、こち、こち。とけいとゆっくりじかんをかぞえました。",
+      "icon": "red wooden hourglass gold sand",
+      "scene": "child and mouse measure ticks with hourglass"
+    },
+    {
+      "id": "clock-oilcan",
+      "name": "あぶらさし",
+      "action": "あぶらさしで、はぐるまにぽとり。ぎくしゃくしていたとけいが、なめらかにうごきました。",
+      "icon": "red oilcan long spout",
+      "scene": "child puts one oil drop on open clock gear"
+    },
+    {
+      "id": "clock-tweezers",
+      "name": "ピンセット",
+      "action": "ピンセットで、ほこりをひとつまみ。とけいのくすぐったいところが、すっきりしました。",
+      "icon": "brass tweezers holding white fluff",
+      "scene": "child pulls dust fluff out of open clock gear"
+    },
+    {
+      "id": "clock-blower",
+      "name": "ブロワー",
+      "action": "ブロワーをぷしゅっ。ほこりがふわりととんで、はぐるまがぴかぴかになりました。",
+      "icon": "blue rubber air blower with nozzle",
+      "scene": "child squeezes blower to gently puff dust off gears"
+    },
+    {
+      "id": "clock-earmuffs",
+      "name": "みみあて",
+      "action": "みみあてをつけて、はっくしょんをきいてみました。おおきなくしゃみも、もこもこのむこうでかわいいおと。",
+      "icon": "fluffy coral earmuffs with arch headband",
+      "scene": "child wearing earmuffs enjoys clock sneeze mouse smiles"
+    }
   ]
 }
