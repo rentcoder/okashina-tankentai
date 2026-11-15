@@ -48,7 +48,14 @@ try {
       ],
     };
     await page.goto("http://127.0.0.1:8788");
+    await page.locator("[data-action=prepare]").scrollIntoViewIfNeeded();
+    assert.ok(await page.evaluate(() => scrollY > 0));
     await page.locator("[data-action=prepare]").click();
+    const hero = page.locator(".adventure-card .story-scene img");
+    await hero.evaluate(img => img.decode());
+    const bounds = await hero.boundingBox();
+    assert.ok(bounds.y >= -2 && bounds.y < 20, "adventure opens at its illustration");
+    await expect(hero).toHaveAttribute("src", sceneImage(place.id));
     assert.deepEqual(
       await page
         .locator("[data-action=choose]")

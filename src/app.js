@@ -365,6 +365,7 @@ const actions = {
   prepare: () => {
     tab = "adventure";
     render();
+    $(".adventure-card").scrollIntoView({ block: "start", behavior: "instant" });
   },
   profiles: () =>
     modal(
