@@ -45,7 +45,11 @@
     "title": "モグラのさかさま図書館",
     "treasure": "さかだちするほん",
     "distribution": "family-unseen-stock",
-    "status": "validated",
-    "validation": "npm test: 30 passed; npm run build; mobile 11 menus/66 tool outcomes; 11 flipbooks autoplay, two loops, final 3s, stop/close/retry/reduced motion; 21 new assets visually inspected and alpha verified; family unseen stock and existing assignments preserved"
+    "status": "published",
+    "validation": "npm test: 30 passed; npm run build; mobile 11 menus/66 tool outcomes; 11 flipbooks autoplay, two loops, final 3s, stop/close/retry/reduced motion; 21 new assets visually inspected and alpha verified; family unseen stock and existing assignments preserved",
+    "codeCommit": "47f57d13ee04d8cd98429a2c535999a5b8cad6c5",
+    "cloudflareVersion": "f114f221-5c84-4a63-9885-90821a446408",
+    "publishedAt": "2026-11-16T23:18:16.302268+00:00",
+    "liveVerification": "23 static files SHA-256 match dist (21 new images, app.js, root HTML); live catalog 11 adventures/72 current and legacy tools; GitHub CI passed"
   }
 ]
