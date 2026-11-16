@@ -438,5 +438,37 @@
       "icon": "fluffy coral earmuffs with arch headband",
       "scene": "child wearing earmuffs enjoys clock sneeze mouse smiles"
     }
+  ],
+  "library": [
+    {
+      "id": "library-stand",
+      "name": "しょけんだい",
+      "action": "しょけんだいをくるりとかたむけて、さかさまのえをみんなにみせました。"
+    },
+    {
+      "id": "library-bookmark",
+      "name": "しおり",
+      "action": "あかいしおりをはさんで、ほんがさかだちしてもつづきのページをみつけました。"
+    },
+    {
+      "id": "library-stool",
+      "name": "ふみだい",
+      "action": "ふみだいにのぼって、たかいたなでさかだちしていたほんをむかえにいきました。"
+    },
+    {
+      "id": "library-labels",
+      "name": "やじるしシール",
+      "action": "やじるしシールをぺたり。どっちがうえか、ほんたちといっしょにたしかめました。"
+    },
+    {
+      "id": "library-gloves",
+      "name": "しろいてぶくろ",
+      "action": "しろいてぶくろでほんをそっとなでたら、くすぐったくてほんがくすくすわらいました。"
+    },
+    {
+      "id": "library-bookends",
+      "name": "ブックエンド",
+      "action": "ブックエンドではさんだら、ほんがぐらぐらせずにさかだちできました。"
+    }
   ]
 }

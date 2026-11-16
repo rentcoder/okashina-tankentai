@@ -50,5 +50,13 @@
     "layout": "3x2 row major: key, hourglass, oilcan, tweezers, blower, earmuffs",
     "style": "original comic gouache and pencil; icons true alpha",
     "reproduction": "node scripts/prepare-equipment-art.mjs /workspace/generated_images clock"
+  },
+  "library": {
+    "icons": "exec-8ccb2e70-9fed-46c1-a683-f2425f6fe7bf.png",
+    "outcomes": "exec-2cc7a1dc-b92a-46a1-9a67-a52f43645df5.png",
+    "tool": "image_gen",
+    "layout": "3x2 row major: stand, bookmark, stool, labels, gloves, bookends",
+    "style": "Original watercolor and colored pencil, spring green and apricot; no named artist imitation",
+    "reproduction": "node scripts/prepare-equipment-art.mjs /workspace/generated_images library"
   }
 }

@@ -8,7 +8,6 @@ import {
   legacyItemIds,
 } from "../src/equipment.js";
 import { sceneImage, equipmentImage } from "../src/art.js";
-import calendar from "../src/story-calendar.json" with { type: "json" };
 test("each adventure has six distinct illustrated choices and matching outcomes", async () => {
   const used = new Set();
   for (const p of places) {
@@ -44,14 +43,15 @@ test("each adventure has six distinct illustrated choices and matching outcomes"
 });
 test("new diary snapshots the selected tool while old diaries retain legacy paths", () => {
   const member = { id: "m", name: "こども", avatar: "boy-green" };
-  for (let n = 0; n < calendar.at(-1).places.length; n++) {
-    const day = new Date(Date.parse(calendar.at(-1).from) + n * 86400000)
-      .toISOString()
-      .slice(0, 10);
-    const p = calendar.at(-1).places[n];
-    for (const i of adventureEquipment[p]) {
-      const a = makeAdventure(day, [member], [{ member_id: "m", item: i.id }]);
-      assert.equal(a.place, p);
+  for (const place of places) {
+    for (const i of adventureEquipment[place.id]) {
+      const a = makeAdventure(
+        "2026-11-16",
+        [member],
+        [{ member_id: "m", item: i.id }],
+        place,
+      );
+      assert.equal(a.place, place.id);
       assert.equal(a.participants[0].action, i.action);
     }
   }

@@ -1,0 +1,16 @@
+{
+  "id": "library",
+  "generatedDateJST": "2026-11-16",
+  "tool": "image_gen",
+  "style": "Original watercolor and colored pencil, spring green and apricot; no named artist imitation",
+  "characters": "Brown mole librarian in mint vest and round spectacles; girl yellow pinafore, boy blue overalls; teal book handstand treasure",
+  "scenes": "exec-11b82a24-cb49-4005-83e3-9b36c2e1861c.png",
+  "layout": "Scenes 2x2 before / after / unused treasure / host; outcomes and icons 3x2 stand / bookmark / stool / labels / gloves / bookends; flipbook 3x2 first five chronological frames, sixth spare",
+  "reproduction": "node scripts/prepare-story-art.mjs docs/story-art/library.json /workspace/generated_images",
+  "processing": "Equal grid crop 2px inset; scenes768, host384, outcomes512, flipbook512 WebP88; treasure trim, contained352 plus16px transparent padding WebP90",
+  "equipmentSources": "docs/equipment-art-sources.json: library",
+  "outcomes": "exec-2cc7a1dc-b92a-46a1-9a67-a52f43645df5.png",
+  "treasure": "exec-f691a839-dc3c-4626-a73e-18b0daef54fc.png",
+  "flipbook": "exec-d47ff3f8-e207-4214-ab62-60d25602a905.png",
+  "prompts": "docs/story-art/library-prompts.json"
+}
