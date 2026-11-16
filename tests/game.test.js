@@ -1,6 +1,6 @@
 import { test, after, before } from "node:test";
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
+import { readFile, readdir } from "node:fs/promises";
 import { build } from "esbuild";
 import { Miniflare, convertV4MiniflareOptions } from "miniflare";
 import { dayInfo, makeAdventure, places } from "../src/stories.js";
@@ -22,7 +22,14 @@ before(async () => {
     }),
   );
   db = await mf.getD1Database("DB");
-  const sql = await readFile("migrations/0001_initial.sql", "utf8");
+  const sql = (
+    await Promise.all(
+      (await readdir("migrations"))
+        .filter((f) => f.endsWith(".sql"))
+        .sort()
+        .map((f) => readFile("migrations/" + f, "utf8")),
+    )
+  ).join("\n");
   await db.batch(
     sql
       .split(";")
@@ -293,4 +300,77 @@ test("illustrated character changes affect only the active member and preserve d
   assert.deepEqual(changed.adventures, before.adventures);
   assert.deepEqual((await current(b)).members, other.members);
   assert.equal((await call("character", { avatar: "boy-blue" })).status, 401);
+});
+
+test("family stock never repeats, persists across phones and admits new stock after exhaustion", async () => {
+  const { assignedStory } = await import("../src/story-stock.js");
+  const a = await create(),
+    f = await family(a);
+  await db.prepare("DELETE FROM adventures WHERE family_id=?").bind(f).run();
+  await db
+    .prepare("DELETE FROM story_assignments WHERE family_id=?")
+    .bind(f)
+    .run();
+  const seen = new Set();
+  for (let i = 0; i < places.length; i++) {
+    const day = `2030-01-${String(i + 1).padStart(2, "0")}`;
+    const picks = await Promise.all(
+      Array.from({ length: 4 }, () => assignedStory(db, f, day)),
+    );
+    assert.ok(picks.every((p) => p.id === picks[0].id));
+    assert.ok(!seen.has(picks[0].id));
+    seen.add(picks[0].id);
+  }
+  assert.equal(await assignedStory(db, f, "2030-02-01"), null);
+  const other = await create(),
+    otherFamily = await family(other);
+  assert.ok(await assignedStory(db, otherFamily, "2030-02-01"));
+  // Simulate a newly published entry: everything except this one was issued.
+  await db
+    .prepare("DELETE FROM story_assignments WHERE family_id=? AND place=?")
+    .bind(f, "clock")
+    .run();
+  assert.equal((await assignedStory(db, f, "2030-02-01")).id, "clock");
+  assert.equal(await assignedStory(db, f, "2030-02-02"), null);
+});
+
+test("old diaries and pending tool choices are excluded from new stock without changing them", async () => {
+  const { assignedStory, preservePrepared } =
+    await import("../src/story-stock.js");
+  const a = await create(),
+    f = await family(a),
+    state = await current(a);
+  await db.prepare("DELETE FROM adventures WHERE family_id=?").bind(f).run();
+  await db
+    .prepare("DELETE FROM story_assignments WHERE family_id=?")
+    .bind(f)
+    .run();
+  const payload = JSON.stringify(
+    makeAdventure("2026-11-14", state.members, []),
+  );
+  await db
+    .prepare("INSERT INTO adventures VALUES(?,?,?)")
+    .bind(f, "2026-11-14", payload)
+    .run();
+  await db
+    .prepare("INSERT INTO choices VALUES(?,?,?,?)")
+    .bind(f, state.active, "2026-11-16", "stage-spotlight")
+    .run();
+  await preservePrepared(db, f);
+  assert.equal((await assignedStory(db, f, "2026-11-16")).id, "stage");
+  const picked = [];
+  for (let i = 1; i <= places.length - 2; i++)
+    picked.push(
+      (await assignedStory(db, f, `2031-01-${String(i).padStart(2, "0")}`)).id,
+    );
+  assert.ok(!picked.includes("post") && !picked.includes("stage"));
+  assert.equal(
+    (
+      await db
+        .prepare("SELECT payload FROM adventures WHERE family_id=?")
+        .bind(f)
+        .first()
+    ).payload,
+    payload,
+  );
 });

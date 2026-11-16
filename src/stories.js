@@ -170,8 +170,7 @@ export function placeFor(day, versions = calendar) {
   if (!place) throw new Error("Unknown scheduled adventure");
   return place;
 }
-export function makeAdventure(day, members, choices) {
-  const place = placeFor(day);
+export function makeAdventure(day, members, choices, place = placeFor(day)) {
   return {
     day,
     place: place.id,

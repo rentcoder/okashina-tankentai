@@ -88,7 +88,7 @@ test("each release preserves every date before its activation", () => {
   }
 });
 
-test("release ledger contains only one story per Japanese date and schedules each new story", async () => {
+test("release ledger has unique releases in stock and retains legacy activation records", async () => {
   const { readFile } = await import("node:fs/promises");
   const releases = JSON.parse(
     await readFile("docs/story-releases.json", "utf8"),
@@ -96,8 +96,10 @@ test("release ledger contains only one story per Japanese date and schedules eac
   assert.equal(new Set(releases.map((r) => r.dateJST)).size, releases.length);
   assert.equal(new Set(releases.map((r) => r.id)).size, releases.length);
   for (const release of releases) {
-    assert.ok(release.availableFromJST > release.dateJST);
-    assert.equal(placeFor(release.availableFromJST).id, release.id);
+    if (release.dateJST < "2026-11-16") {
+      assert.ok(release.availableFromJST > release.dateJST);
+      assert.equal(placeFor(release.availableFromJST).id, release.id);
+    }
     assert.ok(places.some((p) => p.id === release.id));
   }
 });

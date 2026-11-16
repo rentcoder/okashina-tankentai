@@ -1,12 +1,7 @@
+import { preservePrepared, assignedStory } from "./story-stock.js";
 import { itemIdsFor } from "./equipment.js";
 import { characters, legacyAvatars } from "./characters.js";
-import {
-  allItems,
-  places,
-  dayInfo,
-  placeFor,
-  makeAdventure,
-} from "./stories.js";
+import { allItems, places, dayInfo, makeAdventure } from "./stories.js";
 const now = () => Math.floor(Date.now() / 1000),
   random = () => crypto.randomUUID() + crypto.randomUUID();
 const hash = async (s) =>
@@ -106,6 +101,7 @@ async function members(db, f) {
 }
 async function settle(db, f) {
   const info = dayInfo();
+  await preservePrepared(db, f.id);
   const pending = (
     await db
       .prepare(
@@ -124,6 +120,8 @@ async function settle(db, f) {
         .first()
     )
       continue;
+    const place = await assignedStory(db, f.id, day);
+    if (!place) continue;
     const cs = (
       await db
         .prepare(
@@ -136,7 +134,7 @@ async function settle(db, f) {
       .prepare(
         "INSERT OR IGNORE INTO adventures(family_id,day,payload) VALUES(?,?,?)",
       )
-      .bind(f.id, day, JSON.stringify(makeAdventure(day, ms, cs)))
+      .bind(f.id, day, JSON.stringify(makeAdventure(day, ms, cs, place)))
       .run();
   }
 }
@@ -263,6 +261,8 @@ async function api(req, env) {
       .first();
   if (path === "/state" && req.method === "GET") {
     await settle(db, f);
+    const info = dayInfo();
+    const place = await assignedStory(db, f.id, info.day);
     const ms = await members(db, f.id),
       adventures = (
         await db
@@ -279,8 +279,8 @@ async function api(req, env) {
       shared: !!s.shared,
       parent: s.parent_until > now(),
       day: dayInfo().day,
-      place: placeFor(dayInfo().day).id,
-      itemIds: itemIdsFor(placeFor(dayInfo().day).id, dayInfo().day),
+      place: place?.id || null,
+      itemIds: place ? itemIdsFor(place.id, info.day) : [],
       choices: (
         await db
           .prepare(
@@ -362,7 +362,9 @@ async function api(req, env) {
     const info = dayInfo();
     if (info.hour >= f.reveal_hour)
       fail("きょうのぼうけんはおしまい。またあした！");
-    if (!itemIdsFor(placeFor(info.day).id, info.day).includes(b.item))
+    await preservePrepared(db, f.id);
+    const place = await assignedStory(db, f.id, info.day);
+    if (!place || !itemIdsFor(place.id, info.day).includes(b.item))
       fail("きょうのぼうけんのもちものをえらんでね。");
     await db
       .prepare(

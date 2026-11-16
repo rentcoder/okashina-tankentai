@@ -179,9 +179,13 @@ function home() {
     })
     .join(
       "",
-    )}${roomResidents()}</div><button class="text room-motion" data-action="room-motion" aria-pressed="${!roomMotion}">${roomMotion ? "うごきをとめる" : "うごかす"}</button><p class="card-caption">すきなばしょをタップして、たからものをかざろう。<br>ばしょはとりあいっこ。おもいでは、ずっと。</p></section><button type="button" class="daily-card" data-action="${today ? "read-today" : "prepare"}" aria-label="${today ? "きょうのえにっきをよむ" : "ぼうけんのじゅんびをする"}"><img class="daily-icon host-art" src="${hostImage(state.place)}" alt="" width="64" height="64"><span class="daily-copy"><span class="eyebrow">${today ? "きょうのおたより" : "きょうのぼうけん"}</span><span class="daily-title">${r(p(state.place).name)}</span><span class="daily-description">${today ? "えにっきと、たからものがとどいたよ。" : `${state.family.revealHour}じに、みんなのおはなしがとどくよ。`}</span></span><span class="round" aria-hidden="true">↗</span></button><div class="status-row">${state.members.map((m) => `<span>${characterArt(m.avatar)} ${esc(m.name)}<small>${state.choices.some((c) => c.member_id === m.id) ? "🎒 じゅんびできた" : "🌱 のんびりしてる"}</small></span>`).join("")}</div>`;
+    )}${roomResidents()}</div><button class="text room-motion" data-action="room-motion" aria-pressed="${!roomMotion}">${roomMotion ? "うごきをとめる" : "うごかす"}</button><p class="card-caption">すきなばしょをタップして、たからものをかざろう。<br>ばしょはとりあいっこ。おもいでは、ずっと。</p></section>${state.place ? `<button type="button" class="daily-card" data-action="${today ? "read-today" : "prepare"}" aria-label="${today ? "きょうのえにっきをよむ" : "ぼうけんのじゅんびをする"}"><img class="daily-icon host-art" src="${hostImage(state.place)}" alt="" width="64" height="64"><span class="daily-copy"><span class="eyebrow">${today ? "きょうのおたより" : "きょうのぼうけん"}</span><span class="daily-title">${r(p(state.place).name)}</span><span class="daily-description">${today ? "えにっきと、たからものがとどいたよ。" : `${state.family.revealHour}じに、みんなのおはなしがとどくよ。`}</span></span><span class="round" aria-hidden="true">↗</span></button>` : stockEmpty()}<div class="status-row">${state.members.map((m) => `<span>${characterArt(m.avatar)} ${esc(m.name)}<small>${state.choices.some((c) => c.member_id === m.id) ? "🎒 じゅんびできた" : "🌱 のんびりしてる"}</small></span>`).join("")}</div>`;
+}
+function stockEmpty() {
+  return `<section class="adventure-card"><div class="adventure-copy"><h2>つぎのぼうけんをおたのしみに</h2><p>いまあるおはなしは、ぜんぶたんけんしたよ。あたらしいおはなしがとどくまで、えにっきやたからものをみかえしてみよう。</p><button class="primary" data-action="tab" data-id="journal">えにっきをみる</button></div></section>`;
 }
 function adventure() {
+  if (!state.place) return stockEmpty();
   const place = p(state.place),
     done = state.adventures.some((a) => a.day === state.day),
     selected = state.choices.find((c) => c.member_id === state.active)?.item;
@@ -365,7 +369,10 @@ const actions = {
   prepare: () => {
     tab = "adventure";
     render();
-    $(".adventure-card").scrollIntoView({ block: "start", behavior: "instant" });
+    $(".adventure-card").scrollIntoView({
+      block: "start",
+      behavior: "instant",
+    });
   },
   profiles: () =>
     modal(
