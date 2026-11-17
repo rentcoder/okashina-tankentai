@@ -1,0 +1,16 @@
+{
+  "id": "castle",
+  "generatedDateJST": "2026-11-17",
+  "tool": "image_gen",
+  "style": "Original layered cut-paper collage and wax crayon; summer turquoise sea and apricot sand; no named artist imitation",
+  "characters": "Girl coral sunhat mint shorts, boy curly brown hair yellow shirt, orange hermit crab blue spiral shell; three-turret sandcastle with orange walking legs",
+  "scenes": "exec-58e2b645-ffa0-499c-a8ce-2f14c54ed0e3.png",
+  "outcomes": "exec-afc67c7d-d692-41f4-95b0-c9c4fd9264b7.png",
+  "flipbook": "exec-1b07d77f-b51a-4afe-9dfe-6bf82dd32b24.png",
+  "layout": "Scenes 2x2 before / after / unused treasure / host; outcomes and icons 3x2 mold / sieve / shovel / rake / stamp / funnel; flipbook 3x2 first five chronological frames, sixth spare",
+  "reproduction": "node scripts/prepare-story-art.mjs docs/story-art/castle.json /workspace/generated_images",
+  "processing": "Equal grid crop 2px inset; scenes768, host384, outcomes512, flipbook512 WebP88; treasure trim, contained352 plus16px transparent padding WebP90",
+  "equipmentSources": "docs/equipment-art-sources.json: castle",
+  "treasure": "exec-6ec8b777-801d-45f7-9d36-4bc46a93c93c.png",
+  "prompts": "docs/story-art/castle-prompts.json"
+}

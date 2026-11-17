@@ -58,5 +58,13 @@
     "layout": "3x2 row major: stand, bookmark, stool, labels, gloves, bookends",
     "style": "Original watercolor and colored pencil, spring green and apricot; no named artist imitation",
     "reproduction": "node scripts/prepare-equipment-art.mjs /workspace/generated_images library"
+  },
+  "castle": {
+    "icons": "exec-d52fd588-9a52-47fa-8dad-b8275baeac7f.png",
+    "outcomes": "exec-afc67c7d-d692-41f4-95b0-c9c4fd9264b7.png",
+    "tool": "image_gen",
+    "layout": "3x2 row major: mold, sieve, shovel, rake, stamp, funnel",
+    "style": "Original layered cut-paper collage and wax crayon; summer turquoise sea and apricot sand; no named artist imitation",
+    "reproduction": "node scripts/prepare-equipment-art.mjs /workspace/generated_images castle"
   }
 }
