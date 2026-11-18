@@ -71,7 +71,11 @@
     "title": "キツネのしっぽ仕立て屋",
     "treasure": "しっぽのついたボタン",
     "distribution": "family-unseen-stock",
-    "status": "validated",
-    "validation": "npm test: 30 passed; npm run build; mobile 13 menus/78 tool outcomes; 13 flipbooks autoplay, two loops, final 3s, stop/close/retry/reduced motion; 21 new assets visually inspected and alpha verified; family unseen stock and existing assignments preserved"
+    "status": "published",
+    "validation": "npm test: 30 passed; npm run build; mobile 13 menus/78 tool outcomes; 13 flipbooks autoplay, two loops, final 3s, stop/close/retry/reduced motion; 21 new assets visually inspected and alpha verified; family unseen stock and existing assignments preserved",
+    "codeCommit": "4cb65dffba06c49f2d350964ef884e85b6a181c6",
+    "cloudflareVersion": "9768e5a9-1dc6-4680-abb1-0e0b743859b6",
+    "publishedAt": "2026-11-18T23:16:36.336381+00:00",
+    "liveVerification": "23 static files SHA-256 match dist (21 new images, app.js, root HTML); live catalog 13 adventures/84 current and legacy tools; GitHub CI passed"
   }
 ]
