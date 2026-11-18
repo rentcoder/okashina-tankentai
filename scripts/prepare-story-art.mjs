@@ -10,17 +10,17 @@ const itemIds = manifest.itemIds || adventureEquipment[id].map((i) => i.id);
 if (!/^[a-z][a-z0-9-]*$/.test(id)) throw new Error("Invalid story ID");
 const root = `public/art/adventures/v1/${id}`;
 await mkdir(root, { recursive: true });
-async function cell(file, cols, rows, index, out, width) {
+async function cell(file, cols, rows, index, out, width, inset = 2) {
   const src = join(input, file),
     m = await sharp(src).metadata();
   const w = Math.floor(m.width / cols),
     h = Math.floor(m.height / rows);
   await sharp(src)
     .extract({
-      left: (index % cols) * w + 2,
-      top: Math.floor(index / cols) * h + 2,
-      width: w - 4,
-      height: h - 4,
+      left: (index % cols) * w + inset,
+      top: Math.floor(index / cols) * h + inset,
+      width: w - inset * 2,
+      height: h - inset * 2,
     })
     .resize({ width })
     .webp({ quality: 88 })
@@ -30,7 +30,15 @@ await cell(manifest.scenes, 2, 2, 0, `${root}/before.webp`, 768);
 await cell(manifest.scenes, 2, 2, 1, `${root}/after.webp`, 768);
 await cell(manifest.scenes, 2, 2, 3, `${root}/host.webp`, 384);
 for (const [i, item] of itemIds.entries())
-  await cell(manifest.outcomes, 3, 2, i, `${root}/after-${item}.webp`, 512);
+  await cell(
+    manifest.outcomes,
+    3,
+    2,
+    i,
+    `${root}/after-${item}.webp`,
+    512,
+    manifest.outcomeInset || 2,
+  );
 await mkdir(`public/art/flipbooks/v1/${id}`, { recursive: true });
 for (let i = 0; i < 5; i++)
   await cell(

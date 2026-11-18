@@ -9,8 +9,9 @@
   "flipbook": "exec-5f6d23b0-7212-4442-b1f8-933bb1801714.png",
   "layout": "Scenes 2x2 before / after / unused treasure / host; outcomes and icons 3x2 tape / chalk / spool / thimble / pincushion / hoop; flipbook 3x2 first five chronological frames, sixth spare",
   "reproduction": "node scripts/prepare-story-art.mjs docs/story-art/tailor.json /workspace/generated_images",
-  "processing": "Equal grid crop 2px inset; scenes768, host384, outcomes512, flipbook512 WebP88; treasure trim, contained352 plus16px transparent padding WebP90",
+  "processing": "Equal grid crop 2px inset; scenes768, host384, outcomes512, flipbook512 WebP88; treasure trim, contained352 plus16px transparent padding WebP90; outcomes use 20px inset to exclude uneven generated panel gutters",
   "equipmentSources": "docs/equipment-art-sources.json: tailor",
   "treasure": "exec-1ba7dc06-fbd6-4013-8624-73d15fb4cbcd.png",
-  "prompts": "docs/story-art/tailor-prompts.json"
+  "prompts": "docs/story-art/tailor-prompts.json",
+  "outcomeInset": 20
 }
