@@ -66,5 +66,13 @@
     "layout": "3x2 row major: mold, sieve, shovel, rake, stamp, funnel",
     "style": "Original layered cut-paper collage and wax crayon; summer turquoise sea and apricot sand; no named artist imitation",
     "reproduction": "node scripts/prepare-equipment-art.mjs /workspace/generated_images castle"
+  },
+  "tailor": {
+    "icons": "exec-5d6d6128-6e83-4f2e-9060-661853e1e871.png",
+    "outcomes": "exec-24cb4464-7dd9-4287-b383-c4c15ac5030a.png",
+    "tool": "image_gen",
+    "layout": "3x2 row major: tape, chalk, spool, thimble, pincushion, hoop",
+    "style": "Original soft gouache and pastel with fabric weave textures; autumn cinnamon orange, sage green, dusty rose; no named artist imitation",
+    "reproduction": "node scripts/prepare-equipment-art.mjs /workspace/generated_images tailor"
   }
 }

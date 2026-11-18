@@ -64,5 +64,14 @@
     "cloudflareVersion": "0c4371e2-3a38-4043-8d80-c406d415604a",
     "publishedAt": "2026-11-17T23:53:30.892871+00:00",
     "liveVerification": "23 static files SHA-256 match dist (21 new images, app.js, root HTML); live catalog 12 adventures/78 current and legacy tools; GitHub CI passed"
+  },
+  {
+    "dateJST": "2026-11-18",
+    "id": "tailor",
+    "title": "キツネのしっぽ仕立て屋",
+    "treasure": "しっぽのついたボタン",
+    "distribution": "family-unseen-stock",
+    "status": "validated",
+    "validation": "npm test: 30 passed; npm run build; mobile 13 menus/78 tool outcomes; 13 flipbooks autoplay, two loops, final 3s, stop/close/retry/reduced motion; 21 new assets visually inspected and alpha verified; family unseen stock and existing assignments preserved"
   }
 ]

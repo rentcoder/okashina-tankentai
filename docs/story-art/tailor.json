@@ -1,0 +1,16 @@
+{
+  "id": "tailor",
+  "generatedDateJST": "2026-11-18",
+  "tool": "image_gen",
+  "style": "Original soft gouache and pastel with fabric weave textures; autumn cinnamon orange, sage green, dusty rose; no named artist imitation",
+  "characters": "Orange fox tailor white tipped bushy tail plum waistcoat; girl black bob mustard sweater, boy brown hair teal sweater; sage tail wrap with leaf embroidery",
+  "scenes": "exec-03591168-202e-4338-8264-1c9a6c0f6d2a.png",
+  "outcomes": "exec-24cb4464-7dd9-4287-b383-c4c15ac5030a.png",
+  "flipbook": "exec-5f6d23b0-7212-4442-b1f8-933bb1801714.png",
+  "layout": "Scenes 2x2 before / after / unused treasure / host; outcomes and icons 3x2 tape / chalk / spool / thimble / pincushion / hoop; flipbook 3x2 first five chronological frames, sixth spare",
+  "reproduction": "node scripts/prepare-story-art.mjs docs/story-art/tailor.json /workspace/generated_images",
+  "processing": "Equal grid crop 2px inset; scenes768, host384, outcomes512, flipbook512 WebP88; treasure trim, contained352 plus16px transparent padding WebP90",
+  "equipmentSources": "docs/equipment-art-sources.json: tailor",
+  "treasure": "exec-1ba7dc06-fbd6-4013-8624-73d15fb4cbcd.png",
+  "prompts": "docs/story-art/tailor-prompts.json"
+}
