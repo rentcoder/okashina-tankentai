@@ -84,7 +84,11 @@
     "title": "タヌキのころころ餃子屋",
     "treasure": "うさぎみみのぎょうざ",
     "distribution": "family-unseen-stock",
-    "status": "validated",
-    "validation": "npm test: 30 passed; npm run build; mobile 14 menus/84 tool outcomes; 14 flipbooks autoplay, two loops, final 3s, stop/close/retry/reduced motion; 21 new assets visually inspected and alpha verified; family unseen stock and existing assignments preserved"
+    "status": "published",
+    "validation": "npm test: 30 passed; npm run build; mobile 14 menus/84 tool outcomes; 14 flipbooks autoplay, two loops, final 3s, stop/close/retry/reduced motion; 21 new assets visually inspected and alpha verified; family unseen stock and existing assignments preserved",
+    "codeCommit": "65d719a9b34da8008ee79846f5b3bc3af5fadf22",
+    "cloudflareVersion": "a9b8a66c-4954-4246-9a4c-6d3e44604f6e",
+    "publishedAt": "2026-11-20T00:02:19.126644+00:00",
+    "liveVerification": "23 static files SHA-256 match dist (21 new images, app.js, root HTML); live catalog 14 adventures/90 current and legacy tools; GitHub CI passed; initial propagation 404 resolved on verification retry"
   }
 ]
