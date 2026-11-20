@@ -97,7 +97,11 @@
     "title": "カメレオンのかくれんぼ美術館",
     "treasure": "とびだすカメレオンのえ",
     "distribution": "family-unseen-stock",
-    "status": "validated",
-    "validation": "npm test: 30 passed; npm run build; mobile 15 menus/90 tool outcomes; 15 flipbooks autoplay, two loops, final 3s, stop/close/retry/reduced motion; 21 new assets visually inspected and alpha verified; family unseen stock and existing assignments preserved"
+    "status": "published",
+    "validation": "npm test: 30 passed; npm run build; mobile 15 menus/90 tool outcomes; 15 flipbooks autoplay, two loops, final 3s, stop/close/retry/reduced motion; 21 new assets visually inspected and alpha verified; family unseen stock and existing assignments preserved",
+    "codeCommit": "e6c0db2962ef01c1ad5d7cfaecd824d371975d7e",
+    "cloudflareVersion": "792ce9e4-5302-4142-b9fe-7d78b07d14ac",
+    "publishedAt": "2026-11-20T23:33:01.411785+00:00",
+    "liveVerification": "23 static files SHA-256 match dist (21 new images, app.js, root HTML); live catalog 15 adventures/96 current and legacy tools; GitHub CI passed"
   }
 ]
