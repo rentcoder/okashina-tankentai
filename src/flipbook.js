@@ -1,6 +1,7 @@
 import { placeIds } from "./art.js";
 // Milliseconds per frame; the reveal and final tableau have room to breathe.
 export const timings = {
+  dumpling: [700, 500, 500, 800, 3000],
   tailor: [800, 500, 500, 700, 3000],
   castle: [500, 800, 500, 700, 3000],
   library: [500, 800, 500, 700, 3000],

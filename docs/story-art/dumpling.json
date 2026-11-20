@@ -1,0 +1,16 @@
+{
+  "id": "dumpling",
+  "generatedDateJST": "2026-11-19",
+  "tool": "image_gen",
+  "style": "Original soft watercolor and expressive ink, winter kitchen persimmon orange and jade green; no named artist imitation",
+  "characters": "Brown tanuki chef jade apron white kerchief; girl black braids coral sweater, boy brown hair navy sweater; crescent dumpling with long dough rabbit ears on jade saucer",
+  "scenes": "exec-ec845317-bfb5-4480-9576-3494c1f1da9b.png",
+  "treasure": "exec-99d4c5ac-dcd5-4634-bee5-9355148e5423.png",
+  "flipbook": "exec-7bc0c484-715d-439f-99cb-436bbff071bf.png",
+  "layout": "Scenes 2x2 before / after / unused treasure / host; outcomes and icons 3x2 pin / press / jug / bowl / brush / steamer; flipbook 3x2 first five chronological frames, sixth spare",
+  "reproduction": "node scripts/prepare-story-art.mjs docs/story-art/dumpling.json /workspace/generated_images",
+  "processing": "Equal grid crop 2px inset; scenes768, host384, outcomes512, flipbook512 WebP88; treasure trim, contained352 plus16px transparent padding WebP90",
+  "equipmentSources": "docs/equipment-art-sources.json: dumpling",
+  "outcomes": "exec-fdb30ad9-e7fe-4c81-9b3b-51f181639476.png",
+  "prompts": "docs/story-art/dumpling-prompts.json"
+}
