@@ -90,5 +90,14 @@
     "cloudflareVersion": "a9b8a66c-4954-4246-9a4c-6d3e44604f6e",
     "publishedAt": "2026-11-20T00:02:19.126644+00:00",
     "liveVerification": "23 static files SHA-256 match dist (21 new images, app.js, root HTML); live catalog 14 adventures/90 current and legacy tools; GitHub CI passed; initial propagation 404 resolved on verification retry"
+  },
+  {
+    "dateJST": "2026-11-20",
+    "id": "gallery",
+    "title": "カメレオンのかくれんぼ美術館",
+    "treasure": "とびだすカメレオンのえ",
+    "distribution": "family-unseen-stock",
+    "status": "validated",
+    "validation": "npm test: 30 passed; npm run build; mobile 15 menus/90 tool outcomes; 15 flipbooks autoplay, two loops, final 3s, stop/close/retry/reduced motion; 21 new assets visually inspected and alpha verified; family unseen stock and existing assignments preserved"
   }
 ]

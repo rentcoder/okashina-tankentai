@@ -83,5 +83,13 @@
     "layout": "3x2 row major: pin, press, jug, bowl, brush, steamer",
     "style": "Original soft watercolor and expressive ink, winter kitchen persimmon orange and jade green; no named artist imitation",
     "reproduction": "node scripts/prepare-equipment-art.mjs /workspace/generated_images dumpling"
+  },
+  "gallery": {
+    "icons": "exec-e31f7709-20b8-41dc-9256-276b68252424.png",
+    "outcomes": "exec-49f33bf3-c80d-4db2-86ff-b4bce818c5e6.png",
+    "tool": "image_gen",
+    "layout": "3x2 row major: palette, roller, sponge, dropper, wheel, stencil",
+    "style": "Original bold flat gouache and chalk texture; spring coral, azure, lemon palette; no named artist imitation",
+    "reproduction": "node scripts/prepare-equipment-art.mjs /workspace/generated_images gallery"
   }
 }

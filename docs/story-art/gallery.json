@@ -1,0 +1,19 @@
+{
+  "id": "gallery",
+  "generatedDateJST": "2026-11-20",
+  "tool": "image_gen",
+  "style": "Original bold flat gouache and chalk texture; spring coral, azure, lemon palette; no named artist imitation",
+  "characters": "Green chameleon with yellow beret; girl black bob red overalls, boy curly brown hair mint shirt",
+  "scenes": "exec-8c2b121d-2d03-4b3a-9e55-032d94ac7c57.png",
+  "treasure": "exec-b703e109-6ac8-4a19-b5e6-d1fcdb7b01d7.png",
+  "flipbook": "exec-5f8692ec-9936-4ba2-a3f0-e2979b6856b2.png",
+  "layout": "Scenes 2x2 before / after / unused treasure / host; outcomes and icons 3x2 palette / roller / sponge / dropper / wheel / stencil; flipbook 3x2 first five chronological frames, sixth spare",
+  "reproduction": "node scripts/prepare-story-art.mjs docs/story-art/gallery.json /workspace/generated_images",
+  "processing": "Equal grid crop 2px inset; scenes768, host384, outcomes512, flipbook512 WebP88; treasure trim, contained352 plus16px transparent padding WebP90",
+  "equipmentSources": "docs/equipment-art-sources.json: gallery",
+  "outcomes": "exec-49f33bf3-c80d-4db2-86ff-b4bce818c5e6.png",
+  "prompts": "docs/story-art/gallery-prompts.json",
+  "originalFlipbook": "exec-73031ada-368a-4559-b689-2f586a7e58f4.png",
+  "note": "Image generation edit removed the visible guide from the first frame so the search matches the introduction.",
+  "editPrompt": "docs/story-art/gallery-flipbook-edit.txt"
+}
