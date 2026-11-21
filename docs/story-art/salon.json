@@ -1,0 +1,16 @@
+{
+  "id": "salon",
+  "generatedDateJST": "2026-11-22",
+  "tool": "image_gen",
+  "style": "Original airy watercolor washes and colored pencil contours; summer lemon yellow, powder blue and raspberry accents; no named artist imitation",
+  "characters": "Cream alpaca with fluffy white wool and turquoise salon cape; girl black braids yellow sundress; boy short brown hair coral striped shirt",
+  "scenes": "exec-54084019-b8fe-4f78-9208-a1201710868a.png",
+  "outcomes": "exec-daf0cfc9-ec1d-4232-bbba-b861f06473e1.png",
+  "flipbook": "exec-31991f42-6804-4cde-95d1-2d0af406b9b7.png",
+  "treasure": "exec-353ba966-fa6d-47d3-81e0-2119370c5a50.png",
+  "layout": "Scenes 2x2 before / after / unused treasure / host; outcomes and icons 3x2 comb / scissors / sprayer / rollers / dryer / headband; flipbook 3x2 first five chronological frames, sixth spare",
+  "reproduction": "node scripts/prepare-story-art.mjs docs/story-art/salon.json /workspace/generated_images",
+  "processing": "Equal grid crop 2px inset; scenes768, host384, outcomes512, flipbook512 WebP88; treasure trim, contained352 plus16px transparent padding WebP90",
+  "equipmentSources": "docs/equipment-art-sources.json: salon",
+  "prompts": "docs/story-art/salon-prompts.json"
+}

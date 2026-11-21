@@ -91,5 +91,13 @@
     "layout": "3x2 row major: palette, roller, sponge, dropper, wheel, stencil",
     "style": "Original bold flat gouache and chalk texture; spring coral, azure, lemon palette; no named artist imitation",
     "reproduction": "node scripts/prepare-equipment-art.mjs /workspace/generated_images gallery"
+  },
+  "salon": {
+    "icons": "exec-b39157ac-b19f-46e6-8ae1-c5ce8f279807.png",
+    "outcomes": "exec-daf0cfc9-ec1d-4232-bbba-b861f06473e1.png",
+    "tool": "image_gen",
+    "layout": "3x2 row major: comb, scissors, sprayer, rollers, dryer, headband",
+    "style": "Original airy watercolor washes and colored pencil contours; summer lemon yellow, powder blue and raspberry accents; no named artist imitation",
+    "reproduction": "node scripts/prepare-equipment-art.mjs /workspace/generated_images salon"
   }
 }
