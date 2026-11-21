@@ -110,7 +110,11 @@
     "title": "アルパカのもくもく美容室",
     "treasure": "くもをのせたくし",
     "distribution": "family-unseen-stock",
-    "status": "validated",
-    "validation": "npm test: 30 passed; npm run build; mobile 16 menus/96 tool outcomes; 16 flipbooks autoplay, two loops, final 3s, stop/close/retry/reduced motion; 21 new assets visually inspected and alpha verified; family unseen stock and existing assignments preserved"
+    "status": "published",
+    "validation": "npm test: 30 passed; npm run build; mobile 16 menus/96 tool outcomes; 16 flipbooks autoplay, two loops, final 3s, stop/close/retry/reduced motion; 21 new assets visually inspected and alpha verified; family unseen stock and existing assignments preserved",
+    "codeCommit": "b8246b5803f4679643b0b18a0b012fd50ba73c3d",
+    "cloudflareVersion": "e565d03e-a65a-4424-85b9-30f8a663a0f5",
+    "publishedAt": "2026-11-21T23:34:07.673610+00:00",
+    "liveVerification": "23 static files SHA-256 match dist (21 new images, app.js, root HTML); live catalog 16 adventures/102 current and legacy tools; GitHub CI passed"
   }
 ]
