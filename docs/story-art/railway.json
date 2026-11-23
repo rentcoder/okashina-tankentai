@@ -1,0 +1,16 @@
+{
+  "id": "railway",
+  "generatedDateJST": "2026-11-24",
+  "tool": "image_gen",
+  "style": "Original expressive ink outlines and soft watercolor; snowy winter indigo, coral and amber; no named artist imitation",
+  "characters": "Penguin conductor navy cap red scarf; girl black bob mustard winter coat cream hat; boy curly brown hair teal coat",
+  "scenes": "exec-c381fee3-7f05-4e3f-858f-78c4c5c8a534.png",
+  "outcomes": "exec-3a6519e1-66f4-4c1e-9cd1-c27079cb0550.png",
+  "flipbook": "exec-1c2bed37-95ff-4ff3-9782-6f23518e32ad.png",
+  "treasure": "exec-c10fb5ec-cef1-4c3c-a158-08e934c0f635.png",
+  "layout": "Scenes 2x2 before / after / unused treasure / host; outcomes and icons 3x2 track / sleepers / switch / signal / punch / sign; flipbook 3x2 first five chronological frames, sixth spare",
+  "reproduction": "node scripts/prepare-story-art.mjs docs/story-art/railway.json /workspace/generated_images",
+  "processing": "Equal grid crop 2px inset; scenes768, host384, outcomes512, flipbook512 WebP88; treasure trim, contained352 plus16px transparent padding WebP90",
+  "equipmentSources": "docs/equipment-art-sources.json: railway",
+  "prompts": "docs/story-art/railway-prompts.json"
+}

@@ -110,5 +110,13 @@
     "originalIcons": "exec-36e8d783-dc1d-4003-8f84-ec3625b87834.png",
     "note": "Image generation edit increased transparent cell margins to remove adjacent-icon fragments.",
     "editPrompt": "docs/story-art/pottery-icons-edit.txt"
+  },
+  "railway": {
+    "icons": "exec-e94be95c-78ea-4b7e-9226-3b72e5adb882.png",
+    "outcomes": "exec-3a6519e1-66f4-4c1e-9cd1-c27079cb0550.png",
+    "tool": "image_gen",
+    "layout": "3x2 row major: track, sleepers, switch, signal, punch, sign",
+    "style": "Original expressive ink outlines and soft watercolor; snowy winter indigo, coral and amber; no named artist imitation",
+    "reproduction": "node scripts/prepare-equipment-art.mjs /workspace/generated_images railway"
   }
 }
