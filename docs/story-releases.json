@@ -123,7 +123,11 @@
     "title": "ゾウのくるくる陶芸室",
     "treasure": "おおきなみみのマグカップ",
     "distribution": "family-unseen-stock",
-    "status": "validated",
-    "validation": "npm test: 30 passed; npm run build; mobile 17 menus/102 tool outcomes; 17 flipbooks autoplay, two loops, final 3s, stop/close/retry/reduced motion; 21 new assets visually inspected and alpha verified; family unseen stock and existing assignments preserved"
+    "status": "published",
+    "validation": "npm test: 30 passed; npm run build; mobile 17 menus/102 tool outcomes; 17 flipbooks autoplay, two loops, final 3s, stop/close/retry/reduced motion; 21 new assets visually inspected and alpha verified; family unseen stock and existing assignments preserved",
+    "codeCommit": "ac7f4bbc8873c8ebba7c8b4e80aef966dae0c477",
+    "cloudflareVersion": "1f141866-8b9e-4bb1-9e66-fa70b7093c38",
+    "publishedAt": "2026-11-23T00:02:56.393301+00:00",
+    "liveVerification": "23 static files SHA-256 match dist (21 new images, app.js, root HTML); live catalog 17 adventures/108 current and legacy tools; GitHub CI passed"
   }
 ]
