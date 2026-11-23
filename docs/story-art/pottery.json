@@ -1,0 +1,16 @@
+{
+  "id": "pottery",
+  "generatedDateJST": "2026-11-23",
+  "tool": "image_gen",
+  "style": "Original layered torn-paper collage with matte gouache textures; autumn terracotta, sage green and ochre; no named artist imitation",
+  "characters": "Blue-gray elephant with round glasses and rust apron; girl black bob mustard sweater denim overalls; boy curly brown hair sage sweater",
+  "scenes": "exec-5ecc04b3-08b7-4112-a49c-34488b51958d.png",
+  "outcomes": "exec-e4bacc8d-b0a3-44b2-9507-bca7e1b526a6.png",
+  "flipbook": "exec-4f91061e-864e-43bc-b1d6-2cf03e954b96.png",
+  "treasure": "exec-d8b85e5b-b4d6-4f59-bcbe-629a441870f7.png",
+  "layout": "Scenes 2x2 before / after / unused treasure / host; outcomes and icons 3x2 clay / wheel / rib / wire / roller / glaze; flipbook 3x2 first five chronological frames, sixth spare",
+  "reproduction": "node scripts/prepare-story-art.mjs docs/story-art/pottery.json /workspace/generated_images",
+  "processing": "Equal grid crop 2px inset; scenes768, host384, outcomes512, flipbook512 WebP88; treasure trim, contained352 plus16px transparent padding WebP90",
+  "equipmentSources": "docs/equipment-art-sources.json: pottery",
+  "prompts": "docs/story-art/pottery-prompts.json"
+}

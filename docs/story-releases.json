@@ -116,5 +116,14 @@
     "cloudflareVersion": "e565d03e-a65a-4424-85b9-30f8a663a0f5",
     "publishedAt": "2026-11-21T23:34:07.673610+00:00",
     "liveVerification": "23 static files SHA-256 match dist (21 new images, app.js, root HTML); live catalog 16 adventures/102 current and legacy tools; GitHub CI passed"
+  },
+  {
+    "dateJST": "2026-11-23",
+    "id": "pottery",
+    "title": "ゾウのくるくる陶芸室",
+    "treasure": "おおきなみみのマグカップ",
+    "distribution": "family-unseen-stock",
+    "status": "validated",
+    "validation": "npm test: 30 passed; npm run build; mobile 17 menus/102 tool outcomes; 17 flipbooks autoplay, two loops, final 3s, stop/close/retry/reduced motion; 21 new assets visually inspected and alpha verified; family unseen stock and existing assignments preserved"
   }
 ]

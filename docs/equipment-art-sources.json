@@ -99,5 +99,16 @@
     "layout": "3x2 row major: comb, scissors, sprayer, rollers, dryer, headband",
     "style": "Original airy watercolor washes and colored pencil contours; summer lemon yellow, powder blue and raspberry accents; no named artist imitation",
     "reproduction": "node scripts/prepare-equipment-art.mjs /workspace/generated_images salon"
+  },
+  "pottery": {
+    "icons": "exec-7d8c8517-4367-4902-a8ad-06a88d3c5533.png",
+    "outcomes": "exec-e4bacc8d-b0a3-44b2-9507-bca7e1b526a6.png",
+    "tool": "image_gen",
+    "layout": "3x2 row major: clay, wheel, rib, wire, roller, glaze",
+    "style": "Original layered torn-paper collage with matte gouache textures; autumn terracotta, sage green and ochre; no named artist imitation",
+    "reproduction": "node scripts/prepare-equipment-art.mjs /workspace/generated_images pottery",
+    "originalIcons": "exec-36e8d783-dc1d-4003-8f84-ec3625b87834.png",
+    "note": "Image generation edit increased transparent cell margins to remove adjacent-icon fragments.",
+    "editPrompt": "docs/story-art/pottery-icons-edit.txt"
   }
 }
