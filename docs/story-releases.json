@@ -136,7 +136,11 @@
     "title": "ペンギンのよりみち鉄道",
     "treasure": "ペンギンきかんしゃ",
     "distribution": "family-unseen-stock",
-    "status": "validated",
-    "validation": "npm test: 30 passed; npm run build; mobile 18 menus/108 tool outcomes; 18 flipbooks autoplay, two loops, final 3s, stop/close/retry/reduced motion; 21 new assets visually inspected and alpha verified; family unseen stock and existing assignments preserved"
+    "status": "published",
+    "validation": "npm test: 30 passed; npm run build; mobile 18 menus/108 tool outcomes; 18 flipbooks autoplay, two loops, final 3s, stop/close/retry/reduced motion; 21 new assets visually inspected and alpha verified; family unseen stock and existing assignments preserved",
+    "codeCommit": "11e9aeaabc850c88554a2fac1a3e8d57b08107c7",
+    "cloudflareVersion": "cefddc82-879f-442d-b556-679e4cf048a9",
+    "publishedAt": "2026-11-23T23:52:19.110087+00:00",
+    "liveVerification": "23 static files SHA-256 match dist (21 new images, app.js, root HTML); live catalog 18 adventures/114 current and legacy tools; GitHub CI passed"
   }
 ]
