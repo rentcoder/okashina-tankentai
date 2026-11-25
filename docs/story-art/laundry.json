@@ -1,0 +1,16 @@
+{
+  "id": "laundry",
+  "generatedDateJST": "2026-11-25",
+  "tool": "image_gen",
+  "style": "Original soft pastel crayon contours and translucent watercolor; spring mint, peach and butter yellow; no named artist imitation",
+  "characters": "Gray raccoon black eye mask striped tail mint apron; girl black pigtails peach dress; boy brown hair yellow shirt blue overalls",
+  "scenes": "exec-99614409-1c0a-467d-8b23-3ef84e64350e.png",
+  "outcomes": "exec-34b68fb0-886d-434d-9102-e9f78db34591.png",
+  "flipbook": "exec-98c2de49-85bd-42f6-87a5-1925ce613b5f.png",
+  "treasure": "exec-7a9602c9-fd41-4b24-8d49-8e9c1f4f73b9.png",
+  "layout": "Scenes 2x2 before / after / unused treasure / host; outcomes and icons 3x2 basin / board / soap / hanger / bag / rack; flipbook 3x2 first five chronological frames, sixth spare",
+  "reproduction": "node scripts/prepare-story-art.mjs docs/story-art/laundry.json /workspace/generated_images",
+  "processing": "Equal grid crop 2px inset; scenes768, host384, outcomes512, flipbook512 WebP88; treasure trim, contained352 plus16px transparent padding WebP90",
+  "equipmentSources": "docs/equipment-art-sources.json: laundry",
+  "prompts": "docs/story-art/laundry-prompts.json"
+}
