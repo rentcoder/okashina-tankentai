@@ -162,7 +162,11 @@
     "title": "キリンのながーい写真館",
     "treasure": "のびるキリンしゃしん",
     "distribution": "family-unseen-stock",
-    "status": "validated",
-    "validation": "npm test: 30 passed; npm run build; mobile 20 menus/120 tool outcomes; 20 flipbooks autoplay, two loops, final 3s, stop/close/retry/reduced motion; 21 new assets visually inspected and alpha verified; family unseen stock and existing assignments preserved"
+    "status": "published",
+    "validation": "npm test: 30 passed; npm run build; mobile 20 menus/120 tool outcomes; 20 flipbooks autoplay, two loops, final 3s, stop/close/retry/reduced motion; 21 new assets visually inspected and alpha verified; family unseen stock and existing assignments preserved",
+    "codeCommit": "d7c10727e28f90ead68f9be1d69a11eab1c5d057",
+    "cloudflareVersion": "c5d03ab5-ad55-4ad9-b550-63300a6f75da",
+    "publishedAt": "2026-11-25T23:53:13.635476+00:00",
+    "liveVerification": "23 static files SHA-256 match dist (21 new images, app.js, root HTML); live catalog 20 adventures/126 current and legacy tools; GitHub CI passed"
   }
 ]
