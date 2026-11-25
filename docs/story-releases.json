@@ -149,7 +149,11 @@
     "title": "アライグマのあわひげ洗濯日和",
     "treasure": "あわひげのせっけん",
     "distribution": "family-unseen-stock",
-    "status": "validated",
-    "validation": "npm test: 30 passed; npm run build; mobile 19 menus/114 tool outcomes; 19 flipbooks autoplay, two loops, final 3s, stop/close/retry/reduced motion; 21 new assets visually inspected and alpha verified; family unseen stock and existing assignments preserved"
+    "status": "published",
+    "validation": "npm test: 30 passed; npm run build; mobile 19 menus/114 tool outcomes; 19 flipbooks autoplay, two loops, final 3s, stop/close/retry/reduced motion; 21 new assets visually inspected and alpha verified; family unseen stock and existing assignments preserved",
+    "codeCommit": "4ba96f33e124747de97145e8c42cfc9cb169070d",
+    "cloudflareVersion": "1994841b-f724-4fdb-a56d-64f909406de4",
+    "publishedAt": "2026-11-25T00:05:17.836747+00:00",
+    "liveVerification": "23 static files SHA-256 match dist (21 new images, app.js, root HTML); live catalog 19 adventures/120 current and legacy tools; GitHub CI passed"
   }
 ]
