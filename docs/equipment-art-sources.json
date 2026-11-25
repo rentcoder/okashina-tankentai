@@ -126,5 +126,15 @@
     "layout": "3x2 row major: basin, board, soap, hanger, bag, rack",
     "style": "Original soft pastel crayon contours and translucent watercolor; spring mint, peach and butter yellow; no named artist imitation",
     "reproduction": "node scripts/prepare-equipment-art.mjs /workspace/generated_images laundry"
+  },
+  "photo": {
+    "icons": "exec-18c8ef3f-32f9-49f5-a8da-a9c536e06962.png",
+    "outcomes": "exec-bcd96d0b-2a79-440d-a745-e64bc8ced27f.png",
+    "tool": "image_gen",
+    "layout": "3x2 row major: camera, tripod, reflector, remote, album, frame",
+    "style": "Original bold friendly gouache and loose colored-pencil texture; summer sky blue, sunflower yellow and tangerine; no named artist imitation",
+    "reproduction": "node scripts/prepare-equipment-art.mjs /workspace/generated_images photo",
+    "originalOutcomes": "exec-a7e948df-fddc-453a-8070-a58a090443c8.png",
+    "editPrompt": "docs/story-art/photo-outcomes-edit.txt"
   }
 }

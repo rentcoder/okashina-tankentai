@@ -1,0 +1,19 @@
+{
+  "id": "photo",
+  "generatedDateJST": "2026-11-26",
+  "tool": "image_gen",
+  "style": "Original bold friendly gouache and loose colored-pencil texture; summer sky blue, sunflower yellow and tangerine; no named artist imitation",
+  "characters": "Golden giraffe brown patches turquoise bow tie; girl black bob sky-blue dress; boy brown curls orange shirt cream shorts",
+  "scenes": "exec-75412648-0eef-4df2-b5f0-5701c938a128.png",
+  "outcomes": "exec-bcd96d0b-2a79-440d-a745-e64bc8ced27f.png",
+  "flipbook": "exec-3b414470-7eaf-4f48-a299-f46a1f498ec5.png",
+  "treasure": "exec-e27de219-3617-40e8-8bf7-40c335d259ef.png",
+  "layout": "Scenes 2x2 before / after / unused treasure / host; outcomes and icons 3x2 camera / tripod / reflector / remote / album / frame; flipbook 3x2 first five chronological frames, sixth spare",
+  "reproduction": "node scripts/prepare-story-art.mjs docs/story-art/photo.json /workspace/generated_images",
+  "processing": "Equal grid crop 2px inset; scenes768, host384, outcomes512, flipbook512 WebP88; treasure trim, contained352 plus16px transparent padding WebP90",
+  "equipmentSources": "docs/equipment-art-sources.json: photo",
+  "prompts": "docs/story-art/photo-prompts.json",
+  "originalOutcomes": "exec-a7e948df-fddc-453a-8070-a58a090443c8.png",
+  "editPrompt": "docs/story-art/photo-outcomes-edit.txt",
+  "note": "Image generation edit replaced paper giraffes in top three outcome scenes with live giraffes, matching photography actions."
+}
