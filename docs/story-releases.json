@@ -175,7 +175,11 @@
     "title": "ウサギのくるくるお天気台",
     "treasure": "ウサギのふきながし",
     "distribution": "family-unseen-stock",
-    "status": "validated",
-    "validation": "npm test: 30 passed; npm run build; mobile 21 menus/126 tool outcomes; 21 flipbooks autoplay, two loops, final 3s, stop/close/retry/reduced motion; 21 new assets visually inspected and alpha verified; family unseen stock and existing assignments preserved"
+    "status": "published",
+    "validation": "npm test: 30 passed; npm run build; mobile 21 menus/126 tool outcomes; 21 flipbooks autoplay, two loops, final 3s, stop/close/retry/reduced motion; 21 new assets visually inspected and alpha verified; family unseen stock and existing assignments preserved",
+    "codeCommit": "a3d7a53382298ad55df72902c70b2cd5f2e168b6",
+    "cloudflareVersion": "b5fef73a-b79e-4fb0-9905-8f293573f0b9",
+    "publishedAt": "2026-11-26T23:55:43.023848+00:00",
+    "liveVerification": "23 static files SHA-256 match dist (21 new images, app.js, root HTML); live catalog 21 adventures/132 current and legacy tools; GitHub CI passed"
   }
 ]
