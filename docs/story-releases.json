@@ -168,5 +168,14 @@
     "cloudflareVersion": "c5d03ab5-ad55-4ad9-b550-63300a6f75da",
     "publishedAt": "2026-11-25T23:53:13.635476+00:00",
     "liveVerification": "23 static files SHA-256 match dist (21 new images, app.js, root HTML); live catalog 20 adventures/126 current and legacy tools; GitHub CI passed"
+  },
+  {
+    "dateJST": "2026-11-27",
+    "id": "weather",
+    "title": "ウサギのくるくるお天気台",
+    "treasure": "ウサギのふきながし",
+    "distribution": "family-unseen-stock",
+    "status": "validated",
+    "validation": "npm test: 30 passed; npm run build; mobile 21 menus/126 tool outcomes; 21 flipbooks autoplay, two loops, final 3s, stop/close/retry/reduced motion; 21 new assets visually inspected and alpha verified; family unseen stock and existing assignments preserved"
   }
 ]

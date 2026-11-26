@@ -136,5 +136,13 @@
     "reproduction": "node scripts/prepare-equipment-art.mjs /workspace/generated_images photo",
     "originalOutcomes": "exec-a7e948df-fddc-453a-8070-a58a090443c8.png",
     "editPrompt": "docs/story-art/photo-outcomes-edit.txt"
+  },
+  "weather": {
+    "icons": "exec-40a59a0e-ccef-42a0-9916-3e04fb58fa94.png",
+    "outcomes": "exec-d4f260a0-0c20-4354-8a06-b74e7abce2d6.png",
+    "tool": "image_gen",
+    "layout": "Scenes 2x2 before / after / unused treasure / host; outcomes and icons 3x2 windsock / anemometer / rain gauge / hygrometer / cloud chart / notebook; flipbook first five row-major frames, sixth spare",
+    "style": "Original torn-paper collage with soft pastel shading; autumn russet, teal and cream; no named artist imitation",
+    "reproduction": "node scripts/prepare-equipment-art.mjs /workspace/generated_images weather"
   }
 }

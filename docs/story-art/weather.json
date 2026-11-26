@@ -1,0 +1,16 @@
+{
+  "id": "weather",
+  "generatedDateJST": "2026-11-27",
+  "tool": "image_gen",
+  "style": "Original torn-paper collage with soft pastel shading; autumn russet, teal and cream; no named artist imitation",
+  "characters": "White rabbit teal waistcoat; girl black bob mustard overalls; boy brown curls rust sweater",
+  "scenes": "exec-8b27bfa9-3421-4fe7-ba23-89e756757490.png",
+  "outcomes": "exec-d4f260a0-0c20-4354-8a06-b74e7abce2d6.png",
+  "flipbook": "exec-0ae9b9ea-f371-4b21-96b2-1515715db644.png",
+  "treasure": "exec-47ddfdf0-7147-4eb9-848d-2bcd608d0bc2.png",
+  "layout": "Scenes 2x2 before / after / unused treasure / host; outcomes and icons 3x2 windsock / anemometer / rain gauge / hygrometer / cloud chart / notebook; flipbook first five row-major frames, sixth spare",
+  "reproduction": "node scripts/prepare-story-art.mjs docs/story-art/weather.json /workspace/generated_images",
+  "processing": "Equal grid crop 2px inset; scenes768, host384, outcomes512, flipbook512 WebP88; treasure trim, contained352 plus16px transparent padding WebP90",
+  "equipmentSources": "docs/equipment-art-sources.json: weather",
+  "prompts": "docs/story-art/weather-prompts.json"
+}
