@@ -144,5 +144,13 @@
     "layout": "Scenes 2x2 before / after / unused treasure / host; outcomes and icons 3x2 windsock / anemometer / rain gauge / hygrometer / cloud chart / notebook; flipbook first five row-major frames, sixth spare",
     "style": "Original torn-paper collage with soft pastel shading; autumn russet, teal and cream; no named artist imitation",
     "reproduction": "node scripts/prepare-equipment-art.mjs /workspace/generated_images weather"
+  },
+  "knit": {
+    "icons": "exec-5758ce65-1729-4a91-ae71-2d2a3794609f.png",
+    "outcomes": "exec-fe9a807b-da9e-4540-bf16-c6afa20e0c48.png",
+    "tool": "image_gen",
+    "layout": "Scenes 2x2 before / after / unused treasure / host; outcomes and icons 3x2 needles / yarn / hook / pompom / markers / pattern; flipbook first five row-major frames, sixth spare",
+    "style": "Original soft watercolor washes and playful charcoal contours; winter lavender, coral and warm cream; no named artist imitation",
+    "reproduction": "node scripts/prepare-equipment-art.mjs /workspace/generated_images knit"
   }
 }

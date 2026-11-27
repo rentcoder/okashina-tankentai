@@ -1,0 +1,16 @@
+{
+  "id": "knit",
+  "generatedDateJST": "2026-11-28",
+  "tool": "image_gen",
+  "style": "Original soft watercolor washes and playful charcoal contours; winter lavender, coral and warm cream; no named artist imitation",
+  "characters": "Pale-gray seal lavender beret; girl black bob cream sweater plum skirt; boy brown curls ochre cardigan",
+  "scenes": "exec-3035ea72-b1f4-4b9e-8df3-62142ef9816b.png",
+  "outcomes": "exec-fe9a807b-da9e-4540-bf16-c6afa20e0c48.png",
+  "flipbook": "exec-929b9343-7d7a-4ffd-a958-d6d82ad5c537.png",
+  "treasure": "exec-dec1532d-1cbc-4484-9374-99d7e8322dd2.png",
+  "layout": "Scenes 2x2 before / after / unused treasure / host; outcomes and icons 3x2 needles / yarn / hook / pompom / markers / pattern; flipbook first five row-major frames, sixth spare",
+  "reproduction": "node scripts/prepare-story-art.mjs docs/story-art/knit.json /workspace/generated_images",
+  "processing": "Equal grid crop 2px inset; scenes768, host384, outcomes512, flipbook512 WebP88; treasure trim, contained352 plus16px transparent padding WebP90",
+  "equipmentSources": "docs/equipment-art-sources.json: knit",
+  "prompts": "docs/story-art/knit-prompts.json"
+}
