@@ -188,7 +188,11 @@
     "title": "アザラシのながすぎマフラー",
     "treasure": "アザラシけいとだま",
     "distribution": "family-unseen-stock",
-    "status": "validated",
-    "validation": "npm test: 30 passed; npm run build; mobile 22 menus/132 tool outcomes; 22 flipbooks autoplay, two loops, final 3s, stop/close/retry/reduced motion; 21 new assets visually inspected and alpha verified; family unseen stock and existing assignments preserved"
+    "status": "published",
+    "validation": "npm test: 30 passed; npm run build; mobile 22 menus/132 tool outcomes; 22 flipbooks autoplay, two loops, final 3s, stop/close/retry/reduced motion; 21 new assets visually inspected and alpha verified; family unseen stock and existing assignments preserved",
+    "codeCommit": "6f19180f389ae4b4ad1bc9f8753a3729f02a8ae0",
+    "cloudflareVersion": "88fbbd97-eaef-4ffe-8a8f-18b16c236a67",
+    "publishedAt": "2026-11-27T23:16:34.265855+00:00",
+    "liveVerification": "23 static files SHA-256 match dist (21 new images, app.js, root HTML); live catalog 22 adventures/138 current and legacy tools; GitHub CI passed"
   }
 ]
